@@ -96,15 +96,15 @@ in this correction: Q-G11, Q-S5, Q-W11, Q-F9, Q-F10, Q-F11, Q-F12, Q-C1…Q-C6, 
 | ID | Assumption | Validated by |
 |---|---|---|
 | A1 | 1–5 ERP users | Q-U1 |
-| A2 | INR only, Indian format | — |
+| A2 | INR only, Indian format | Yes INR Only |
 | A3 | sq.ft default, sq.m possible | Q-Q3 |
 | A4 | English v1, Marathi optional | Q-W8 |
-| A5 | Single office | — |
+| A5 | Single office | Right now just single office only |
 | A6 | Design and supervision only, no construction | Q-S2 |
 | A7 | Studio pays commission to one partner per project | Q-C1 |
-| A8 | Ar. Ajit Kumbhar has decision authority | — |
+| A8 | Ar. Ajit Kumbhar has decision authority | Yes he is business owner / Main Admin USer as well |
 | A9 | DD/MM/YYYY; FY April–March | Q-G8 |
-| A10 | Asia/Kolkata | — |
+| A10 | Asia/Kolkata | Maharashtra (Mumbai) Not Much Outside Mh now |
 | A11 | Client supplies photos, project facts, consent, final services, terms | Q-W1, Q-W5, Q-S1, Q-Q7 |
 | A12 | Host supports PHP 8.1+, cron, GD, bcmath, `finfo`, HTTPS, folders outside web root | Q-H2 |
 | A13 | Staff may not draft quotation scope, send quotations or claim expenses | Q-U4 |
