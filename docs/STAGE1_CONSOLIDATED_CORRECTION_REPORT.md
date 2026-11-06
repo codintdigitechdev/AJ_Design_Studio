@@ -1,5 +1,11 @@
 # Stage 1 Consolidated Documentation Audit — Correction Report
 
+> **STATUS UPDATE 2026-11-06:** the findings below were acted on in the documentation correction of
+> 2026-11-06. Resolution of every item: `docs/STAGE1_CORRECTION_TRACKING_MATRIX.md`. ID mappings used
+> since: DD-01…DD-14 → D-24…D-37; RCD-01…RCD-18 → client questions (Q-C1…Q-C6, Q-U4, Q-S5, Q-W11,
+> Q-F12, Q-G11 and updated Q-H1, Q-W1, Q-W3, Q-W4, Q-F2, Q-F3, Q-Q2). The report text is kept
+> unchanged as the audit record; it still describes the documents **before** correction.
+
 | | |
 |---|---|
 | Project | AJ Design Studio — Public Portfolio Website + Private ERP |

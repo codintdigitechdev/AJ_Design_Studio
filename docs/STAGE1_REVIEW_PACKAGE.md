@@ -1,5 +1,11 @@
 # AJ Design Studio — Stage Review Package
 
+> **SUPERSEDED — historical snapshot only (2026-11-06). Do not use as a reference.**
+> This package reflects the documents as they stood before the Stage 1 design and the 2026-11-06
+> correction. Its Part A says the Stage 1 deliverables do not exist (they now do), and its Part B
+> copies are out of date. Use the current documents listed in `CLAUDE.md` §2 and
+> `docs/STAGE1_DOCUMENTATION_CONSISTENCY_REPORT.md`. Kept, not deleted, as required.
+
 | | |
 |---|---|
 | Project | AJ Design Studio — Public Portfolio Website + Private ERP |

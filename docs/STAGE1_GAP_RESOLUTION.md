@@ -1,5 +1,12 @@
 # Stage 1 Gap-Resolution Package — Index and Corrections
 
+> **STATUS UPDATE 2026-11-06 — ERRATA APPLIED, NOT APPROVED.** Errata C-01…C-18 and resolutions
+> R-01…R-08 below have been applied to the original documents as **PROPOSED** wording (C-07 was
+> superseded by the per-project billing method, D-26; C-11 by the single file route
+> `/erp/files/{id}/download`, D-34). Item-by-item status: `docs/STAGE1_CORRECTION_TRACKING_MATRIX.md`.
+> The tag scheme in §2 was replaced by `CLAUDE.md` §3 (CONFIRMED-REF, CLIENT-DECISION, BRIEF,
+> PROPOSED, ASSUMPTION, PENDING). The text below is kept unchanged as the historical record.
+
 | | |
 |---|---|
 | Project | AJ Design Studio — Portfolio Website + ERP |

@@ -1,5 +1,10 @@
 # AJ Design Studio — Stage 1 Review Package (Structured)
 
+> **SUPERSEDED — historical snapshot only (2026-11-06). Do not use as a reference.**
+> Written before the Stage 1 design documents and the client decisions; it still lists the ACC
+> finance role, the "Revised" and "Enquiry stage" statuses, and says no schema exists. Use the
+> current documents listed in `CLAUDE.md` §2. Kept, not deleted, as required.
+
 | | |
 |---|---|
 | Project | AJ Design Studio — Public Portfolio Website + Private ERP |

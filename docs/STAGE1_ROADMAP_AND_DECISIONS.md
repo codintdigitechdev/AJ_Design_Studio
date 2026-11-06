@@ -1,9 +1,8 @@
-# Updated Implementation Roadmap and Decision Register
+# Stage 1 Roadmap and Decision Register
 
-**Status: PROPOSED — PENDING APPROVAL.**
-
-This updates `project-context/DEVELOPMENT_ROADMAP.md`, which **has not been edited**. Once
-this file is approved, the roadmap and its decision log will be brought in line with it.
+**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06. The stage table and the decision
+log live in `project-context/DEVELOPMENT_ROADMAP.md`; this file is the **register of every decision
+still requiring approval**. Tags: `CLAUDE.md` §3.
 
 ---
 
@@ -11,166 +10,106 @@ this file is approved, the roadmap and its decision log will be brought in line 
 
 | Stage | Status |
 |---|---|
-| 0 Discovery & documentation | Documents complete. **Gate not yet recorded** in the decision log (D-03) |
-| 1 Architecture & database design | **Draft deliverables produced** (§2). Waiting for developer review and client answers to the P1 questions |
-| 2–12 | Not started. Implementation is **blocked** by the gate in `CLAUDE.md` |
+| 0 Discovery & documentation | Complete. **Acceptance not recorded** (D-03) |
+| 1 Architecture & database design | Design documents produced and **corrected for the client decisions** (`docs/STAGE1_CORRECTION_TRACKING_MATRIX.md`). **Not approved** |
+| 2–12 | Not started. Implementation blocked by the gate in `CLAUDE.md` |
 
-## 2. Stage 1 deliverables — checklist
+## 2. Stage 1 deliverables
 
-| Roadmap deliverable (ROADMAP §1) | File | State |
+| Deliverable | File | State |
 |---|---|---|
-| Final module list after the necessity review | `STAGE1_GAP_RESOLUTION.md` §4–5 | Draft — PENDING APPROVAL |
-| ER diagram | `DATABASE_DESIGN.md` §1 | Draft — PENDING APPROVAL |
-| Table-by-table design | `DATABASE_DESIGN.md` §3 | Draft — PENDING APPROVAL |
-| Role / permission matrix | `PERMISSION_MATRIX.md` | Draft — PENDING Q-U1 |
-| Folder structure | `TECHNICAL_REQUIREMENTS.md` §2 (existing) | Unchanged — PENDING APPROVAL |
-| URL map | `ERP_PAGES_AND_FIELDS.md` §1 + `PORTFOLIO_WEBSITE_PLAN.md` §2 | Draft — PENDING APPROVAL |
-| Quotation calculation spec | `WORKFLOWS.md` A.4–A.6 | Draft — PENDING D-10, Q-Q3..Q-Q5 |
-| Financial workflow (added) | `WORKFLOWS.md` Part B | Draft — PENDING Q-F1..Q-F9 |
-| Field specifications (added) | `ERP_PAGES_AND_FIELDS.md` §2 | Draft |
-| PDF library choice | — | **Not decided** (D-18 / Q-T1) |
-| Wireframes for key pages | `WIREFRAMES.md` | Draft — PENDING APPROVAL |
-| Host capability check | — | **Not possible yet**; needs Q-H2 |
+| Final module list | `project-context/MODULES.md` (incl. module 18 Commission) | Corrected — PROPOSED |
+| ER diagram + table design (58 tables) | `docs/DATABASE_DESIGN.md` | Corrected — PROPOSED |
+| Role / permission matrix (ADM, STF, SITE; finance ADM-only) | `docs/PERMISSION_MATRIX.md` | Corrected — PROPOSED; Q-U1, Q-U4, Q-C5 open |
+| Folder structure | `docs/TECHNICAL_REQUIREMENTS.md` §2 | Corrected — PROPOSED |
+| URL map | `docs/ERP_PAGES_AND_FIELDS.md` §1 + `docs/PORTFOLIO_WEBSITE_PLAN.md` §2 | Corrected — PROPOSED |
+| Quotation calculation spec | `docs/WORKFLOWS.md` A.4–A.6 | Corrected — PROPOSED; Q-Q3, Q-F2 open |
+| Financial workflow | `docs/WORKFLOWS.md` Part B | Corrected — PROPOSED; Q-F3, Q-F9…F12 open |
+| Commission workflow | `docs/WORKFLOWS.md` Part C | New — PROPOSED; Q-C1…Q-C6 open |
+| Portfolio publishing workflow | `docs/WORKFLOWS.md` Part D | New — PROPOSED |
+| Field specifications | `docs/ERP_PAGES_AND_FIELDS.md` §2 | Corrected — PROPOSED |
+| Wireframes | `docs/WIREFRAMES.md` | Corrected — PROPOSED |
+| PDF library choice | — | **Not decided** (D-18) |
+| Host capability check | — | Not possible until Q-H2 |
 
-### Stage 1 gate — proposed exit criteria
-1. All **P1** client questions answered, or explicitly deferred with an agreed default
-   (§4.1).
-2. Developer decisions D-01 … D-23 decided (§4.2).
-3. The original documents updated with the approved errata (C-01 … C-18), and the tags
-   re-qualified (BRIEF-UNVERIFIED).
-4. The decision log records: "Stage 1 architecture and database design approved — date —
-   approved by".
+### Stage 1 gate — exit criteria (PROPOSED)
+1. All P1 client questions answered, or deferred with an agreed default (`docs/CLIENT_QUESTIONS.md` §10).
+2. Developer decisions in §4.2 decided.
+3. Client decisions CD-01…CD-26 confirmed in writing (date and channel filed).
+4. Decision log records "Stage 1 architecture and database design approved — date — approved by".
 
-## 3. Updated stage plan — PROPOSED
-
-The changes from the original roadmap are shown in **bold**.
-
-| Stage | Name | Deliverables | Gate | Depends on |
-|---|---|---|---|---|
-| 0 | Discovery & documentation | Done | **Record acceptance (D-03)** | — |
-| 1 | Architecture & DB design | The files in §2. **Git initialised now, so the design documents are versioned (D-02)** | Written approval | P1 answers |
-| 2 | Foundation | Folder structure, config, entry point, database helper, **number sequence service, money and calculation helper (with its own unit-level test checklist)**, login/logout/reset, roles and permissions **taken from the approved matrix**, CSRF, layouts, audit log, `database.sql` v1 **for the entire approved schema**, installer / first-admin setup | Login + security checklist executed | Stage 1 |
-| 3 | Masters & settings | Settings (studio, letterhead, numbering, **finance switches**, website), lookups, services, users and roles | Module tests executed | 2 |
-| 4 | Public website | All public pages, enquiry form → **single enquiry module**, WhatsApp **click counter**, SEO | Client design review on staging (Q-H3) | 3; real content (Q-W1) |
-| 5 | Portfolio CMS | Portfolio items, image processing, gallery switch, **consent check before publishing** | Client uploads a real project | 3, 4 |
-| 6 | CRM | Enquiries (**unreviewed queue, activities, conversion wizard**), clients, follow-ups, dashboard v1 | Module tests executed | 3 |
-| 7 | Projects & documents | Projects (statuses **without "Enquiry stage"**), team members, documents, site visits ◇ | Module tests executed | 6 |
-| 8 | Quotations | Builder, revisions (**no "Revised" status; Superseded**), approval ◇, print/PDF, compare, **acceptance → fee agreement** | Client approves the PDF using a real example | 7; D-10, D-18, Q-Q* |
-| 9 | Fees, payments, expenses | **Fee agreement + variations**, milestones ◇, bills ◇ **(per billing mode)**, credit notes ◇, payments, **allocation and credit**, receipts, reversals, **refunds ◇**, **write-offs ◇**, expenses ◇, lock date | **Financial test cases (WORKFLOWS B.12) executed** | 8; Q-F1..F9 |
-| 10 | Reports & dashboard v2 | The agreed reports, CSV export | Client sign-off | 9; Q-R1 |
-| 11 | Hardening & QA | Security review, browser and device tests, performance, backup/restore drill, `sample_data.sql` (invented data only) | Test report | 10 |
-| 12 | Deployment & handover | cPanel, SSL, cron, training, guides, final ZIP | Client acceptance | 11; Q-H1, Q-H2 |
-
-**Phased launch option — PENDING APPROVAL (Q-G9)**
-- **Phase 1 (website first):** Stages 2 → 3 → 4 → 5, plus the enquiry part of Stage 6.
-  Goes live with the website, the portfolio CMS and the enquiry inbox.
-- **Phase 2:** the rest of Stage 6, then Stages 7 → 12 for the ERP.
-- **Database:** the full schema is still created in Stage 2, so Phase 2 needs no structural
-  migration.
-- **Risk:** Phase 1 cannot go live until real portfolio photos exist (Q-W1).
-
-**Testing rule (unchanged):** a test is reported as passed only if it was actually executed.
-PHP and MySQL are not on this machine's shell PATH, and the XAMPP location is still to be
-confirmed.
+## 3. Stage plan
+See `project-context/DEVELOPMENT_ROADMAP.md` §1 (stages 0–12, updated for commission, per-project
+billing, optional GST and Admin-only finance). Website-first phasing PENDING Q-G9.
 
 ---
 
 ## 4. Decision register — everything still requiring approval
 
-### 4.1 Client decisions (`docs/CLIENT_QUESTIONS.md`, plus new questions)
+### 4.1 Client decisions still open
+Master list with status: `docs/CLIENT_QUESTIONS.md`. P1 items: §10 of that file. New questions added
+in this correction: Q-G11, Q-S5, Q-W11, Q-F9, Q-F10, Q-F11, Q-F12, Q-C1…Q-C6, Q-P4, Q-U4.
 
-**P1 — blocks the Stage 1 gate**
+### 4.2 Developer decisions (PROPOSED defaults — none approved)
 
-| ID | Decision | Affects |
+| ID | Decision | Proposed default | Status | Reference |
+|---|---|---|---|---|
+| D-01 | Re-qualify brief items | **Superseded by D-25** | — | GAP §2 |
+| D-02 | Initialise Git at Stage 1 | Folder synced as a working copy of GitHub `main` on 2026-11-06 (developer instruction). Commit/push policy: only with explicit permission | Partly done | C-12, D-24 |
+| D-03 | Record Stage 0 acceptance | Yes | PENDING | C-18 |
+| D-04 | Separate DB logins public/ERP | Yes if the host allows | PENDING | SECURITY §1 |
+| D-05 | Single download route | **Superseded by D-34** (`/erp/files/{id}/download`) | — | C-11 |
+| D-06 | One generic `lookups` table | Yes, with real FKs | PENDING | R-07 |
+| D-07 | Statuses fixed in code, labels editable | Yes | PENDING | R-08 |
+| D-08 | Lock date feature | Yes, empty by default | PENDING | WORKFLOWS B.10 |
+| D-09 | When the quotation number is taken | **Superseded by D-28** (on first send) | — | — |
+| D-10 | Calculation order lines → discount → GST → rounding | As proposed | PENDING | WORKFLOWS A.5 |
+| D-11 | Credit transfer between projects | ADM only, via `credit_transfers` table, only if Q-F11 = yes | PENDING | DB-07 |
+| D-12 | Payment reversals: same sequence or separate `RV` | Proposal changed to **separate `AJDS/RV/…`** (D-28) | PENDING | WORKFLOWS B.11 |
+| D-13 | Write-off feature | Only if Q-F10 = yes | PENDING | WORKFLOWS B.8 |
+| D-14 | Expenses posted on save | Yes | PENDING | WORKFLOWS B.9 |
+| D-15 | DB triggers for posted rows | No (PHP); reconsider in Stage 11 | PENDING | DATABASE_DESIGN §4 |
+| D-16 | Password policy ≥ 10, ≠ username | Yes | PENDING | SECURITY §3 |
+| D-17 | SameSite Lax | Lax | PENDING | SECURITY §4 |
+| D-18 | PDF library | mPDF if "श्री"/Devanagari kept, else Dompdf | PENDING (Q-Q2) | Q-T1 |
+| D-19 | WorkLedger as style reference | Style only | PENDING | Q-G3 |
+| D-20 | Approve errata C-01…C-18 | Applied to the documents as PROPOSED on 2026-11-06; approval still required | PENDING | GAP §3 |
+| D-21 | Approve R-01…R-08 and feature switches | Applied as PROPOSED; approval still required | PENDING | GAP §4–5 |
+| D-22 | Approve the database design | 58 tables (`DATABASE_DESIGN.md`) | PENDING | DB-23 |
+| D-23 | Approve the permission matrix | ADM / STF / SITE, finance ADM-only | PENDING | PERMISSION_MATRIX |
+| D-24 | Authoritative copy | GitHub `main`; local folder is a working copy (done 2026-11-06) | Done (sync); commit policy PENDING | INC-12 |
+| D-25 | Status tag scheme | CONFIRMED-REF / CLIENT-DECISION / BRIEF / PROPOSED / ASSUMPTION / PENDING — applied in `CLAUDE.md` §3 and corrected documents | PENDING approval | INC-04 |
+| D-26 | Billing flexibility | Per-project billing method (agreement / bills) with a studio default; ad-hoc bills; change while no issued bill | PENDING | WF-01, DB-04 |
+| D-27 | GST structure | Studio GST profile + per-document "Apply GST" (off by default) + per-document tax-line tables | PENDING (Q-F3) | WF-02 |
+| D-28 | Numbering formats | `AJDS/{type}/{fy}/{seq}`; quotation number on first send; reversals `AJDS/RV/…` | PENDING (client may comment — CD-14) | WORKFLOWS B.11 |
+| D-29 | Allocation target rule | Exactly one of bill / stage / agreement | PENDING | DB-06 |
+| D-30 | Default roles | ADM, STF, SITE; ACC removed | PENDING (Q-U1) | PM-14 |
+| D-31 | Portfolio storage | Private originals; public copies on publish; withdrawn on unpublish/remove | PENDING | MR-09 |
+| D-32 | Commission model | `DATABASE_DESIGN.md` group I + `WORKFLOWS.md` Part C | PENDING (Q-C1…Q-C6) | CM |
+| D-33 | Financial response filtering | Central financial-field registry used by every renderer | PENDING | PM-15 |
+| D-34 | Private file access | `files.owner_type/owner_id` + `/erp/files/{id}/download`; financial downloads audited | PENDING | MR-11 |
+| D-35 | Superseded review packages | Banner, no deletion (done) | Done (banner); approval PENDING | INC-02/03 |
+| D-36 | Off-site backup encryption | Encrypted archives, key held by ADM | PENDING | MR-12 |
+| D-37 | Website content drafting | CodInt drafts from Instagram/references; review status; nothing unreviewed at launch | PENDING | MR-07 |
+
+### 4.3 Assumptions requiring validation
+| ID | Assumption | Validated by |
 |---|---|---|
-| Q-G1 | How enquiries, quotations, payments and drawings are tracked today | Data import, workflow defaults |
-| Q-G2 | The real sequence (quote at enquiry stage, or open a project first?) | `WORKFLOWS.md` A.1, C-01 |
-| Q-G9 | Website first, or everything together | §3 phasing |
-| Q-S1 | Final services and sub-items | Services master, website, quotation scope |
-| Q-S2 | Meaning of Temple Work / कोकण शिल्प / Complete Project; design-only or also execution | Scope boundary |
-| Q-W1 | Portfolio projects and photos available | Stage 4–5 go-live |
-| Q-W3 | Address, map and office hours to publish | Contact page |
-| Q-W4 | WhatsApp number and email to publish | Contact page, WhatsApp |
-| Q-W5 | Client publishing consent; whether client names are shown | Portfolio publish rule |
-| Q-B1 | Vector or transparent logo | Header, favicon, PDF |
-| Q-Q1 | Quotation number format, and whether it resets by calendar or financial year | Number sequences |
-| Q-Q2 | Letterhead: logo or red text heading; whether to keep "श्री" | PDF, PDF library choice |
-| Q-Q3 | Area basis and unit | Quotation fields |
-| Q-Q4 | One composite rate, or separate rates per service | Fee line types |
-| Q-Q5 | Fixed and item-wise fees | Fee line types |
-| Q-Q7 | Standard terms: validity, revisions, visits, exclusions, cancellation, ownership | Text blocks |
-| Q-F1 | Bills issued, or payments against the agreement only (**billing mode**) | All of `WORKFLOWS.md` B |
-| Q-F2 | Payment stages | Milestones |
-| Q-F3 | GST registration, GSTIN, rate, SAC, invoice format | Tax tables, bill type |
-| Q-F6 | Receipts: format and numbering | Payments |
-| Q-U1 | Users, roles, who sees finances | `PERMISSION_MATRIX.md` |
-| Q-H1 | Domain | Deployment |
-| Q-H2 | Hosting plan and capabilities | Folder layout, PHP version, bcmath, GD, cron |
+| A1 | 1–5 ERP users | Q-U1 |
+| A2 | INR only, Indian format | — |
+| A3 | sq.ft default, sq.m possible | Q-Q3 |
+| A4 | English v1, Marathi optional | Q-W8 |
+| A5 | Single office | — |
+| A6 | Design and supervision only, no construction | Q-S2 |
+| A7 | Studio pays commission to one partner per project | Q-C1 |
+| A8 | Ar. Ajit Kumbhar has decision authority | — |
+| A9 | DD/MM/YYYY; FY April–March | Q-G8 |
+| A10 | Asia/Kolkata | — |
+| A11 | Client supplies photos, project facts, consent, final services, terms | Q-W1, Q-W5, Q-S1, Q-Q7 |
+| A12 | Host supports PHP 8.1+, cron, GD, bcmath, `finfo`, HTTPS, folders outside web root | Q-H2 |
+| A13 | Staff may not draft quotation scope, send quotations or claim expenses | Q-U4 |
+| A14 | Partner names/sources hidden from staff | Q-C5 |
 
-**P2 / P3**
-- Q-G4 (single enquiry list — R-01) · Q-G5 (reminder channel) · Q-G6 (client portal)
-- Q-G7 (how long to keep enquiry data) · Q-G8 (date format / financial year)
-- Q-G10 (data import)
-- Q-S3 (project types) · Q-S4 (services shown on the website)
-- Q-W2 (Gallery page — R-02) · Q-W6 (enquiry email recipients, CAPTCHA)
-- Q-W7 (testimonials, registration) · Q-W8 (Marathi) · Q-W9 (About text)
-- Q-B2 (colours and fonts)
-- Q-Q6 (amount in words, client block, acceptance block) · Q-Q8 (statuses, who approves)
-- Q-Q9 (email quotations) · Q-Q10 (signature)
-- Q-F4 (discounts and their approval) · Q-F5 (extra charges) · Q-F7 (payment modes)
-- Q-F8 (expenses scope)
-- Q-P1 (project statuses — C-02) · Q-P2 (project code format) · Q-P3 (site-visit log)
-- Q-D1 (file types and sizes)
-- Q-U2 (mobile use) · Q-U3 (two-factor login) · Q-R1 (reports)
-- Q-H3 (staging site) · Q-H4 (off-site backup) · Q-H5 (domain email)
-
-**New client questions raised by this package** — to be added to `CLIENT_QUESTIONS.md` once
-approved:
-
-| ID | Pri | Question |
-|---|---|---|
-| Q-F9 | P2 | Do you ever refund money to clients (overpayment, cancelled project)? Who approves it? |
-| Q-F10 | P2 | If a client never pays a balance, should the ERP allow a write-off (ADM only)? |
-| Q-F11 | P2 | Should credit from one project be transferable to another project of the same client? |
-| Q-P4 | P2 | Do you hold meetings or site visits before a project is confirmed, and should these be recorded on the enquiry? |
-
-### 4.2 Developer decisions (for you)
-
-| ID | Decision | Proposed default | Reference |
-|---|---|---|---|
-| D-01 | Re-qualify "CONFIRMED (brief)" items as BRIEF-UNVERIFIED; either add the brief to `reference/brief/` or re-affirm the items | Re-affirm in the decision log | GAP §2 |
-| D-02 | Initialise Git at Stage 1 (now) | Yes | C-12 |
-| D-03 | Record Stage 0 as accepted, and treat this package as Stage 1 | Yes | C-18 |
-| D-04 | Separate database logins for public and ERP | Yes, if the host allows it; otherwise one | SECURITY §1 |
-| D-05 | Single download route `/erp/documents/{id}/download` | Yes | C-11 |
-| D-06 | One generic `lookups` table for simple lists | Yes | R-07 |
-| D-07 | Workflow statuses fixed in code, labels editable | Yes | R-08 |
-| D-08 | Enable the lock-date feature | Yes, empty by default | WORKFLOWS B.10 |
-| D-09 | Take the quotation number when the draft is created, or on first send | On creation | WORKFLOWS A.4 |
-| D-10 | Calculation order: lines → subtotal → discount → tax → rounding | As proposed | WORKFLOWS A.5 |
-| D-11 | Credit transfer between projects | ADM only, linked entries | WORKFLOWS B.4 |
-| D-12 | Payment reversals: same sequence as payments, or a separate one | Same sequence | WORKFLOWS B.5 |
-| D-13 | Include the write-off feature | Build only if Q-F10 = yes | WORKFLOWS B.8 |
-| D-14 | Expenses: posted when saved, or editable until the lock date | Posted when saved | WORKFLOWS B.9 |
-| D-15 | Optional database triggers to block changes to posted financial rows | No (PHP enforcement); reconsider in Stage 11 | DATABASE §4 |
-| D-16 | Password policy (minimum 10 characters, not the same as the username) | As proposed | SECURITY §3 |
-| D-17 | ERP cookie SameSite setting: Lax or Strict | Lax | SECURITY §4 |
-| D-18 | PDF library: Dompdf or mPDF | mPDF if Devanagari is needed (Q-Q2, Q-W8) | Q-T1 |
-| D-19 | Use WorkLedger as a style reference | Style only; nothing reused for security | Q-G3, CLAUDE §4 |
-| D-20 | Approve errata C-01 … C-18 and their changes to the original documents | — | GAP §3 |
-| D-21 | Approve the duplicate resolutions R-01 … R-08 and the optional-feature switches | — | GAP §4–5 |
-| D-22 | Approve the database design (49 tables) as the basis for `database.sql` v1 | — | DATABASE_DESIGN |
-| D-23 | Approve the permission matrix as the starting role default | — | PERMISSION_MATRIX |
-
-## 5. Changes to make to the original files after approval (not done yet)
-
-| File | Change |
-|---|---|
-| `CLAUDE.md` | Stage line; document map (add the 7 new files); Git timing (D-02) |
-| `project-context/BUSINESS_REQUIREMENTS.md` | Re-tag BRIEF-UNVERIFIED; add billing mode, refunds, credit; update E-19 / E-20 |
-| `project-context/MODULES.md` | C-01 … C-10, C-14 … C-17; merge module 12 into 2 |
-| `project-context/DATABASE_RULES.md` | Backup retention (C-13); lookups (D-06); refunds, write-offs |
-| `project-context/SECURITY_RULES.md` | Download route (C-11) |
-| `project-context/DEVELOPMENT_ROADMAP.md` | §3 plan above; decision-log entries |
-| `docs/CLIENT_QUESTIONS.md` | Add Q-F9, Q-F10, Q-F11, Q-P4 |
-| `docs/TECHNICAL_REQUIREMENTS.md` | Backup retention wording; download route |
+## 5. Follow-up after approval
+Once D-20…D-37 and the P1 questions are settled: record them in the decision log, change the affected
+tags from PROPOSED to approved wording, and run a short re-check of the changed sections.

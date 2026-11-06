@@ -1,23 +1,25 @@
 # Essential Wireframes — Public Website and ERP
 
-**Status: PROPOSED — PENDING APPROVAL.**
+**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06 (PG-07, PG-09, PG-13).
+Tags: `CLAUDE.md` §3.
 
-These are low-fidelity text wireframes. They show layout, content order and controls only —
-not visual design. The look follows `project-context/UI_UX_GUIDELINES.md`: charcoal + copper,
-light neutral backgrounds, with colours and fonts still PENDING (Q-B2).
+These are low-fidelity text wireframes: layout, content order and controls only. The look follows
+`project-context/UI_UX_GUIDELINES.md` (charcoal + copper, light neutrals; colours/fonts PENDING Q-B2).
 
-**Content rules for these wireframes:**
-- `[IMG]` = a real project photo supplied by the client. None has been supplied yet (Q-W1).
-- `‹…›` = text the client supplies or approves. No copy, numbers or projects are invented.
+**Content rules:**
+- `[IMG]` = a real AJ Design Studio project photo. None supplied yet (Q-W1). Never an image from
+  `reference/portfolio/Senior office profile.pdf` (another architect).
+- `‹…›` = text drafted from the Instagram presence and reference documents, in a professional,
+  formal and ethical tone, and **pending client review** [CLIENT-DECISION]. No invented numbers,
+  awards, clients or testimonials.
 - `[LOGO]` = a crop of `reference/logo/Logo.jpeg`, unchanged.
+- `[FIN]` = rendered only for ADM; for other roles the element is absent and its data is never sent.
 
-**Contents:**
-- **Public website:** W-P1 Home (desktop), W-P2 Home (mobile), W-P3 Portfolio listing,
-  W-P4 Project details, W-P5 Contact + enquiry, W-P6 Services
-- **ERP:** W-E1 Login, W-E2 Dashboard, W-E3 List page pattern, W-E4 Enquiry detail,
-  W-E5 Project detail, W-E6 Quotation builder, W-E7 Quotation PDF, W-E8 Payment + allocation,
-  W-E9 Portfolio editor, W-E10 Mobile site visit
-- **Approval:** checklist at the end
+**Contents:** Public — W-P1 Home (desktop), W-P2 Home (mobile), W-P3 Portfolio listing,
+W-P4 Project details, W-P5 Contact + enquiry, W-P6 Services.
+ERP — W-E1 Login, W-E2 Dashboard, W-E3 List pattern, W-E4 Enquiry detail, W-E5 Project detail,
+W-E6 Quotation builder, W-E7 Quotation PDF, W-E8 Payment + allocation, W-E9 Portfolio editor,
+W-E10 Mobile site visit, **W-E11 Source & Commission tab**, **W-E12 Commission payment**.
 
 ---
 
@@ -28,22 +30,19 @@ light neutral backgrounds, with colours and fonts still PENDING (Q-B2).
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │ [LOGO]        Home  About  Services  Portfolio  Gallery  Contact  [Enquire ▸] │ ← transparent over hero,
 ├──────────────────────────────────────────────────────────────────────────────┤   charcoal on scroll
-│                                                                              │
 │                         [IMG full-bleed hero / slider]                       │
 │                     AJ DESIGN STUDIO                                         │
-│                     ‹one-line positioning – client approved›                 │
+│                     ‹one-line positioning – pending client review›           │
 │                     [Start your project]   [WhatsApp]                        │
-│                                                                              │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │  ‹2–3 line studio intro›                                   About the studio → │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│  SERVICES (approved categories only – Q-S1)                                  │
-│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐                                 │
-│  │ icon   │ │ icon   │ │ icon   │ │ icon   │   …  → /services                │
+│  SERVICES (categories marked "show on website"; demo items only if Q-S5)     │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐   …  → /services                │
 │  │‹name›  │ │‹name›  │ │‹name›  │ │‹name›  │                                 │
 │  └────────┘ └────────┘ └────────┘ └────────┘                                 │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│  FEATURED WORK (3–6 projects marked featured in ERP)                         │
+│  FEATURED WORK (projects marked featured; highlighted/major first)           │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                          │
 │  │ [IMG]        │ │ [IMG]        │ │ [IMG]        │  hover: title + category │
 │  │ ‹title›      │ │ ‹title›      │ │ ‹title›      │                          │
@@ -54,8 +53,8 @@ light neutral backgrounds, with colours and fonts still PENDING (Q-B2).
 ├──────────────────────────────────────────────────────────────────────────────┤
 │  ‹CTA line›                         [Send an enquiry]  [WhatsApp]  [Call]    │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│ FOOTER (charcoal): [LOGO] · address* · phone* · email* · Instagram · Privacy │
-│ *publication PENDING Q-W3/Q-W4                                     © year    │
+│ FOOTER: [LOGO] · ‹address›* · ‹phone 1 / phone 2›* · ‹email› · Instagram ·   │
+│ Privacy   *spelling and WhatsApp number PENDING Q-W3/Q-W4          © year    │
 └──────────────────────────────────────────────────────────────────────────────┘
                                                                      (◉) WhatsApp floating
 ```
@@ -63,82 +62,64 @@ light neutral backgrounds, with colours and fonts still PENDING (Q-B2).
 ### W-P2 Home — mobile (375 px)
 ```
 ┌─────────────────────────┐
-│ [LOGO]              ☰   │ ☰ opens a slide-in menu
+│ [LOGO]              ☰   │
 ├─────────────────────────┤
 │ [IMG hero]              │
 │ AJ DESIGN STUDIO        │
 │ ‹positioning›           │
 │ [Start your project]    │
 ├─────────────────────────┤
-│ ‹intro›                 │
-│ Services (1 column)     │
-│ Featured (1 column)     │
-│ CTA band                │
-│ Footer                  │
+│ ‹intro› · Services ·    │
+│ Featured · CTA · Footer │
 ├─────────────────────────┤
-│ [ Call ] [ WhatsApp ]   │ ← bar fixed to the bottom of the screen
+│ [ Call ] [ WhatsApp ]   │ ← fixed bottom bar
 └─────────────────────────┘
 ```
 
 ### W-P3 Portfolio listing — `/portfolio`
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ header                                                       │
-├──────────────────────────────────────────────────────────────┤
 │ PORTFOLIO                                                    │
-│ [All] [‹category›] [‹category›] [‹category›]   ← Q-S3 / lookups │
+│ [All] [‹category›] [‹category›] [‹category›]                 │
 ├──────────────────────────────────────────────────────────────┤
-│ ┌──────────┐ ┌──────────┐ ┌──────────┐                       │
-│ │ [IMG 4:3]│ │ [IMG 4:3]│ │ [IMG 4:3]│   3 columns desktop    │
-│ │ ‹title›  │ │ ‹title›  │ │ ‹title›  │   2 columns tablet     │
-│ │ ‹city·yr›│ │ ‹city·yr›│ │ ‹city·yr›│   1 column mobile      │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐   order: highlighted  │
+│ │ [IMG 4:3]│ │ [IMG 4:3]│ │ [IMG 4:3]│   (major) by priority,│
+│ │ ‹title›  │ │ ‹title›  │ │ ‹title›  │   then others by      │
+│ │ ‹city·yr›│ │ ‹city·yr›│ │ ‹city·yr›│   priority, year, title│
 │ └──────────┘ └──────────┘ └──────────┘                       │
 │                    [ Load more ]                             │
-├──────────────────────────────────────────────────────────────┤
-│ enquiry CTA band · footer                                    │
 └──────────────────────────────────────────────────────────────┘
 ```
 
 ### W-P4 Project details — `/portfolio/{slug}`
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ header                                                       │
 │ [IMG cover, wide]                                            │
 │ ‹Project title›  (H1)                                        │
-│ ┌──────────┬──────────┬────────┬──────────────┬───────────┐  │
-│ │Category  │Location  │Year    │Services      │Area*      │  │ *only if show-area is on
-│ └──────────┴──────────┴────────┴──────────────┴───────────┘  │
-│ ‹description – client text›                                  │
-│ GALLERY  ┌────┐┌────┐┌────┐┌────┐  click → lightbox          │
-│          └────┘└────┘└────┘└────┘  (keyboard + swipe)        │
+│ │Category │Location (city) │Year │Services │Area* │  *only if show-area is on
+│ ‹description – drafted, client-reviewed›                     │
+│ GALLERY  [□][□][□][□]  → lightbox (keyboard + swipe)          │
 │ ← Previous project                      Next project →       │
 │ [ Enquire about a similar project ]  [ WhatsApp ]            │
-│ footer                                                       │
 └──────────────────────────────────────────────────────────────┘
+Unpublished/removed project → 410/404 page; old slug → 301 to the new slug.
 ```
 
 ### W-P5 Contact + enquiry — `/contact`
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ CONTACT                                                      │
 │ ┌───────────────────────────┐ ┌────────────────────────────┐ │
 │ │ ‹address› (Q-W3)          │ │ ENQUIRY FORM               │ │
-│ │ ☎ ‹phone› (tap to call)   │ │ Name*        [__________]  │ │
-│ │ ◉ WhatsApp (Q-W4)         │ │ Mobile*      [__________]  │ │
-│ │ ✉ ‹email›                 │ │ Email        [__________]  │ │
-│ │ ‹office hours›            │ │ City / site  [__________]  │ │
-│ │ ┌───────────────────────┐ │ │ Project type [▼_________]  │ │
-│ │ │ map (loads on click / │ │ │ Services     [☐ ☐ ☐ ☐]     │ │
-│ │ │ when scrolled into    │ │ │ Approx. area [____][sqft▼] │ │
-│ │ │ view) – Q-W3          │ │ │ Message      [__________]  │ │
-│ │ └───────────────────────┘ │ │ Prefer       (•)Call ( )WA │ │
-│ └───────────────────────────┘ │ ☐ I agree to the Privacy   │ │
-│                               │   notice*                  │ │
+│ │ ☎ ‹phone 1› ‹phone 2›     │ │ Name*  Mobile*  Email      │ │
+│ │ ◉ WhatsApp (Q-W4)         │ │ City / site  Project type  │ │
+│ │ ✉ ‹email›                 │ │ Services [☐ ☐ ☐]           │ │
+│ │ ‹office hours›            │ │ Approx. area [__][sqft▼]   │ │
+│ │ [map – loads on demand]   │ │ Message  Prefer (•)Call    │ │
+│ └───────────────────────────┘ │ ☐ I agree to the Privacy*  │ │
 │                               │ [ Send enquiry ]           │ │
 │                               └────────────────────────────┘ │
 └──────────────────────────────────────────────────────────────┘
-After sending → /enquiry/thank-you (not indexed by search engines): "Thank you – we will contact you." + WhatsApp link
-Errors are shown under each field; values typed so far are kept.
+After sending → /enquiry/thank-you (noindex). Errors under each field; values kept.
 ```
 
 ### W-P6 Services — `/services`
@@ -146,10 +127,9 @@ Errors are shown under each field; values typed so far are kept.
 ┌──────────────────────────────────────────────────────────────┐
 │ SERVICES                                                     │
 │ ‹Category 1›  [IMG optional]                                 │
-│   ‹description›  • ‹item› • ‹item› • ‹item›                  │
+│   ‹description›  • ‹item› • ‹item›                           │
 │   [ Enquire about this service ] → /enquiry?service=…        │
-│ ‹Category 2› …                                               │
-│ (only categories marked "show on website"; list PENDING Q-S1/Q-S4) │
+│ (active, "show on website", not deleted; demo only if Q-S5)  │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -161,40 +141,34 @@ Errors are shown under each field; values typed so far are kept.
 ```
 ┌────────────┬─────────────────────────────────────────────────────────────────┐
 │ [LOGO]     │ ☰  Search [_____________]        🔔 3 due   ‹User› (Role) ▼      │
-│            ├─────────────────────────────────────────────────────────────────┤
-│ Dashboard  │ Breadcrumb › Page title                       [Primary action]  │
-│ Enquiries  │                                                                 │
-│ Clients    │  content area (ivory background, white cards)                   │
-│ Projects   │                                                                 │
-│ Quotations │                                                                 │
-│ Fees&Bills◇│                                                                 │
-│ Payments   │                                                                 │
-│ Expenses ◇ │                                                                 │
+│ Dashboard  ├─────────────────────────────────────────────────────────────────┤
+│ Enquiries  │ Breadcrumb › Page title                       [Primary action]  │
+│ Clients    │                                                                 │
+│ Projects   │  content area (ivory background, white cards)                   │
+│ Quotations [FIN]                                                             │
+│ Fees&Bills [FIN]                                                             │
+│ Payments   [FIN]                                                             │
+│ Expenses   [FIN]                                                             │
+│ Commission [FIN]                                                             │
+│ Partners   (ADM; STF only if Q-C5)                                           │
 │ Portfolio  │                                                                 │
 │ Follow-ups │                                                                 │
-│ Reports    │                                                                 │
+│ Reports    │ (financial reports ADM only)                                    │
 │ ─────────  │                                                                 │
-│ Services   │                                                                 │
-│ Users      │                                                                 │
-│ Settings   │                                                                 │
-│ Audit log  │                                                                 │
+│ Services · Users · Settings · Audit log (ADM)                                │
 └────────────┴─────────────────────────────────────────────────────────────────┘
-Charcoal sidebar. Menu items appear only if the user's role allows them
-(PERMISSION_MATRIX.md). On small screens the sidebar collapses to the monogram only.
+Menu items appear only when the role allows them. [FIN] items exist only for ADM.
 ```
 
 ### W-E1 Login — `/erp/login`
 ```
 ┌──────────────────────────────────────────────┐
-│            (charcoal panel)                  │
 │               [LOGO large]                   │
-│   ┌──────────────────────────────────────┐   │
-│   │ Username or email [________________] │   │
-│   │ Password          [________________] │   │
-│   │ [        Sign in        ]            │   │
-│   │ Forgot password?                     │   │
-│   │ ⚠ Invalid username or password       │   │ ← generic message
-│   └──────────────────────────────────────┘   │
+│   Username or email [________________]       │
+│   Password          [________________]       │
+│   [        Sign in        ]                  │
+│   Forgot password?                           │
+│   ⚠ Invalid username or password  (generic)  │
 └──────────────────────────────────────────────┘
 ```
 
@@ -202,80 +176,86 @@ Charcoal sidebar. Menu items appear only if the user's role allows them
 ```
 ┌───────────────┬───────────────┬───────────────┬───────────────┐
 │ New website   │ Follow-ups    │ Quotations    │ Active        │
-│ enquiries  4  │ due/overdue 3 │ awaiting   2  │ projects   7  │
+│ enquiries  4  │ due/overdue 3 │ awaiting   2  │ projects   7  │   ← counts only
 └───────────────┴───────────────┴───────────────┴───────────────┘
-┌──── FINANCE (ADM/ACC only) ───────────────────────────────────┐
-│ This FY:  Agreed ₹…   Billed ₹…◇   Received ₹…   Outstanding ₹… │
-│ This month: Received ₹…   Expenses ₹…◇                         │
-└───────────────────────────────────────────────────────────────┘
+┌──── FINANCE [FIN] (ADM only) ────────────────────────────────────────┐
+│ This FY:  Agreed ₹…   Billed ₹… (bills-method)   Received ₹…        │
+│           Outstanding ₹…   Credit held ₹…                           │
+│ This month: Received ₹…   Expenses ₹…                               │
+│ Commission: awaiting approval 1 · outstanding ₹…                    │
+└─────────────────────────────────────────────────────────────────────┘
 ┌──── Follow-ups due ─────────────┐ ┌──── Projects by stage ──────┐
 │ ● 10:30 Call ‹name› (Enquiry)  ✓│ │ Design ███ 3                │
-│ ● Overdue: Payment ‹project›   ✓│ │ Working drawings ██ 2       │
-│ View all →                      │ │ Under construction █ 1 …    │
+│ ● Payment ‹project› [FIN]      ✓│ │ Working drawings ██ 2       │
 └─────────────────────────────────┘ └─────────────────────────────┘
-┌──── Recent payments ────────────┐ ┌──── Latest enquiries ───────┐
+┌──── Recent payments [FIN] ──────┐ ┌──── Latest enquiries ───────┐
 └─────────────────────────────────┘ └─────────────────────────────┘
-SITE role: only "My follow-ups" and "My projects".
+STF: no FINANCE panel, no payment follow-ups, no recent payments. SITE: "My follow-ups", "My projects".
 ```
 
-### W-E3 List page pattern (enquiries shown)
+### W-E3 List page pattern (enquiries)
 ```
 Enquiries                                              [+ New enquiry]
 [Website – unreviewed (4)] [Open] [Converted] [Lost/Closed] [All]
-Filters: Source [▼] Assigned [▼] Date [__ to __]  Search [______]  [Export CSV]
-┌──────────┬──────────┬───────────┬────────┬─────────┬──────────┬──────────┐
-│ No.      │ Date     │ Name      │ Mobile │ Source  │ Status   │ Next F/U │
-├──────────┼──────────┼───────────┼────────┼─────────┼──────────┼──────────┤
-│ ENQ-…    │ dd/mm/yy │ ‹name›    │ …      │ Website │ ●New-unr │ —        │
-└──────────┴──────────┴───────────┴────────┴─────────┴──────────┴──────────┘
-« 1 2 3 »   25 per page   (sorting, filtering and paging done on the server)
+Filters: Source [▼] Partner [▼]* Assigned [▼] Date [__ to __]  Search [____]  [Export CSV]
+┌──────────┬──────────┬───────────┬────────┬────────────┬──────────┬──────────┐
+│ No.      │ Date     │ Name      │ Mobile │ Source     │ Status   │ Next F/U │
+├──────────┼──────────┼───────────┼────────┼────────────┼──────────┼──────────┤
+│ AJDS/E/… │ dd/mm/yy │ ‹name›    │ …      │ Website    │ ●New-unr │ —        │
+│ AJDS/E/… │ dd/mm/yy │ ‹name›    │ …      │ Contractor │ Contacted│ dd/mm    │
+└──────────┴──────────┴───────────┴────────┴────────────┴──────────┴──────────┘
+*Partner filter for STF only if Q-C5 allows. Server-side paging.
 ```
 
 ### W-E4 Enquiry detail
 ```
-ENQ-2026-0012 · ‹name›        Status: [Contacted ▼] [Save]     [Convert to client+project]
+AJDS/E/2026-27/0012 · ‹name›   Status: [Contacted ▼] [Save]   [Convert to client+project]
 ┌── Details ─────────────────────────┐ ┌── Actions ──────────────────────────┐
 │ Mobile · Email · Preferred contact │ │ [+ Activity] [+ Follow-up]           │
-│ Location · Project type · Area     │ │ [+ Quotation]  [Mark spam]           │
-│ Services: ‹…›   Source: Website    │ │ ⚠ Possible duplicate: Client ‹…› →   │
-│ Message: ‹…›                       │ └──────────────────────────────────────┘
+│ Location · Project type · Area     │ │ [+ Quotation] (ADM)  [Mark spam]     │
+│ Services: ‹…›                      │ │ ⚠ Possible duplicate: Client ‹…› →   │
+│ Source: Contractor · ‹partner›*    │ └──────────────────────────────────────┘
+│ Message: ‹…›                       │
 └────────────────────────────────────┘
-┌── Timeline (activities + status changes) ─────────────────────────────────┐
+┌── Timeline (no amounts) ──────────────────────────────────────────────────┐
 │ dd/mm 11:02  Status New → Contacted  (‹user›)                             │
 │ dd/mm 10:40  Call: ‹summary›                                              │
 └───────────────────────────────────────────────────────────────────────────┘
-┌── Quotations ─────────────┐ ┌── Follow-ups ──────────────────────────────┐
-│ 3/2026 R1  Sent  ₹…       │ │ dd/mm  Call back re: quotation   ‹user› ☐   │
-└───────────────────────────┘ └─────────────────────────────────────────────┘
+┌── Quotations ───────────────────────┐ ┌── Follow-ups ──────────────────────┐
+│ AJDS/Q/2026-27/003 R1  Sent         │ │ dd/mm Call back  ‹user› ☐          │
+│ ₹… [FIN] (ADM only)                 │ └────────────────────────────────────┘
+└─────────────────────────────────────┘
+*Partner shown to STF only if Q-C5 allows.
 ```
 
 ### W-E5 Project detail (tabs)
 ```
-AJ-2026-004 · ‹Project name› · ‹Client›            Status: [Design ▼]   [Edit]
-[Overview] [Quotations] [Fees & Bills] [Payments] [Expenses] [Documents] [Site visits] [Timeline]
-┌── Overview ─────────────────────────────┐ ┌── Money (ADM/ACC) ─────────────┐
-│ Type · Site · City · Plot/Built-up area │ │ Agreed fee      ₹…             │
-│ Floors · Start · Expected completion    │ │ Billed ◇        ₹…             │
-│ Services: ‹…›                           │ │ Received        ₹…             │
-│ Team: ‹user› (role), ‹user› (role)      │ │ Outstanding     ₹…             │
-└─────────────────────────────────────────┘ │ Credit          ₹…             │
+AJDS/P/2026-27/004 · ‹Project name› · ‹Client›     Status: [Design ▼]   [Edit]
+Source: Contractor · ‹partner›*        Billing method: Agreement [FIN]
+[Overview] [Quotations][FIN] [Fees & Bills][FIN] [Payments][FIN] [Expenses][FIN]
+[Source & Commission][FIN] [Documents] [Site visits] [Timeline]
+┌── Overview ─────────────────────────────┐ ┌── Money [FIN] (ADM only) ──────┐
+│ Type · Site · City · Plot/Built-up area │ │ Agreed       ₹…                │
+│ Floors · Start · Expected completion    │ │ Billed       ₹… (bills method) │
+│ Services: ‹…›                           │ │ Received     ₹…                │
+│ Team: ‹user› (role), ‹user› (role)      │ │ Outstanding  ₹…                │
+└─────────────────────────────────────────┘ │ Credit       ₹…                │
+                                            │ Commission o/s ₹…              │
                                             └────────────────────────────────┘
-Tabs are hidden when the role or the feature switch does not allow them.
+*Source label for STF only if Q-C5 allows. Tabs absent when role or feature switch disallows them.
 ```
 
-### W-E6 Quotation builder (Draft revision)
+### W-E6 Quotation builder (Draft revision) [FIN — ADM]
 ```
-Quotation 3/2026 · R1 (Draft)   Enquiry/Project: ‹…›     [Save draft] [Preview PDF] [Send ▸]
+Quotation (no. on first send) · R1 (Draft)   Enquiry/Project: ‹…›   [Save draft] [Preview PDF] [Send ▸]
 ┌── Header ────────────────────────────────────────────────────────────────┐
 │ Date [dd/mm/yyyy]  Valid until [____]◇  Subject [_______________________] │
-│ Site location [__________]  Area [_____] Basis [Built-up ▼] Unit [sqft ▼] │
+│ Site location [__________]  Area [_____] Basis [▼] Unit [sqft ▼]          │
 │ Intro [____________________________________________________________]      │
 └──────────────────────────────────────────────────────────────────────────┘
 ┌── Scope of work ─────────────────────────────── [+ Add from services] ───┐
 │ ≡ 1. ‹All floor plans›                                     [edit][×]     │
-│      ≡ • ‹Ground floor plan›            (Included ▼)       [×]           │
-│      ≡ • ‹First floor plan›             (Included ▼)       [×]           │
-│      [+ item]                                                             │
+│      ≡ • ‹Ground floor plan›      (Included ▼)  [Demo]     [×]           │
 │ ≡ 2. ‹Working drawings› …                                                 │
 └──────────────────────────────────────────────────────────────────────────┘
 ┌── Fees ────────────────────────────────────────────────── [+ Fee line] ──┐
@@ -284,100 +264,134 @@ Quotation 3/2026 · R1 (Draft)   Enquiry/Project: ‹…›     [Save draft] [Pr
 │ [Item ▼]    ‹Interior 3D view› [__]       nos    [_____]   ₹ (auto)      │
 │ [Custom ▼]  ‹…›                                            [_____]       │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ Discount ◇ [none ▼]          Subtotal                 ₹ …                │
-│ Tax ◇ (only if enabled)      Discount                 ₹ …                │
-│ Rounding [none ▼]            Taxable                  ₹ …                │
-│                              Tax                      ₹ …                │
-│                              Rounding                 ₹ …                │
-│                              GRAND TOTAL              ₹ …                │
-│                              ‹Amount in words› ◇                          │
+│ Discount ◇ [none ▼]               Subtotal                 ₹ …            │
+│ ☐ Apply GST (only if registered)  Discount                 ₹ …            │
+│ Rounding [none ▼]                 Taxable                  ₹ …            │
+│                                   GST lines                ₹ …            │
+│                                   Rounding                 ₹ …            │
+│                                   GRAND TOTAL              ₹ …            │
 └──────────────────────────────────────────────────────────────────────────┘
 ┌── Optional blocks (all off by default) ──────────────────────────────────┐
 │ ☐ Payment schedule  ☐ Terms  ☐ Exclusions  ☐ Bank details  ☐ Acceptance  │
 └──────────────────────────────────────────────────────────────────────────┘
 Revision history: R0 Superseded dd/mm · R1 Draft            [Compare R0↔R1]
-No default values for rate or area are filled in (CLAUDE.md §7).
+No rate or area is pre-filled unless the ADM set a default. Rates editable by ADM.
 ```
 
-### W-E7 Quotation PDF (A4) — layout follows the order of the sample
+### W-E7 Quotation PDF (A4) — logo + visiting-card letterhead [CLIENT-DECISION]
 ```
-┌────────────────────────────────────────────┐
-│        ‹invocation e.g. "श्री" – optional›  │  Q-Q2
-│  [LOGO] or ‹text heading›                  │  Q-Q2
-│  ARCHITECT / INTERIOR DESIGNER             │
-│  ‹address› · ‹phone› · ‹email›             │
-├────────────────────────────────────────────┤
-│ Ref: ‹3/2026› (R1)            Date: dd/mm/yyyy │
-│ To: ‹client block› ◇ (Q-Q6)                │
-│ ‹PROJECT TITLE›  (underlined)              │
-│ ‹Sub-title e.g. DESIGN WORK›               │
-│ ‹Intro line›                               │
-│ 1. ‹Section›  • item • item                │
-│ 2. ‹Section›  • item …                     │
-│ ‹Inclusion statement›                      │
-│ FEES table: description | basis | rate | amount │
-│ Totals · amount in words ◇                 │
-│ Payment schedule ◇ · Terms ◇ · Bank ◇      │
-│                     ‹Signature name›       │
-│                     ‹Designation› (Q-Q10)  │
-│ Client acceptance block ◇                  │
-├────────────────────────────────────────────┤
-│ footer: contact line            Page 1 of 2 │
-└────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│              ‹"श्री" – optional, Q-Q2›                       │
+│ [LOGO]   Ar. Ajit Arjun Kumbhar                              │
+│          Architect & Interior Designer                       │
+│          ‹address (Q-W3)› · ‹phone 1 / phone 2› · ‹email›     │
+│          [Instagram QR – optional, Q-Q2]                     │
+├────────────────────────────────────────────────────────────┤
+│ Ref: ‹AJDS/Q/2026-27/003-R1›               Date: dd/mm/yyyy  │
+│ To: ‹client block› ◇ (Q-Q6)                                 │
+│ ‹PROJECT TITLE›  (underlined) · ‹DESIGN WORK›                │
+│ ‹Intro line›                                                │
+│ 1. ‹Section›  • item • item                                 │
+│ 2. ‹Section›  • item …                                      │
+│ ‹Inclusion statement›                                       │
+│ FEES: description | basis | rate | amount                   │
+│ Subtotal · discount ◇ · GST lines (only if applied) · total │
+│ Amount in words ◇ · Payment schedule ◇ · Terms ◇ · Bank ◇   │
+│                         ‹Signature name› ‹Designation› (Q-Q10)│
+│ Client acceptance block ◇                                   │
+├────────────────────────────────────────────────────────────┤
+│ footer: contact line                         Page 1 of 2     │
+└────────────────────────────────────────────────────────────┘
+Never printed: commission, partner, internal notes.
 ```
 
-### W-E8 Payment entry with allocation
+### W-E8 Payment entry with allocation [FIN — ADM]
 ```
 Record payment                                                    Receipt no.: (auto)
-Client [‹search›▼]  Project [‹…›▼]  Date [dd/mm/yyyy]  Amount [₹ ______]
+Client [‹search›▼]  Project [‹…›▼] (method: Bills)  Date [dd/mm/yyyy]  Amount [₹ ______]
 Mode [UPI ▼]  Reference / UTR [________]  Bank [______]  Notes [__________]
-┌── Allocate to open bills (Mode A) ───────────────────────────────────────┐
-│ Bill        Date      Total      Open       Allocate                     │
-│ B/26-27/03  dd/mm     ₹ …        ₹ …        [₹ ______]  [Fill]           │
-│ B/26-27/05  dd/mm     ₹ …        ₹ …        [₹ ______]  [Fill]           │
+┌── Allocate (one target per row) ─────────────────────────────────────────┐
+│ Bills method:     Bill        Date    Total   Open    Allocate            │
+│                   AJDS/B/…/03 dd/mm   ₹ …     ₹ …     [₹ ____] [Fill]      │
+│ Agreement method: Stage       Due     Amount  Open    Allocate            │
+│                   ‹Advance›   dd/mm   ₹ …     ₹ …     [₹ ____] [Fill]      │
+│                   Agreement (no stages)       ₹ …     [₹ ____]             │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ Allocated ₹ …    Unallocated → client credit (advance) ₹ …               │
+│ Allocated ₹ …        Unallocated → Advance / credit ₹ …                   │
 └──────────────────────────────────────────────────────────────────────────┘
-Mode B: no grid; shows "Agreed ₹… · Received so far ₹… · Outstanding after this ₹…"
-[ Save & print receipt ]          Confirmation: "Posted payments cannot be edited."
+Any amount is accepted (partial payments allowed). [ Save & print receipt ]
+Confirmation: "Posted payments cannot be edited."
 ```
 
 ### W-E9 Portfolio editor
 ```
-Portfolio › ‹Title›   [Draft]                 [Preview] [Publish ▸] (blocked until ☑ consent + cover + alt text)
-┌── Details ─────────────────────────────┐ ┌── Images ───────────────────────────────┐
+Portfolio › ‹Title›   [Draft · Pending client review]   [Preview] [Publish ▸] [Unpublish] [Remove]
+ Publish is blocked until: ☑ consent · ★ cover · alt text on all images · review status = Approved
+┌── Details ─────────────────────────────┐ ┌── Images (originals private) ───────────┐
 │ Title · Slug · Category · Location     │ │ [Upload images]  drag to reorder        │
 │ Year · Area [☐ show]                   │ │ ┌────┐ alt* [____] caption [___] ☐gallery│
-│ Services [☐ ☐ ☐]  Featured ☐           │ │ │IMG │ ★ cover                          │
-│ Short description*                     │ │ └────┘                                  │
-│ Long description (rich text)           │ │ ┌────┐ alt* [____] …                    │
-│ SEO title / description                │ │ └────┘                                  │
-│ ☐ Client permission obtained* (Q-W5)   │ └─────────────────────────────────────────┘
+│ Services [☐ ☐ ☐]                       │ │ │IMG │ ★ cover                          │
+│ ☐ Featured (home) ☐ Highlighted (major)│ │ └────┘                                  │
+│ Display priority [__]                  │ └─────────────────────────────────────────┘
+│ Short description* · Long description  │
+│ Review status [Pending client review ▼]│
+│ SEO title / description                │
+│ ☐ Client permission obtained* + note   │
+│   [attach consent record]              │
 └────────────────────────────────────────┘
+Unpublish / Remove ask for a reason and withdraw the public images.
 ```
 
 ### W-E10 Mobile site-visit entry ◇ (Q-P3, Q-U2)
 ```
 ┌─────────────────────────┐
-│ ← AJ-2026-004 Site visit│
+│ ← AJDS/P/…/004 Site visit│
 │ Date   [dd/mm/yyyy]     │
 │ Stage  [Slab checking ▼]│
 │ By     ‹current user›   │
-│ Observations            │
-│ [                     ] │
+│ Observations [        ] │
 │ [📷 Add photos]          │
-│ ☐ Chargeable ◇          │
-│ [   Save visit   ]      │
+│ [   Save visit   ]      │   (chargeable flag: ADM only, ◇)
 └─────────────────────────┘
+```
+
+### W-E11 Project — Source & Commission tab [FIN — ADM]
+```
+Source: (•) Contractor ( ) Direct      Partner: ‹name, firm› [change]
+┌── Commission ────────────────────────────────────────────────────────────┐
+│ Commission applicable: [ Yes ▼ ]   (must be chosen; never defaulted)     │
+│ Type: (•) Percentage ( ) Fixed     Rate [__.__ %]  /  Amount [₹ ______]  │
+│ Base: [‹agreed fee excl. GST› ▼]  (PENDING Q-C3)   Base amount ₹ …      │
+│ Commission amount ₹ … (auto)                                             │
+│ Status: Pending approval        [Approve] [Reject] (remark required)     │
+│ Remarks [___________________________________________]                    │
+├──────────────────────────────────────────────────────────────────────────┤
+│ Payable ₹ …   Paid ₹ …   Outstanding ₹ …      [+ Adjustment] [+ Payment] │
+│ Payments: AJDS/CP/…/0004  dd/mm  ₹ …  UPI  [Voucher] [Reverse]           │
+│ History: dd/mm Draft → Pending approval (‹user›) · Approved (remark) …   │
+└──────────────────────────────────────────────────────────────────────────┘
+Direct project: the commission panel is not shown and the server rejects commission actions.
+```
+
+### W-E12 Commission payment [FIN — ADM]
+```
+Commission payment — ‹partner› · ‹project›          Payment no.: (auto)
+Outstanding ₹ …
+Date [dd/mm/yyyy]  Amount [₹ ______] (partial allowed, ≤ outstanding)
+Mode [Bank transfer ▼]  Reference [________]  TDS [₹ ____] (only if Q-C4)
+Proof [attach]  Notes [______________]
+[ Save ]   "Posted commission payments cannot be edited — reverse instead."
 ```
 
 ---
 
-## Wireframe approval checklist — PENDING APPROVAL
-- [ ] Public navigation items, and whether there is a separate Gallery page (Q-W2)
-- [ ] Home page sections, including whether the process strip is used
+## Wireframe approval checklist — PENDING
+- [ ] Public navigation, separate Gallery page (Q-W2)
+- [ ] Home sections incl. process strip; tone of drafted text (client review)
 - [ ] Enquiry form fields (W-P5)
-- [ ] ERP menu and dashboard widgets
-- [ ] Quotation builder sections and PDF layout (Q-Q2, Q-Q6, Q-Q10)
-- [ ] Payment allocation screen (depends on Q-F1)
+- [ ] ERP menu and dashboard widgets (financial widgets ADM only)
+- [ ] Quotation builder and PDF letterhead (Q-Q2, Q-Q6, Q-Q10)
+- [ ] Payment allocation by billing method (D-26)
+- [ ] Source & Commission tab and commission payment (Q-C1…Q-C6)
+- [ ] Portfolio editor publish/unpublish/remove rules
 - [ ] Mobile screens needed (Q-U2)

@@ -1,42 +1,36 @@
 # Database Design — Entity-Relationship Diagram and Table-by-Table Specification
 
-**Status: PROPOSED — PENDING APPROVAL (Stage 1 gate).**
+**Status: PROPOSED — Stage 1 gate not approved.** Corrected 2026-11-06 for the client decisions
+(contractor commission, Admin-only finance, flexible billing, optional GST) — see
+`docs/STAGE1_CORRECTION_TRACKING_MATRIX.md` (items DB-01…DB-23).
 
-This is a **design document, not SQL**. `database.sql` will be written in Stage 2, and only
-after this design is approved.
+This is a **design document, not SQL**. `database.sql` is written in Stage 2, only after approval.
 
-- **Conventions:** follow `project-context/DATABASE_RULES.md` (InnoDB, utf8mb4, `snake_case`
-  plural table names, `id` primary keys, real foreign keys with `RESTRICT`, DECIMAL for money).
-- **Workflows:** follow `docs/WORKFLOWS.md`.
+- **Conventions:** `project-context/DATABASE_RULES.md`.
+- **Workflows:** `docs/WORKFLOWS.md`. **Permissions:** `docs/PERMISSION_MATRIX.md`.
+- **Tags:** `CLAUDE.md` §3. Fields that depend on an open question say **PENDING (Q-…)**; they are
+  kept in the design but stay unused until answered.
 
 ## 0. Notation
 
 | Shorthand | Meaning |
 |---|---|
-| **PK** | primary key |
-| **FK** | foreign key |
-| **UQ** | unique |
-| **IX** | indexed |
-| **[STD]** | the standard audit columns: `created_at`, `created_by`, `updated_at`, `updated_by` |
-| **[SD]** | soft-delete columns: `deleted_at`, `deleted_by` |
-| **MONEY** | DECIMAL(14,2) |
-| **RATE** | DECIMAL(12,2) |
-| **AREA** | DECIMAL(12,2) |
-| **PCT** | DECIMAL(5,2) |
-| **QTY** | DECIMAL(10,2) |
-| **status** | VARCHAR(30), checked against a fixed list in the application (D-07) |
-| **lookup FK** | a reference to `lookups.id` for the given list type, checked by the application (D-06) |
-| **signed MONEY** | negative values are allowed only on reversal rows |
+| **PK / FK / UQ / IX** | primary key / foreign key (real constraint) / unique / indexed |
+| **[STD]** | `created_at`, `created_by` (FK users), `updated_at`, `updated_by` (FK users) |
+| **[SD]** | `deleted_at`, `deleted_by` (FK users) |
+| **MONEY / RATE / AREA / PCT / QTY** | DECIMAL(14,2) / (12,2) / (12,2) / (5,2) / (10,2) |
+| **status** | VARCHAR(30), fixed list in the application (D-07) |
+| **lookup FK** | real FK to `lookups.id`; the application also checks `list_type` |
+| **signed MONEY** | negative only on reversal or adjustment rows |
+| **XOR(a,b,c)** | exactly one of the listed columns is non-NULL (application rule + test case) |
+| **[FIN]** | financial data — ADM only (`BUSINESS_REQUIREMENTS.md` §4.1) |
+| ◇ | optional feature: table created in the schema, feature switched off until decided |
 
-**Totals:** 49 tables in 8 groups.
-- Optional tables are marked ◇. They are created in the schema either way, so turning a
-  feature on later does not require a schema change.
+**Totals:** 58 tables in 9 groups (was 49; +5 commission, +credit transfers, +3 tax-line tables).
 
 ---
 
 ## 1. Entity-relationship diagram
-
-Mermaid notation. Only relationships are shown; the columns are in §3.
 
 ```mermaid
 erDiagram
@@ -48,8 +42,9 @@ erDiagram
     users ||--o{ audit_logs : performs
 
     service_categories ||--o{ service_items : contains
-    lookups ||--o{ enquiries : "source / type"
 
+    referral_partners |o--o{ enquiries : "referred"
+    referral_partners |o--o{ projects : "sourced"
     enquiries ||--o{ enquiry_services : wants
     service_categories ||--o{ enquiry_services : in
     enquiries |o--o| clients : "converted to"
@@ -79,23 +74,37 @@ erDiagram
     quotation_revisions ||--o{ quotation_schedule_lines : schedule
     quotations ||--o{ quotation_status_history : tracks
 
-    projects ||--o| fee_agreements : "agreed fee"
+    projects ||--o{ fee_agreements : "agreed fee (one active)"
     quotation_revisions |o--o| fee_agreements : "accepted as"
+    fee_agreements ||--o{ fee_agreement_tax_lines : taxes
     fee_agreements ||--o{ fee_variations : varied_by
-    fee_agreements ||--o{ fee_milestones : scheduled
+    fee_variations ||--o{ fee_variation_tax_lines : taxes
+    fee_agreements ||--o{ fee_milestones : "payment stages"
     projects ||--o{ bills : billed
     fee_milestones |o--o{ bills : "billed via"
     bills ||--|{ bill_lines : lines
     bills ||--o{ bill_tax_lines : taxes
     bills ||--o{ credit_notes : reduced_by
+    credit_notes ||--o{ credit_note_tax_lines : taxes
     projects ||--o{ payments : receives
     payments ||--o{ payment_allocations : allocates
-    bills ||--o{ payment_allocations : settled_by
+    bills |o--o{ payment_allocations : "target (bills method)"
+    fee_milestones |o--o{ payment_allocations : "target (agreement method)"
+    fee_agreements |o--o{ payment_allocations : "target (agreement method)"
     payments |o--o| payments : reverses
+    projects ||--o{ credit_transfers : "from / to"
     projects ||--o{ refunds : refunds
     projects ||--o{ write_offs : writes_off
     projects |o--o{ expenses : incurs
     files |o--o{ expenses : receipt
+
+    projects ||--o{ project_commissions : "commission (contractor source only)"
+    referral_partners ||--o{ project_commissions : earns
+    project_commissions ||--o{ commission_adjustments : adjusted_by
+    project_commissions ||--o{ commission_payments : paid_by
+    project_commissions ||--o{ commission_status_history : tracks
+    commission_payments |o--o| commission_payments : reverses
+    files |o--o{ commission_payments : proof
 
     portfolio_projects ||--o{ portfolio_images : shows
     files ||--o{ portfolio_images : file
@@ -113,10 +122,13 @@ erDiagram
 | B. Services (2) | `service_categories`, `service_items` |
 | C. CRM (5) | `clients`, `enquiries`, `enquiry_services`, `activities`, `follow_ups` |
 | D. Projects (7) | `projects`, `project_members`, `project_services`, `project_status_history`, `site_visits`◇, `site_visit_photos`◇, `project_documents` |
-| E. Quotations (7) | `quotations`, `quotation_revisions`, `quotation_scope_items`, `quotation_fee_lines`, `quotation_tax_lines`◇, `quotation_schedule_lines`◇, `quotation_status_history` |
-| F. Finance (12) | `fee_agreements`, `fee_variations`, `fee_milestones`◇, `bills`◇, `bill_lines`◇, `bill_tax_lines`◇, `credit_notes`◇, `payments`, `payment_allocations`, `refunds`◇, `write_offs`◇, `expenses`◇ |
+| E. Quotations (7) | `quotations`, `quotation_revisions`, `quotation_scope_items`, `quotation_fee_lines`, `quotation_tax_lines`, `quotation_schedule_lines`, `quotation_status_history` |
+| F. Finance (16) [FIN] | `fee_agreements`, `fee_agreement_tax_lines`, `fee_variations`, `fee_variation_tax_lines`, `fee_milestones`, `bills`, `bill_lines`, `bill_tax_lines`, `credit_notes`, `credit_note_tax_lines`, `payments`, `payment_allocations`, `credit_transfers`◇, `refunds`◇, `write_offs`◇, `expenses` |
 | G. Portfolio (3) | `portfolio_projects`, `portfolio_project_services`, `portfolio_images` |
 | H. Website utilities (2) | `whatsapp_click_counts`, `form_submission_log` |
+| I. Partners & commission (5) | `referral_partners`, `project_commissions`[FIN], `commission_adjustments`[FIN], `commission_payments`[FIN], `commission_status_history`[FIN] |
+
+Tax-line tables are dormant until the studio is marked GST-registered (Q-F3).
 
 ---
 
@@ -124,414 +136,301 @@ erDiagram
 
 ### A. Security & system
 
-**A1 `roles`** — id · `code` VARCHAR(20) UQ (ADM/STF/ACC/SITE) · `name` · `description` ·
-`is_system` (cannot be deleted) · `is_active` · [STD] [SD]
+**A1 `roles`** — `code` VARCHAR(20) UQ · `name` · `description` · `is_system` · `is_active` · [STD] [SD].
+Seeded: **ADM, STF, SITE** (ACC removed from defaults — D-30).
 
-**A2 `permissions`** — id · `module` VARCHAR(40) · `action` VARCHAR(20) (V/C/E/D/S/A/R/X) ·
-`description`. UQ(`module`, `action`). Seeded at install; the application never edits it.
+**A2 `permissions`** — `module` VARCHAR(40) · `action` VARCHAR(20) (V/C/E/D/S/A/R/X) · `description` ·
+`is_financial` (permission can only be granted to ADM by default). UQ(`module`, `action`). Seeded.
 
-**A3 `role_permissions`** — `role_id` FK · `permission_id` FK. PK(`role_id`, `permission_id`).
+**A3 `role_permissions`** — `role_id` FK · `permission_id` FK. PK(both).
 
-**A4 `users`**
+**A4 `users`** — `role_id` FK · `full_name` · `username` UQ · `email` UQ · `mobile` · `password_hash` ·
+`must_change_password` · `is_active` · `failed_login_count` · `locked_until` · `last_login_at` ·
+`last_login_ip` · `totp_secret_enc` ◇ (Q-U3) · [STD] [SD]
 
-| Column | Notes |
-|---|---|
-| `role_id` | FK → `roles` |
-| `full_name` | |
-| `username` | UQ |
-| `email` | UQ |
-| `mobile` | |
-| `password_hash` | VARCHAR(255) |
-| `must_change_password` | |
-| `is_active` | |
-| `failed_login_count` | |
-| `locked_until` | DATETIME NULL |
-| `last_login_at`, `last_login_ip` | |
-| `totp_secret_enc` | ◇ NULL, encrypted (Q-U3) |
-| | [STD] [SD] |
+**A5 `login_attempts`** (BIGINT) — `username_tried` · `user_id` FK NULL · `ip_address` · `user_agent` ·
+`was_success` · `created_at`. IX(`ip_address`,`created_at`), IX(`username_tried`,`created_at`).
 
-**A5 `login_attempts`** (BIGINT id) — `username_tried` · `user_id` NULL · `ip_address`
-VARCHAR(45) · `user_agent` · `was_success` · `created_at`. IX on (`ip_address`,
-`created_at`) and (`username_tried`, `created_at`). Old rows are cleaned up by cron.
+**A6 `password_resets`** — `user_id` FK · `token_hash` CHAR(64) UQ · `expires_at` · `used_at` · `request_ip` · `created_at`.
 
-**A6 `password_resets`** — `user_id` FK · `token_hash` CHAR(64) UQ · `expires_at` ·
-`used_at` NULL · `request_ip` · `created_at`.
+**A7 `audit_logs`** (BIGINT) — `user_id` FK NULL · `action` · `module` · `record_type` · `record_id` ·
+`summary` · `old_values` JSON · `new_values` JSON · `ip_address` · `user_agent` · `created_at`.
+Insert-only. IX(`module`,`record_type`,`record_id`), IX(`created_at`).
 
-**A7 `audit_logs`** (BIGINT id) — exactly as `DATABASE_RULES.md` §8: `user_id` · `action` ·
-`module` · `record_type` · `record_id` · `summary` · `old_values` JSON · `new_values` JSON ·
-`ip_address` · `user_agent` · `created_at`. The application only ever inserts rows.
-IX on (`module`, `record_type`, `record_id`) and (`created_at`).
+**A8 `settings`** — `setting_key` UQ · `setting_value` TEXT · `value_type` · `setting_group`
+(studio, letterhead, numbering, finance, gst, website, security, features) · `is_financial` ·
+`review_status` NULL (website blocks: draft / pending_client_review / approved — W-16) ·
+`reviewed_at`, `reviewed_by` · `updated_at`, `updated_by`.
+- Studio: name, address (spelling Q-W3), phone 1, phone 2, WhatsApp number (Q-W4), email, Instagram.
+- Finance [FIN]: `default_billing_method` (agreement / bills — D-26), `rounding_mode`, `lock_date`.
+- GST [FIN] (dormant until Q-F3): `gst_registered` (default **No**), `gstin`, `gst_state_code`,
+  `default_sac`, default tax lines (JSON), `apply_gst_by_default` (default **No**).
+- Features: on/off for every ◇ feature, `show_demo_services_publicly` (default **No**, Q-S5),
+  `staff_quotation_scope_drafting` (default **No**, Q-U4), `staff_expense_claims` (default **No**, Q-U4).
+- Website content blocks, SEO defaults, session timeouts.
 
-**A8 `settings`** — `setting_key` VARCHAR(80) UQ · `setting_value` TEXT · `value_type`
-(string/int/bool/json/money) · `setting_group` (studio, letterhead, numbering, tax, website,
-security, finance) · `updated_at` · `updated_by`.
-- Holds: the studio profile, letterhead text, website content blocks, SEO defaults,
-  `billing_mode` (Q-F1), `tax_enabled`, `rounding_mode`, `lock_date`, the on/off switch for
-  each optional feature, session timeouts, and the WhatsApp number.
+**A9 `number_sequences`** — `seq_key` UQ (enquiry, project, quotation, bill, credit_note, receipt,
+refund, expense, write_off, credit_transfer, commission_payment) · `format` · `reset_period`
+(never/year/fy) · `current_period` · `last_number`. Locked in the same transaction as the document.
+Formats: D-28 (PROPOSED).
 
-**A9 `number_sequences`** — `seq_key` UQ (enquiry, project, quotation, bill, credit_note,
-receipt, refund, expense) · `format` VARCHAR(60) · `reset_period` (never/year/fy) ·
-`current_period` VARCHAR(10) · `last_number` INT.
-- The row is locked while a number is taken, inside the same transaction as the document
-  that uses it (`DATABASE_RULES.md` §6).
+**A10 `lookups`** — `list_type` · `code` · `label` · `sort_order` · `is_active` · `is_system` ·
+`is_financial` (used by `document_category`) · [STD] [SD]. UQ(`list_type`, `code`).
+List types: `enquiry_source` (incl. contractor, referral), `project_type`, `payment_mode`,
+`expense_category`, `document_category`, `site_visit_stage`, `area_unit`, `lost_reason`,
+`close_reason`, `reversal_reason`, `portfolio_category`, `partner_type`, `commission_cancel_reason`.
 
-**A10 `lookups`** (D-06) — `list_type` VARCHAR(30) · `code` VARCHAR(40) · `label` ·
-`sort_order` · `is_active` · `is_system` (cannot be deleted) · [STD] [SD].
-UQ(`list_type`, `code`).
-- **List types:** `enquiry_source`, `project_type`, `payment_mode`, `expense_category`,
-  `document_category`, `site_visit_stage`, `area_unit`, `lost_reason`, `close_reason`,
-  `reversal_reason`, `portfolio_category`.
-- **Starting values** that come from the sample quotation are flagged so they can be checked
-  later.
+**A11 `files`** — `storage_area` (public / private) · `relative_path` · `stored_name` UQ ·
+`original_name` · `mime_type` · `size_bytes` · `sha256` · `width`, `height` NULL ·
+**`owner_type`** (project_document / site_visit_photo / expense / commission_payment /
+portfolio_image / portfolio_public_copy / consent_record) · **`owner_id`** · **`is_financial`** ·
+`uploaded_by`, `created_at`. IX(`owner_type`,`owner_id`). The download route resolves the owner
+and its permission (D-34).
 
-**A11 `files`**
-
-| Column | Notes |
-|---|---|
-| `storage_area` | `public` or `private` |
-| `relative_path` | |
-| `stored_name` | CHAR(32) + extension, UQ |
-| `original_name` | |
-| `mime_type` | |
-| `size_bytes` | |
-| `sha256` | CHAR(64) |
-| `width`, `height` | NULL; images only |
-| `uploaded_by`, `created_at` | |
-
-`DATABASE_RULES.md` §9 applies. There is no soft delete; a file is unlinked through its
-owning record.
-
-### B. Services
+### B. Services [CLIENT-DECISION: Admin manages; demo initially]
 
 **B1 `service_categories`** — `name` · `slug` UQ · `description` · `website_title` ·
-`website_description` · `show_on_website` · `sort_order` · `is_active` · `is_reference_seed`
-(from the sample, not yet confirmed — Q-S1) · [STD] [SD]
+`website_description` · `show_on_website` · `sort_order` · `is_active` ·
+**`content_origin`** (reference / demo / client_confirmed) · [STD] [SD]
 
-**B2 `service_items`** — `service_category_id` FK · `name` · `default_description` ·
-`default_unit` (lump sum / sq.ft / sq.m / per visit / per room / per sheet) ·
-`default_rate` RATE NULL · `show_on_website` · `sort_order` · `is_active` ·
-`is_reference_seed` · [STD] [SD]
+**B2 `service_items`** — `service_category_id` FK · `name` · `default_description` · `default_unit`
+(lookup or fixed list) · `default_rate` RATE NULL [FIN] · `show_on_website` · `sort_order` ·
+`is_active` · `content_origin` · [STD] [SD]
+
+Public display: active, not deleted, `show_on_website` = 1, and (`content_origin` ≠ demo **or**
+`show_demo_services_publicly` = Yes).
 
 ### C. CRM
 
-**C1 `clients`**
+**C1 `clients`** — `client_type` · `name` IX · `contact_person` · `mobile` IX · `alt_mobile` · `email` IX ·
+`address`, `city`, `state`, **`state_code`** (GST place of supply), `pin` · `gstin` NULL [FIN] ·
+`notes` · `is_active` · [STD] [SD]. Deactivated, not deleted, when financial rows exist.
 
-| Column | Notes |
-|---|---|
-| `client_type` | individual / company / trust / institution |
-| `name` | IX |
-| `contact_person` | |
-| `mobile` | IX |
-| `alt_mobile` | |
-| `email` | IX |
-| `address`, `city`, `pin` | |
-| `gstin` | NULL (Q-F3) |
-| `notes`, `is_active` | |
-| | [STD] [SD] |
+**C2 `enquiries`** — `enquiry_no` UQ · `enquiry_date` · `source_id` lookup FK ·
+**`referral_partner_id`** FK NULL (required when source is contractor/referral) ·
+`name`, `mobile`, `email` · `location` · `project_type_id` lookup FK NULL · `approx_area` AREA NULL ·
+`area_unit_id` lookup FK NULL · `budget_text` NULL · `message` · `preferred_contact` · `consent_at` ·
+`assigned_to` FK NULL · `status` IX · `lost_reason_id`, `close_reason_id`, `status_note` ·
+`next_follow_up_at` IX · `client_id` FK NULL · `project_id` FK NULL · `duplicate_of_id` FK NULL ·
+`is_website` · `submitter_ip_hash` · [STD] [SD]
 
-Cannot be soft-deleted if any project of this client has a financial record.
+**C3 `enquiry_services`** — `enquiry_id` FK · `service_category_id` FK. PK(both).
 
-**C2 `enquiries`**
+**C4 `activities`** — `enquiry_id` · `client_id` · `project_id` · `quotation_id` (FK NULL; at least
+one) · `activity_type` (note / call / meeting / site_visit / status_change / email) · `activity_at` ·
+`summary` · `created_by` · `created_at`. Insert-only. **System-generated text never contains
+amounts**; financial events go to `audit_logs` only (PM-16).
 
-| Column | Notes |
-|---|---|
-| `enquiry_no` | UQ |
-| `enquiry_date` | |
-| `source_id` | lookup FK |
-| `name`, `mobile`, `email` | |
-| `location` | |
-| `project_type_id` | lookup FK, NULL |
-| `approx_area` | AREA NULL |
-| `area_unit` | |
-| `budget_text` | NULL |
-| `message` | TEXT |
-| `preferred_contact` | phone/whatsapp/email |
-| `consent_at` | DATETIME NULL |
-| `assigned_to` | FK → `users`, NULL |
-| `status` | IX |
-| `lost_reason_id`, `close_reason_id`, `status_note` | |
-| `next_follow_up_at` | IX |
-| `client_id` | FK NULL |
-| `project_id` | FK NULL |
-| `duplicate_of_id` | FK → `enquiries`, NULL |
-| `is_website` | |
-| `submitter_ip_hash` | CHAR(64) NULL |
-| | [STD] [SD] |
-
-**C3 `enquiry_services`** — `enquiry_id` FK · `service_category_id` FK.
-PK(`enquiry_id`, `service_category_id`).
-
-**C4 `activities`** — `enquiry_id` · `client_id` · `project_id` · `quotation_id` (all FK, NULL;
-at least one must be set — checked by the application) · `activity_type` (note / call /
-meeting / site_visit / status_change / email) · `activity_at` · `summary` TEXT ·
-`created_by` · `created_at`. Rows are only ever added.
-
-**C5 `follow_ups`** — `enquiry_id` · `project_id` · `quotation_id` · `bill_id` (FK, NULL; at
-least one must be set) · `due_at` IX · `assigned_to` FK · `note` · `outcome` NULL ·
-`done_at` NULL · `done_by` NULL · [STD] [SD]
+**C5 `follow_ups`** — `enquiry_id` · `project_id` · `quotation_id` · `bill_id` ·
+`project_commission_id` (FK NULL; at least one) · `is_financial` (set automatically when linked to a
+bill, payment or commission — ADM only) · `due_at` IX · `assigned_to` FK · `note` · `outcome` ·
+`done_at` · `done_by` · [STD] [SD]
 
 ### D. Projects
 
-**D1 `projects`**
+**D1 `projects`** — `project_code` UQ · `name` · `client_id` FK · `enquiry_id` FK NULL ·
+`project_type_id` lookup FK · `site_address`, `city` · `plot_area`, `built_up_area` AREA NULL ·
+`area_unit_id` lookup FK · `floors` · `start_date` · `expected_completion` · `status` IX ·
+**`source_type`** (direct / contractor — required; a separate "referral" value PENDING Q-C2) ·
+**`referral_partner_id`** FK NULL (required when contractor; must be NULL when direct) ·
+**`billing_method`** [FIN] (agreement / bills; default from settings; ADM may change while the
+project has no issued bill — D-26) · `notes` · [STD] [SD]
 
-| Column | Notes |
-|---|---|
-| `project_code` | UQ |
-| `name` | |
-| `client_id` | FK |
-| `enquiry_id` | FK NULL |
-| `project_type_id` | lookup FK |
-| `site_address`, `city` | |
-| `plot_area` | AREA NULL |
-| `built_up_area` | AREA NULL |
-| `area_unit` | |
-| `floors` | TINYINT NULL |
-| `start_date` | NULL |
-| `expected_completion` | NULL |
-| `status` | IX |
-| `notes` | |
-| | [STD] [SD] |
+**D2 `project_members`** — `project_id` FK · `user_id` FK · `role_on_project`. PK(both). Drives SITE access.
 
-**D2 `project_members`** — `project_id` FK · `user_id` FK · `role_on_project` VARCHAR(40).
-PK(`project_id`, `user_id`). Used for the SITE role's record-level access.
+**D3 `project_services`** — `project_id` FK · `service_category_id` FK. PK(both).
 
-**D3 `project_services`** — `project_id` FK · `service_category_id` FK. PK on both.
+**D4 `project_status_history`** — `project_id` FK · `from_status` · `to_status` · `remark` · `changed_by` · `changed_at`.
 
-**D4 `project_status_history`** — `project_id` FK · `from_status` · `to_status` · `remark` ·
-`changed_by` · `changed_at`.
+**D5 `site_visits`** ◇ (Q-P3) — `project_id` FK · `visit_date` · `stage_id` lookup FK · `visited_by` FK ·
+`observations` · `is_chargeable` ◇ · [STD] [SD]. (The link to a bill line is stored **only** on
+`bill_lines.site_visit_id` — DB-12.)
 
-**D5 `site_visits`** ◇ (Q-P3) — `project_id` FK · `visit_date` · `stage_id` lookup FK ·
-`visited_by` FK → `users` · `observations` TEXT · `is_chargeable` ◇ ·
-`bill_line_id` FK NULL ◇ · [STD] [SD]
+**D6 `site_visit_photos`** ◇ — `site_visit_id` FK · `file_id` FK (private) · `caption` · `sort_order`.
 
-**D6 `site_visit_photos`** ◇ — `site_visit_id` FK · `file_id` FK (private) · `caption` ·
-`sort_order`.
+**D7 `project_documents`** — `project_id` FK · `category_id` lookup FK (`is_financial` from the
+lookup) · `title` · `version_label` · `document_date` · `file_id` FK (private) · `supersedes_id` FK NULL ·
+`notes` · [STD] [SD]
 
-**D7 `project_documents`** — `project_id` FK · `category_id` lookup FK · `title` ·
-`version_label` · `document_date` · `file_id` FK (private) · `supersedes_id` FK →
-`project_documents`, NULL · `notes` · [STD] [SD]
+### E. Quotations [FIN for all amounts, rates and decisions]
 
-### E. Quotations
+**E1 `quotations`** — `quotation_no` UQ NULL (taken on first send — D-28) · `enquiry_id`,
+`project_id`, `client_id` (FK NULL; enquiry or project required) · `current_revision_id` FK NULL ·
+`accepted_revision_id` FK NULL · [STD]. Status is **derived** from the current revision (DB-14).
+No soft delete; Cancelled is used.
 
-**E1 `quotations`**
+**E2 `quotation_revisions`** — UQ(`quotation_id`, `revision_no`) · `revision_date` · `valid_until` ·
+`status` (Draft / Sent / Accepted / Rejected / Expired / Cancelled / Superseded) · `subject` ·
+`intro_text` · `site_location` · `area` · `area_basis` (Q-Q3) · `area_unit_id` · `subtotal` ·
+`discount_type`, `discount_value`, `discount_amount` · **`gst_applicable`** (default from settings,
+**No** unless changed) · `place_of_supply_state_code` · `taxable_amount` · `tax_amount` ·
+`rounding_mode`, `rounding_amount` · `grand_total` · `amount_in_words` · `terms_text`,
+`exclusions_text`, `bank_details_text` · `show_*` flags · `letterhead_snapshot` JSON ·
+`sent_at`, `sent_by` · `approved_at`, `approved_by` ◇ · `decided_at`, `decided_by`, `decision_remark` · [STD]
+Frozen once status ≠ Draft.
 
-| Column | Notes |
-|---|---|
-| `quotation_no` | UQ |
-| `enquiry_id`, `project_id`, `client_id` | FK, NULL; enquiry or project required |
-| `current_revision_no` | |
-| `status` | IX — mirrors the current revision |
-| `accepted_revision_id` | FK NULL |
-| | [STD] — no soft delete; the Cancelled status is used instead |
+**E3 `quotation_scope_items`** — `revision_id` FK · `section_title` · `item_text` · `service_category_id`
+NULL · `service_item_id` NULL · `inclusion` · `sort_order`. (Non-financial; may be drafted by STF
+only if Q-U4 allows.)
 
-**E2 `quotation_revisions`** — UQ(`quotation_id`, `revision_no`)
+**E4 `quotation_fee_lines`** — `revision_id` FK · `line_type` (area / area_category / fixed / item /
+custom) · `description` · `service_category_id` NULL · `quantity` · `unit` · `area` · `rate` · `amount` · `sort_order`.
 
-| Column | Notes |
-|---|---|
-| `quotation_id` | FK |
-| `revision_no` | |
-| `revision_date` | |
-| `valid_until` | NULL |
-| `status` | |
-| `subject`, `intro_text` | |
-| `site_location` | |
-| `area` | AREA NULL |
-| `area_basis` | built-up / carpet / plot / all-floors / other (Q-Q3) |
-| `area_unit` | |
-| `subtotal` | MONEY |
-| `discount_type` | none/amount/percent |
-| `discount_value` | |
-| `discount_amount` | MONEY |
-| `taxable_amount` | MONEY |
-| `tax_amount` | MONEY |
-| `rounding_mode` | |
-| `rounding_amount` | MONEY |
-| `grand_total` | MONEY |
-| `amount_in_words` | |
-| `terms_text`, `exclusions_text`, `bank_details_text` | |
-| `show_*` | on/off flags, one per optional block |
-| `letterhead_snapshot` | JSON — the studio details as printed |
-| `sent_at`, `sent_by` | |
-| `approved_at`, `approved_by` | ◇ |
-| `decided_at`, `decided_by`, `decision_remark` | |
-| | [STD] |
+**E5 `quotation_tax_lines`** — `revision_id` FK · `tax_name` · `sac_code` · `rate_pct` · `amount`.
 
-The application blocks any change once `status` ≠ Draft.
+**E6 `quotation_schedule_lines`** — `revision_id` FK · `stage_name` · `percent` NULL · `amount` ·
+`trigger_text` · `sort_order`. Basis (incl./excl. GST) PENDING Q-F2.
 
-**E3 `quotation_scope_items`** — `revision_id` FK · `section_title` · `item_text` ·
-`service_category_id` NULL · `service_item_id` NULL · `inclusion`
-(included/optional/excluded) · `sort_order`.
+**E7 `quotation_status_history`** — `quotation_id` FK · `revision_id` FK · `from_status` · `to_status` ·
+`remark` · `changed_by` · `changed_at`.
 
-**E4 `quotation_fee_lines`** — `revision_id` FK · `line_type` (area / area_category / fixed /
-item / custom) · `description` · `service_category_id` NULL · `quantity` QTY NULL · `unit` ·
-`area` AREA NULL · `rate` RATE NULL · `amount` MONEY · `sort_order`.
+### F. Finance [FIN — every table ADM only]
+Every posted row is permanent; corrections by reversal, cancellation, credit note or variation.
 
-**E5 `quotation_tax_lines`** ◇ — `revision_id` FK · `tax_name` · `sac_code` NULL ·
-`rate_pct` PCT · `amount` MONEY.
+**F1 `fee_agreements`** — `project_id` FK · `quotation_revision_id` FK NULL · `agreement_date` ·
+`gst_applicable` · `place_of_supply_state_code` · `taxable_amount` · `tax_amount` · `original_total` ·
+`manual_reason` NULL · `status` (active / closed / cancelled) · `cancel_reason` · [STD].
+**One active agreement per project** (application rule; no plain UQ on `project_id` — DB-08).
+Optional: projects may have **no** agreement (ad-hoc bills — D-26).
 
-**E6 `quotation_schedule_lines`** ◇ — `revision_id` FK · `stage_name` · `percent` PCT NULL ·
-`amount` MONEY · `trigger_text` · `sort_order`.
+**F2 `fee_agreement_tax_lines`** — `fee_agreement_id` FK · `tax_name` · `sac_code` · `rate_pct` · `amount`.
 
-**E7 `quotation_status_history`** — `quotation_id` FK · `revision_id` FK · `from_status` ·
-`to_status` · `remark` · `changed_by` · `changed_at`.
+**F3 `fee_variations`** — `fee_agreement_id` FK · `variation_date` · `gst_applicable` ·
+`taxable_amount` (signed) · `tax_amount` (signed) · `total` (signed) · `reason` ·
+`quotation_revision_id` NULL · `approved_by` (ADM) · [STD]
 
-### F. Finance
-Every row is permanent. Corrections use `reverses_id`, cancellation or a credit note
-(`WORKFLOWS.md` B).
+**F4 `fee_variation_tax_lines`** — `fee_variation_id` FK · `tax_name` · `sac_code` · `rate_pct` · `amount` (signed).
 
-**F1 `fee_agreements`**
+**F5 `fee_milestones`** (payment stages — core capability, used per project) — `fee_agreement_id` FK ·
+`stage_name` · `percent` NULL · `amount` · `trigger_text` · `due_date` NULL · `sort_order` · [STD].
+Editable until billed or paid.
 
-| Column | Notes |
-|---|---|
-| `project_id` | FK, UQ (one per project — PROPOSED) |
-| `quotation_revision_id` | FK NULL |
-| `agreement_date` | |
-| `base_amount` | MONEY |
-| `tax_amount` | MONEY |
-| `original_total` | MONEY |
-| `manual_reason` | NULL |
-| `status` | active / closed / cancelled |
-| | [STD] |
+**F6 `bills`** — `bill_no` UQ NULL while Draft · `bill_type` (demand_note / tax_invoice — tax_invoice
+only when GST-registered) · `project_id`, `client_id` FK (client must equal the project's client) ·
+`fee_agreement_id` FK NULL (ad-hoc bill allowed) · `fee_milestone_id` FK NULL · `bill_date`,
+`due_date` · `status` (Draft / Issued / Cancelled; Partly paid / Paid calculated) · `subtotal`,
+`discount_amount`, `gst_applicable`, `place_of_supply_state_code`, `taxable_amount`, `tax_amount`,
+`rounding_amount`, `grand_total` · `client_snapshot` JSON · `notes` · `issued_at/by` ·
+`cancelled_at/by`, `cancel_reason` · [STD]. Allowed only on bills-method projects.
 
-**F2 `fee_variations`** — `fee_agreement_id` FK · `variation_date` · `amount` (signed MONEY)
-· `reason` · `quotation_revision_id` NULL · `approved_by` · [STD]
+**F7 `bill_lines`** — `bill_id` FK · `line_type` · `description` · `quantity` · `unit` · `rate` · `amount` ·
+`site_visit_id` FK NULL UQ · `expense_id` FK NULL UQ · `sort_order`.
 
-**F3 `fee_milestones`** ◇ — `fee_agreement_id` FK · `stage_name` · `percent` NULL ·
-`amount` MONEY · `trigger_text` · `due_date` NULL · `sort_order` · [STD]
+**F8 `bill_tax_lines`** — `bill_id` FK · `tax_name` · `sac_code` · `rate_pct` · `amount`.
 
-**F4 `bills`** ◇
+**F9 `credit_notes`** — `credit_note_no` UQ · `bill_id` FK · `note_date` · `taxable_amount` ·
+`tax_amount` · `total` · `reason` · `status` (issued / cancelled) · `issued_by/at` · `cancelled_by/at` · [STD].
+Limit: total ≤ bill grand total − earlier credit notes − write-offs on the bill (WF-08).
 
-| Column | Notes |
-|---|---|
-| `bill_no` | UQ, NULL while Draft |
-| `bill_type` | demand_note / tax_invoice (Q-F3) |
-| `project_id`, `client_id` | FK |
-| `fee_milestone_id` | NULL |
-| `bill_date`, `due_date` | |
-| `status` | Draft / Issued / Cancelled; "partly paid" and "paid" are calculated |
-| `subtotal`, `discount_amount`, `taxable_amount`, `tax_amount`, `rounding_amount`, `grand_total` | MONEY |
-| `client_snapshot` | JSON |
-| `notes` | |
-| `issued_at`, `issued_by` | |
-| `cancelled_at`, `cancelled_by`, `cancel_reason` | |
-| | [STD] |
+**F10 `credit_note_tax_lines`** — `credit_note_id` FK · `tax_name` · `sac_code` · `rate_pct` · `amount`.
 
-**F5 `bill_lines`** ◇ — `bill_id` FK · `line_type` · `description` · `quantity` · `unit` ·
-`rate` · `amount` · `site_visit_id` NULL · `expense_id` NULL · `sort_order`.
+**F11 `payments`** — `receipt_no` UQ · `entry_type` (payment / reversal) · `payment_date` IX ·
+`client_id` FK · `project_id` FK (NULL with `enquiry_id` only if Q-F12 allows pre-project advances) ·
+`enquiry_id` FK NULL · `amount` (signed; any positive amount accepted — partial payments always
+allowed) · `mode_id` lookup FK · `reference_no` · `bank_name` · `notes` · `reverses_id` FK NULL UQ ·
+`reversal_reason_id`, `reversal_note` · [STD]
 
-**F6 `bill_tax_lines`** ◇ — the same columns as E5, with `bill_id`.
+**F12 `payment_allocations`** — `payment_id` FK · **XOR(`bill_id`, `fee_milestone_id`,
+`fee_agreement_id`)** (D-29) · `amount` (signed) · `allocation_date` · `reverses_id` FK NULL ·
+`reason` · [STD].
+- Bills-method project → target is a bill. Agreement-method project → target is a stage or the agreement.
+- The target must belong to the payment's project.
 
-**F7 `credit_notes`** ◇ — `credit_note_no` UQ · `bill_id` FK · `note_date` · `amount` ·
-`tax_amount` · `total` · `reason` · `status` (issued / cancelled) · `issued_by/at` ·
-`cancelled_by/at` · [STD]
+**F13 `credit_transfers`** ◇ (Q-F11) — `transfer_no` UQ · `transfer_date` · `client_id` FK ·
+`from_project_id` FK · `to_project_id` FK (same client) · `amount` (signed) · `reason` ·
+`approved_by` (ADM) · `reverses_id` FK NULL · [STD]
 
-**F8 `payments`**
+**F14 `refunds`** ◇ (Q-F9) — `refund_no` UQ · `refund_date` · `client_id` FK · `project_id` FK ·
+`amount` (signed) · `mode_id` · `reference_no` · `reason` · `approved_by` (ADM) · `reverses_id` FK NULL · [STD]
 
-| Column | Notes |
-|---|---|
-| `receipt_no` | UQ |
-| `entry_type` | payment / reversal |
-| `payment_date` | IX |
-| `client_id`, `project_id` | FK |
-| `amount` | signed MONEY |
-| `mode_id` | lookup FK |
-| `reference_no`, `bank_name`, `notes` | |
-| `reverses_id` | FK → `payments`, NULL, UQ (a payment can be reversed only once) |
-| `reversal_reason_id`, `reversal_note` | |
-| | [STD] |
+**F15 `write_offs`** ◇ (Q-F10) — `write_off_no` UQ · `project_id` FK · XOR(`bill_id`, `fee_agreement_id`) ·
+`write_off_date` · `amount` (signed) · `reason` · `approved_by` (ADM) · `reverses_id` FK NULL · [STD]
 
-**F9 `payment_allocations`** — `payment_id` FK · `bill_id` FK NULL · `fee_milestone_id` FK
-NULL · `amount` (signed MONEY) · `allocation_date` · `reverses_id` FK NULL · `reason` NULL ·
-[STD]
+**F16 `expenses`** (ADM; staff claims ◇ Q-U4) — `expense_no` UQ · `expense_date` IX · `category_id`
+lookup FK · `project_id` FK NULL (overhead) · `paid_to` · `amount` (signed) · `mode_id` ·
+`reference_no` · `file_id` FK NULL (private, financial) · `is_reimbursable` ◇ · `claim_status` ◇
+(submitted / approved / rejected) · `notes` · `reverses_id` FK NULL · `reversal_reason` · [STD]
 
-**F10 `refunds`** ◇ (Q-F9) — `refund_no` UQ · `refund_date` · `client_id` · `project_id` ·
-`amount` (signed) · `mode_id` · `reference_no` · `reason` · `approved_by` · `reverses_id` ·
-[STD]
+### G. Portfolio [CLIENT-DECISION: major projects, removal, no private info]
 
-**F11 `write_offs`** ◇ (D-13) — `project_id` · `bill_id` NULL · `fee_agreement_id` NULL ·
-`write_off_date` · `amount` (signed) · `reason` · `approved_by` · `reverses_id` · [STD]
+**G1 `portfolio_projects`** — `project_id` FK NULL · `title` · `slug` UQ · `previous_slugs` JSON
+(301 redirects) · `category_id` lookup FK · `location_text` (city level) · `short_description` ·
+`long_description` · `completion_year` · `area`, `area_unit_id`, `show_area` (off) ·
+`cover_image_id` FK NULL (set after images exist — DB-18) · `is_featured` (home page) ·
+**`is_highlighted`** (major project) · **`display_priority`** INT · **`content_review_status`**
+(draft / pending_client_review / approved) · `is_published` IX · `published_at/by` ·
+**`unpublished_at`, `unpublished_by`, `unpublish_reason`** · `consent_confirmed` · `consent_note` ·
+`consent_file_id` FK NULL (private) · `consent_confirmed_by/at` · `seo_title`, `seo_description` · [STD] [SD]
 
-**F12 `expenses`** ◇ (Q-F8)
+**G2 `portfolio_project_services`** — `portfolio_project_id` FK · `service_category_id` FK. PK(both).
 
-| Column | Notes |
-|---|---|
-| `expense_no` | UQ |
-| `expense_date` | IX |
-| `category_id` | lookup FK |
-| `project_id` | NULL — blank means office overhead |
-| `paid_to` | |
-| `amount` | signed MONEY |
-| `mode_id` | |
-| `reference_no` | |
-| `file_id` | NULL — attached bill |
-| `is_reimbursable` | ◇ |
-| `notes` | |
-| `reverses_id`, `reversal_reason` | |
-| | [STD] |
-
-### G. Portfolio
-
-**G1 `portfolio_projects`**
-
-| Column | Notes |
-|---|---|
-| `project_id` | FK NULL — the internal project it comes from |
-| `title` | |
-| `slug` | UQ |
-| `category_id` | lookup `portfolio_category` |
-| `location_text` | city level only |
-| `short_description` | |
-| `long_description` | sanitised rich text |
-| `completion_year` | NULL |
-| `area`, `area_unit`, `show_area` | `show_area` is off by default |
-| `cover_image_id` | FK → `portfolio_images`, NULL |
-| `is_featured` | |
-| `is_published` | IX |
-| `published_at`, `published_by` | |
-| `consent_confirmed` | ◇ (Q-W5) |
-| `consent_note` | |
-| `consent_confirmed_by/at` | |
-| `seo_title`, `seo_description` | |
-| `sort_order` | |
-| | [STD] [SD] |
-
-**G2 `portfolio_project_services`** — `portfolio_project_id` FK · `service_category_id` FK.
-
-**G3 `portfolio_images`** — `portfolio_project_id` FK · `file_id` FK (public; resized
-versions are found by naming convention) · `alt_text` (required) · `caption` ·
-`show_in_gallery` (R-02) · `sort_order` · [STD] [SD]
+**G3 `portfolio_images`** — `portfolio_project_id` FK · `file_id` FK (**private original**) ·
+`public_file_id` FK NULL (web versions, created on publish, removed on unpublish/remove — D-31) ·
+`alt_text` (required) · `caption` · `show_in_gallery` (R-02) · `sort_order` · [STD] [SD]
 
 ### H. Website utilities
 
-**H1 `whatsapp_click_counts`** — `click_date` · `page_key` · `click_count` INT.
-PK(`click_date`, `page_key`). No personal data (C-05).
+**H1 `whatsapp_click_counts`** — `click_date` · `page_key` · `click_count`. PK(both). No personal data (C-05).
 
-**H2 `form_submission_log`** (BIGINT id) — `form_key` · `ip_hash` CHAR(64) ·
-`created_at` IX. Used for rate limiting. Rows are deleted after 7 days (PROPOSED).
+**H2 `form_submission_log`** (BIGINT) — `form_key` · `ip_hash` · `created_at` IX. Deleted after 7 days.
+
+### I. Partners & commission [CLIENT-DECISION; FIN — ADM only except partner contact data per Q-C5]
+
+**I1 `referral_partners`** — `partner_type_id` lookup FK (contractor / referral / other) · `name` IX ·
+`firm_name` · `mobile` IX · `alt_mobile` · `email` · `address` · `city` · `notes` · `is_active` ·
+[FIN] `bank_details_enc` NULL · [FIN] `pan_enc` NULL (only if Q-C4 requires) ·
+[FIN] `default_commission_type` NULL · [FIN] `default_commission_value` NULL (suggestion only,
+never applied automatically) · [STD] [SD]. Cannot be deactivated while commission is outstanding.
+
+**I2 `project_commissions`** — `project_id` FK · `referral_partner_id` FK (must equal the project's
+partner) · `is_applicable` (Y/N — set by ADM, never defaulted to Y) · `commission_type`
+(percentage / fixed) · XOR(`rate_pct` PCT, `fixed_amount` MONEY) matching the type · `base_type`
+(PENDING Q-C3: agreed fee excl. GST / amounts received / other) · `base_amount` MONEY (snapshot
+at approval) · `commission_amount` MONEY (calculated and stored) · `status` (Draft / Pending
+approval / Approved / Rejected / Cancelled; "Not applicable" when `is_applicable` = N) ·
+`approved_by`, `approved_at`, `approval_remark` · `cancelled_by`, `cancelled_at`, `cancel_reason_id`,
+`cancel_note` · `remarks` · [STD].
+UQ(`project_id`, `referral_partner_id`) — several partners per project PENDING Q-C1.
+Allowed only when the project's `source_type` = contractor. Immutable after approval except status.
+
+**I3 `commission_adjustments`** — `project_commission_id` FK · `adjustment_date` · `amount` (signed) ·
+`reason` · `approved_by` (ADM) · [STD]
+
+**I4 `commission_payments`** — `payment_no` UQ · `project_commission_id` FK · `payment_date` IX ·
+`amount` (signed; partial allowed) · `mode_id` lookup FK · `reference_no` · `tds_amount` NULL
+(PENDING Q-C4) · `proof_file_id` FK NULL (private, financial) · `notes` · `reverses_id` FK NULL UQ ·
+`reversal_reason_id`, `reversal_note` · [STD]. Allowed only when the commission is Approved.
+
+**I5 `commission_status_history`** — `project_commission_id` FK · `from_status` · `to_status` ·
+`remark` (mandatory for approve/reject/cancel) · `changed_by` · `changed_at`.
 
 ---
 
-## 4. Integrity rules the application must enforce
-(Enforced in PHP. Database triggers are optional — D-15.)
+## 4. Integrity and calculation rules (application-enforced; tested in `WORKFLOWS.md` B.12 / C.6)
 
-1. Posted or issued financial rows are never updated, except for status and cancellation
-   fields.
-2. `payments.amount`, `refunds.amount`, `expenses.amount` and `write_offs.amount` are
-   negative **only** when `reverses_id` is set, and then equal to minus the original amount.
-3. Total allocations per payment ≤ the payment amount. Total allocations per bill ≤ the bill's
-   grand total − its credit notes.
-4. One active fee agreement per project. One accepted revision per quotation.
-5. Quotation revisions are frozen once their status ≠ Draft.
-6. Every financial write and every number taken from a sequence happen in the same
-   transaction.
-7. Nothing is soft-deleted if financial rows refer to it; it is deactivated instead.
+1. Posted, issued or approved financial rows are never updated except status/cancellation fields.
+2. Amounts are negative only on reversal or adjustment rows; a reversal equals minus the original.
+3. **Allocations:** XOR target (F12); target belongs to the payment's project; Σ net allocations
+   of a payment ≤ payment amount; Σ net allocations to a bill ≤ bill total − credit notes −
+   write-offs; to a stage ≤ stage amount; to an agreement ≤ current agreed total.
+4. **One active fee agreement per project; one accepted revision per quotation.**
+5. Quotation revisions frozen once status ≠ Draft.
+6. Every financial write and its sequence number in one transaction.
+7. Records referenced by financial or commission rows are deactivated, not soft-deleted.
+8. Bill and payment `client_id` equals the project's client.
+9. Bills only on bills-method projects; a project's billing method changes only while it has no issued bill.
+10. **Commission:** only on contractor-source projects; `is_applicable` must be set explicitly by ADM;
+    payments only when Approved; Σ net commission payments ≤ commission amount + Σ adjustments.
+11. GST lines only when the studio is GST-registered and the document's `gst_applicable` = Yes.
+12. **Balances (per project)** — formulas in `WORKFLOWS.md` B.4; all include write-offs and refunds.
 
 ## 5. Indexing and volume
-- Expected size: a 1–5 user studio, a few thousand rows per year (ASSUMPTION A1). Every
-  linking, status and date column is indexed (`DATABASE_RULES.md` §2).
-- Full-text search is not planned; `LIKE` searches on name, mobile and code are enough.
+Expected 1–5 users, a few thousand rows per year (A1). Every FK, status and report date column is
+indexed. `LIKE` search on name, mobile and codes is enough.
 
-## 6. Decisions affecting this design — PENDING APPROVAL
-D-06 generic lookups · D-07 status handling · D-15 database triggers · D-04 separate
-database logins · Q-F1 billing mode · Q-F3 tax · Q-F9 refunds · D-13 write-offs ·
-Q-P3 site visits · Q-W5 consent · Q-W8 Marathi (would add translated text columns).
+## 6. Decisions affecting this design — PENDING
+D-04 database logins · D-06 lookups · D-07 statuses · D-15 triggers · D-26 billing method ·
+D-27 GST structure · D-28 numbering · D-29 allocation rule · D-30 roles · D-31 portfolio storage ·
+D-32 commission model · D-34 file access · Q-C1…Q-C6 commission rules · Q-F3 GST · Q-F9 refunds ·
+Q-F10 write-offs · Q-F11 credit transfer · Q-F12 pre-project advances · Q-P3 site visits ·
+Q-S5 demo services in public · Q-U4 staff drafting/claims · Q-W5 consent · Q-W8 Marathi.
