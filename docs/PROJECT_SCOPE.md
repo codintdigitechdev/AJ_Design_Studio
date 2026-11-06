@@ -13,7 +13,7 @@ Version: 0.2 (corrected 2026-11-06) – **not approved**. Tags: `CLAUDE.md` §3.
   Instagram (address spelling and WhatsApp number: Q-W3, Q-W4).
 - **[CONFIRMED-REF]** Reference work categories from the sample quotation.
 - **[BRIEF]** The sample quotation is a dummy, not the final template or pricing policy.
-- **[CLIENT-DECISION]** CD-01…CD-26 (`docs/CLIENT_QUESTIONS.md` §0).
+- **[CLIENT-DECISION]** CD-01…CD-30 (`docs/CLIENT_QUESTIONS.md` §0).
 
 ## 2. In scope (design PROPOSED, subject to approval)
 
@@ -46,9 +46,11 @@ installation on XAMPP and cPanel, fictitious sample data.
 - Historical data migration (unless supplied as spreadsheets — Q-G10).
 - Any use of `reference/portfolio/Senior office profile.pdf` content (another architect's work) on the website.
 
-## 4. Assumptions [ASSUMPTION]
-- Small team (1–5 ERP users); single office.
-- INR only; Indian number format; DD/MM/YYYY; FY April–March.
+## 4. Assumptions and validated items
+- **[CLIENT-DECISION]** INR only (CD-27); single office for now (CD-28); Ar. Ajit Kumbhar is owner and
+  main Admin user (CD-29); operations mainly within Maharashtra, IST (CD-30).
+- **[ASSUMPTION]** Small team (1–5 ERP users).
+- **[ASSUMPTION]** Indian number format; DD/MM/YYYY; FY April–March (Q-G8).
 - English website and ERP for v1; Marathi optional.
 - The studio pays commission to the partner (A7, Q-C1).
 - The client supplies original photos and project facts, publishing consent, final service list

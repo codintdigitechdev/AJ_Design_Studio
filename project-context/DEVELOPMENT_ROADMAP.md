@@ -55,6 +55,7 @@ Only decisions actually made are recorded here. Proposals and open questions liv
 | 2026-11-06 | Stage 0 documentation produced | CodInt Digitech | Files in repository | — |
 | 2026-11-06 | Client decisions CD-01…CD-26 received (domain, content, services, portfolio, contacts, quotations, billing, GST, payments, Admin-only finance, contractor commission) | Ar. Ajit Kumbhar (as reported by CodInt Digitech) | Developer's audit brief of 2026-11-06. **Written client confirmation (date, channel) still to be filed** | `docs/CLIENT_QUESTIONS.md` §0 |
 | 2026-11-06 | Local folder synchronised as a working copy of GitHub `main` | Developer (CodInt Digitech) | Session instruction "Yes, sync here" | C-12, D-24 |
+| 2026-11-06 | Client decisions CD-27…CD-30: INR only; single office for now; Ar. Ajit Kumbhar is owner and main Admin user; operations mainly within Maharashtra (IST) | Ar. Ajit Kumbhar (as entered by the developer) | Developer's edit of `docs/STAGE1_ROADMAP_AND_DECISIONS.md` §4.3, commit `899ce73`. Written client confirmation still to be filed | `docs/CLIENT_QUESTIONS.md` §0; assumptions A2, A5, A8, A10 |
 | — | Stage 0 accepted | *not yet decided* | — | D-03 |
 | — | Stage 1 architecture and database design approved | *not yet decided* | — | Stage 1 gate |
 

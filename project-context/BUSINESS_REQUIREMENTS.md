@@ -138,7 +138,7 @@ documents treat them as **not allowed** (safest reading of the client decision).
 | N-02 | Pages load fast on mobile data; images optimized, lazy-loaded | PROPOSED |
 | N-03 | Documented, tested backup and restore; off-site copies encrypted | BRIEF / PROPOSED (encryption) |
 | N-04 | Installation, user, testing and deployment guides | BRIEF |
-| N-05 | Time zone Asia/Kolkata, INR, Indian number format | ASSUMPTION |
+| N-05 | Time zone Asia/Kolkata (IST; operations mainly within Maharashtra); currency INR only; Indian number format | CLIENT-DECISION CD-27, CD-30 (time zone, INR) / PROPOSED (number format) |
 | N-06 | Accessibility: WCAG 2.1 AA contrast and keyboard navigation for public site | PROPOSED |
 
 ## 7. Explicitly not assumed / out of scope

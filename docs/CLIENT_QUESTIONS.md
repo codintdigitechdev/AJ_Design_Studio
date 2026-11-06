@@ -45,6 +45,21 @@ signed note or message) is still to be filed** — until then these are recorded
 | CD-25 | Financial information and financial decisions are Admin-only — everywhere | Q-U1 |
 | CD-26 | Projects are Direct or via Contractor/referral source; commission (Yes/No; % or fixed; rate and amount; approval status; paid and outstanding; payment records and dates; remarks; audit history) only when applicable and approved; never automatic on direct projects; Admin-only | new Q-C1…Q-C6 |
 
+**Second set — assumptions answered** (date 2026-11-06; entered by the developer in
+`docs/STAGE1_ROADMAP_AND_DECISIONS.md` §4.3, commit `899ce73`; written client confirmation also still
+to be filed):
+
+| ID | Decision | Client answer (as entered) | Replaces |
+|---|---|---|---|
+| CD-27 | Currency is **INR only** | "Yes INR Only" | Assumption A2 |
+| CD-28 | **Single office** for now | "Right now just single office only" | Assumption A5 |
+| CD-29 | Ar. Ajit Kumbhar is the **business owner, decision authority and main Admin user** | "Yes he is business owner / Main Admin USer as well" | Assumption A8 |
+| CD-30 | Operations are **mainly within Maharashtra**; time zone Asia/Kolkata (IST) | "Maharashtra (Mumbai) Not Much Outside Mh now" | Assumption A10 |
+
+Notes: CD-28 and CD-30 describe the present ("right now", "now"); a later change would be a new
+decision. CD-30 suggests most clients are in the same state as the studio, which matters for the
+GST place-of-supply split — but the GST rule itself stays PENDING Q-F3.
+
 Note: the visiting card (CD-12) is already in the repository (`reference/Visiting Card.jpeg`).
 
 ---
@@ -141,7 +156,7 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 ## 8. Users & reports (U, R)
 | ID | Pri | Question | Status / answer |
 |---|---|---|---|
-| Q-U1 | P1 | Who will use the ERP and what may each person do? | **Narrowed** by CD-25 (finance Admin-only). User list open |
+| Q-U1 | P1 | Who will use the ERP and what may each person do? | **Narrowed** by CD-25 (finance Admin-only) and CD-29 (Ar. Ajit Kumbhar is the main Admin user). Other users still open |
 | Q-U2 | P2 | Mobile use at site? | Open |
 | Q-U3 | P3 | Two-step login for Admin? | Open |
 | **Q-U4** | P1 | Within "finance is Admin-only": may staff (a) draft quotation **scope** without prices, (b) send a quotation you have approved, (c) submit expense claims for your approval? | Open — new (default: no to all) |

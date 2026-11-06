@@ -21,7 +21,7 @@ The ERP is also the content-management back office for the website's portfolio.
 | Role | Name / Org | Status |
 |---|---|---|
 | Client | AJ Design Studio | CONFIRMED-REF |
-| Principal Architect / decision maker | Ar. Ajit Kumbhar | CONFIRMED-REF (decision authority: ASSUMPTION) |
+| Principal Architect, business owner, decision maker and main Admin user | Ar. Ajit Kumbhar | CONFIRMED-REF (name) · CLIENT-DECISION CD-29 (owner, authority, main Admin) |
 | Developer | CodInt Digitech | BRIEF |
 | ERP users other than the principal | Unknown. Financial data is Admin-only regardless [CLIENT-DECISION] | PENDING – Q-U1, Q-U4 |
 | Contractors / referral sources | Bring some projects; may earn commission | CLIENT-DECISION |
@@ -88,15 +88,19 @@ documents [CLIENT-DECISION]. The two discrepancies above still need an answer be
 - Hosting provider/plan not yet chosen [PENDING – Q-H2].
 - Budget/timeline not supplied [PENDING].
 
-## 6. Key assumptions (to validate)
+## 6. Key assumptions and validated items
+
+Full register: `docs/STAGE1_ROADMAP_AND_DECISIONS.md` §4.3.
 
 - A1: Small studio (1–5 ERP users). [ASSUMPTION → Q-U1]
-- A2: Currency INR only; Indian number formatting (1,10,000). [ASSUMPTION]
+- A2: Currency **INR only** [CLIENT-DECISION CD-27]; Indian number formatting (1,10,000) [PROPOSED].
 - A3: Area unit sq.ft by default, possibly sq.m. [ASSUMPTION → Q-Q3]
 - A4: English website and ERP for v1; Marathi optional. [ASSUMPTION → Q-W8]
-- A5: Single office. [ASSUMPTION]
+- A5: **Single office for now** [CLIENT-DECISION CD-28]; multi-branch out of scope.
 - A6: Design and supervision services only, no construction. [ASSUMPTION → Q-S2]
 - A7: Commission is paid **by** the studio **to** the contractor/referral source. [ASSUMPTION → Q-C1]
+- A8: Ar. Ajit Kumbhar is the business owner, decision authority and main Admin user. [CLIENT-DECISION CD-29]
+- A10: Operations mainly within Maharashtra; time zone Asia/Kolkata (IST). [CLIENT-DECISION CD-30]
 
 ## 7. Where things stand
 

@@ -7,7 +7,7 @@ Status tags: `CLAUDE.md` §3.
 ## 1. Engine and encoding
 - MySQL 5.7+ / MariaDB 10.4+ (to be checked against the chosen host — Q-H2).
 - `ENGINE=InnoDB`, `CHARSET utf8mb4`, `COLLATE utf8mb4_unicode_ci` (Marathi/Devanagari safe).
-- Connection time zone `+05:30`; PHP `date_default_timezone_set('Asia/Kolkata')` [ASSUMPTION N-05].
+- Connection time zone `+05:30`; PHP `date_default_timezone_set('Asia/Kolkata')` [CLIENT-DECISION CD-30, N-05]. Currency INR only (CD-27) — no currency column is needed.
 
 ## 2. Naming and keys
 - Tables: lowercase snake_case, plural. Primary key `id INT UNSIGNED AUTO_INCREMENT`

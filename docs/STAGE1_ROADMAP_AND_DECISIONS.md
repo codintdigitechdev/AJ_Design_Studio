@@ -35,7 +35,7 @@ still requiring approval**. Tags: `CLAUDE.md` §3.
 ### Stage 1 gate — exit criteria (PROPOSED)
 1. All P1 client questions answered, or deferred with an agreed default (`docs/CLIENT_QUESTIONS.md` §10).
 2. Developer decisions in §4.2 decided.
-3. Client decisions CD-01…CD-26 confirmed in writing (date and channel filed).
+3. Client decisions CD-01…CD-30 confirmed in writing (date and channel filed).
 4. Decision log records "Stage 1 architecture and database design approved — date — approved by".
 
 ## 3. Stage plan
@@ -93,18 +93,21 @@ in this correction: Q-G11, Q-S5, Q-W11, Q-F9, Q-F10, Q-F11, Q-F12, Q-C1…Q-C6, 
 | D-37 | Website content drafting | CodInt drafts from Instagram/references; review status; nothing unreviewed at launch | PENDING | MR-07 |
 
 ### 4.3 Assumptions requiring validation
-| ID | Assumption | Validated by |
-|---|---|---|
-| A1 | 1–5 ERP users | Q-U1 |
-| A2 | INR only, Indian format | Yes INR Only |
-| A3 | sq.ft default, sq.m possible | Q-Q3 |
-| A4 | English v1, Marathi optional | Q-W8 |
-| A5 | Single office | Right now just single office only |
-| A6 | Design and supervision only, no construction | Q-S2 |
-| A7 | Studio pays commission to one partner per project | Q-C1 |
-| A8 | Ar. Ajit Kumbhar has decision authority | Yes he is business owner / Main Admin USer as well |
-| A9 | DD/MM/YYYY; FY April–March | Q-G8 |
-| A10 | Asia/Kolkata | Maharashtra (Mumbai) Not Much Outside Mh now |
+Answers given by the client are kept in the developer's original words; validated rows now point to
+the client decision recorded in `docs/CLIENT_QUESTIONS.md` §0.
+
+| ID | Assumption | Validated by / client answer | Status |
+|---|---|---|---|
+| A1 | 1–5 ERP users | Q-U1 | ASSUMPTION |
+| A2 | INR only, Indian format | Yes INR Only | **CLIENT-DECISION (CD-27)** — INR only. Indian number formatting stays PROPOSED |
+| A3 | sq.ft default, sq.m possible | Q-Q3 | ASSUMPTION |
+| A4 | English v1, Marathi optional | Q-W8 | ASSUMPTION |
+| A5 | Single office | Right now just single office only | **CLIENT-DECISION (CD-28)** — single office for now; multi-branch stays out of scope |
+| A6 | Design and supervision only, no construction | Q-S2 | ASSUMPTION |
+| A7 | Studio pays commission to one partner per project | Q-C1 | ASSUMPTION |
+| A8 | Ar. Ajit Kumbhar has decision authority | Yes he is business owner / Main Admin USer as well | **CLIENT-DECISION (CD-29)** — owner, decision authority and main Admin (ADM) user |
+| A9 | DD/MM/YYYY; FY April–March | Q-G8 | ASSUMPTION |
+| A10 | Asia/Kolkata | Maharashtra (Mumbai) Not Much Outside Mh now | **CLIENT-DECISION (CD-30)** — operations mainly within Maharashtra; time zone Asia/Kolkata (IST) |
 | A11 | Client supplies photos, project facts, consent, final services, terms | Q-W1, Q-W5, Q-S1, Q-Q7 |
 | A12 | Host supports PHP 8.1+, cron, GD, bcmath, `finfo`, HTTPS, folders outside web root | Q-H2 |
 | A13 | Staff may not draft quotation scope, send quotations or claim expenses | Q-U4 |
