@@ -1,8 +1,8 @@
 # Module Specifications
 
 All module designs are **PROPOSED** unless a line carries another tag (`CLAUDE.md` §3).
-Client decisions that a module implements are marked **CLIENT-DECISION**; the way the module
-implements them is still PROPOSED until approved.
+Client decisions that a module implements are marked **CLIENT-DECISION**.
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer.
 
 Necessity ratings:
 - **Core** – needed for the system to make sense.
@@ -87,6 +87,9 @@ Details: `docs/PORTFOLIO_WEBSITE_PLAN.md`.
 - Each record has a **content origin**: reference (from the sample quotation), **demo**
   (initial demo content — CLIENT-DECISION), or client-confirmed. Demo items carry a badge in the ERP.
 - Demo services are **never shown on the public site** [CLIENT-DECISION CD-42].
+- Final public list = the quotation categories (CD-94): architectural drawings, working & municipal
+  drawings, exterior 3D, interior design, interior 3D, site supervision visits, material & colour
+  selection — marked client-confirmed; descriptions drafted by CodInt for client review.
 - Item fields: default description, default unit, **default rate (ADM-only, optional)**,
   show-on-website, active, sort order.
 - Soft-deleted items stay on existing quotations and portfolio items, are hidden from new
@@ -102,7 +105,7 @@ Details: `docs/PORTFOLIO_WEBSITE_PLAN.md`.
   details, acceptance block, amount in words.
 - **Revisions** R0, R1…; statuses per revision: Draft, Sent, Accepted, Rejected, Expired,
   Cancelled, **Superseded** (C-04 — "Revised" is not a status).
-- Send, accept, reject: ADM. No staff drafting (CD-83). Discount at most 5% (CD-61).
+- Send, accept, reject: ADM. No staff drafting (CD-83). No separate approval step (CD-93). Discount at most 5% (CD-61).
 - Quotation number `AJDS/Q/{fy}/{seq3}` (CD-52); shared by download + WhatsApp, no ERP email (CD-57).
 - PDF/print on the logo + visiting-card letterhead with "श्री", no QR (CD-13, CD-53), acceptance block
   (CD-55), all standard term sections (CD-56), in English or Marathi (CD-50); commission and partner
@@ -213,7 +216,7 @@ All exports are audited; financial exports are ADM-only.
   Draft → Pending approval → Approved / Rejected / Cancelled, remarks, status history.
 - **Never automatic, never on direct projects**; payable only after approval **and** project completion
   (Completed/HandOver — CD-72). Fee variations change the commission (automatic adjustments).
-- GST may apply on commission payments (CD-73); TDS to be decided (Q-C4). On cancellation or
+- GST may apply on commission payments (CD-73); TDS field kept but off (CD-92). On cancellation or
   non-payment the Admin decides (CD-75).
 - **Adjustments** (signed, reason) instead of edits after approval.
 - **Commission payments**: number, date, amount (partial allowed), mode, reference, proof file,

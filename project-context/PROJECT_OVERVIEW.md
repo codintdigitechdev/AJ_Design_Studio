@@ -2,7 +2,7 @@
 
 Status tags: **CONFIRMED-REF · CLIENT-DECISION · BRIEF · PROPOSED · ASSUMPTION · PENDING**
 (definitions in `CLAUDE.md` §3). Question IDs (`Q-…`) refer to `docs/CLIENT_QUESTIONS.md`.
-Last updated: 2026-11-06 · Stage 1 documentation corrected, not approved.
+Last updated: 2026-11-06 · Stage 1 approved 2026-11-06.
 
 ## 1. Summary
 
@@ -64,7 +64,7 @@ spelling and the published number are settled (CD-45, CD-46).
 - `reference/portfolio/Senior office profile.pdf` — profile of **another architect** (Bhushan
   Chakote, Pune). **Not AJ Design Studio content; must never be published as AJ's work.**
   Client confirmed it was a sample only and is not to be used (CD-39).
-- `reference/portfolio/` has **no AJ project photos** yet (Q-W1).
+- `reference/portfolio/` has **no AJ project photos** yet; the client sends originals and marks major projects (CD-43, CD-97).
 - `reference/WorkLedger/…zip` — earlier CodInt app; coding-style reference only (D-19).
 
 ## 4. Goals
@@ -83,9 +83,9 @@ spelling and the published number are settled (CD-45, CD-46).
 ## 5. Constraints
 
 - Core PHP + MySQL/MariaDB + Bootstrap 5, no heavy frameworks [BRIEF].
-- XAMPP for development, cPanel shared hosting for production [BRIEF].
+- XAMPP for development; production on Hostinger shared hosting (hPanel) [CLIENT-DECISION CD-91], kept portable to cPanel [BRIEF].
 - Website and ERP on the same hosting account and domain [CLIENT-DECISION].
-- Hosting provider not yet chosen [PENDING – Q-H2]; plan 10 GB+ with the latest PHP/MySQL [CLIENT-DECISION CD-86].
+- Hosting: Hostinger, plan 10 GB+ with the latest PHP/MySQL [CLIENT-DECISION CD-86, CD-91].
 - Budget/timeline not supplied [PENDING].
 
 ## 6. Key assumptions and validated items
@@ -104,7 +104,7 @@ Full register: `docs/STAGE1_ROADMAP_AND_DECISIONS.md` §4.3.
 
 ## 7. Where things stand
 
-Stage 1 design documents exist and were corrected on 2026-11-06 to reflect the client decisions
-(see `docs/STAGE1_CORRECTION_TRACKING_MATRIX.md`). Stage 1 is **not approved**: open client
-decisions are listed in `docs/CLIENT_QUESTIONS.md` and developer decisions in
-`docs/STAGE1_ROADMAP_AND_DECISIONS.md`.
+Stage 0 was accepted and Stage 1 (architecture and database design) was approved on 2026-11-06
+(decision log in `project-context/DEVELOPMENT_ROADMAP.md`). Client decisions CD-01…CD-97 are
+recorded in `docs/CLIENT_QUESTIONS.md`; the client's signature of `docs/CLIENT_DECISION_SUMMARY.md`
+is pending. Next: Stage 2 — Foundation.

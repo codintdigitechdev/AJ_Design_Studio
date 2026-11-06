@@ -8,14 +8,13 @@
 | Client organization | AJ Design Studio |
 | Principal Architect | Ar. Ajit Kumbhar (Instagram profile and visiting card: "Ar. Ajit Arjun Kumbhar") |
 | Repository | `https://github.com/codintdigitechdev/AJ_Design_Studio` — branch `main` is authoritative. The local folder `R:\CID\Clients\AJ_Design_Studio` is a working copy of it (synchronised 2026-11-06 at commit `12d7634`) |
-| Current stage | **Stage 1 – Architecture & database design: documentation corrected, NOT APPROVED.** Stage 0 acceptance is not yet recorded (D-03) |
+| Current stage | **Stage 1 – Architecture & database design: APPROVED 2026-11-06** (developer; all D-items approved as proposed). Stage 0 accepted 2026-11-06. Client signature of `docs/CLIENT_DECISION_SUMMARY.md` pending. **Next: Stage 2 – Foundation** |
 | Last updated | 2026-11-06 |
 
-> **GATE:** Do not start implementation (PHP code, `database.sql`, `sample_data.sql`,
-> UI pages, ERP modules) until requirements, architecture and database design have
-> been reviewed and approved. Approval status is tracked in
-> `project-context/DEVELOPMENT_ROADMAP.md` §5 (decision log) and
-> `docs/STAGE1_ROADMAP_AND_DECISIONS.md`.
+> **GATE:** Stage 1 (requirements, architecture, database design) was approved on 2026-11-06, so
+> Stage 2 (Foundation) may start. Every later stage still needs its own gate approval
+> (`project-context/DEVELOPMENT_ROADMAP.md` §1, decision log §5). If the client's signed summary
+> brings corrections, update the documents before coding the affected module.
 >
 > **Git:** never commit or push without the developer's explicit permission.
 
@@ -69,6 +68,7 @@ hosting account: `docs/TECHNICAL_REQUIREMENTS.md` §2.
 | `docs/PROJECT_SCOPE.md` | In scope / out of scope / pending |
 | `docs/QUOTATION_ANALYSIS.md` | Analysis of the sample quotation; quotation model |
 | `docs/CLIENT_QUESTIONS.md` | **Master list** of client questions and recorded client decisions |
+| `docs/CLIENT_DECISION_SUMMARY.md` | Plain-language summary of all client decisions, for the client's signature |
 | `docs/PORTFOLIO_WEBSITE_PLAN.md` | Public website sitemap, content, publishing workflow |
 | `docs/TECHNICAL_REQUIREMENTS.md` | Stack, hosting layout, folder structure, deployment, backups |
 | `docs/DATABASE_DESIGN.md` | ER diagram and table-by-table design |
@@ -106,8 +106,9 @@ hosting account: `docs/TECHNICAL_REQUIREMENTS.md` §2.
 Rules:
 - Never turn PENDING, PROPOSED or ASSUMPTION into CLIENT-DECISION without a written record
   (date, source) in the decision log.
-- A design that implements a client decision is still **PROPOSED** until the developer
-  approves it.
+- A design that implements a client decision is **PROPOSED** until the developer approves it. On
+  2026-11-06 the Stage 1 design documents were approved as written (decision log); PROPOSED items in
+  them are therefore approved unless marked PENDING.
 - Older documents may show legacy wording (`[CONFIRMED]`, "CONFIRMED (brief)", "PENDING APPROVAL").
   Read them as CONFIRMED-REF, BRIEF and PENDING respectively.
 
@@ -187,7 +188,7 @@ Nothing private about a client is published without approval; client names only 
 ## 8. TECHNICAL STACK
 
 Core PHP (8.1+ proposed) · MySQL/MariaDB · PDO prepared statements · Bootstrap 5 ·
-HTML5/CSS3/vanilla JS · AJAX where useful · XAMPP for development · cPanel deployment.
+HTML5/CSS3/vanilla JS · AJAX where useful · XAMPP for development · Hostinger (hPanel) deployment, kept portable to cPanel (CD-91).
 Avoid frameworks and unnecessary dependencies. Details: `docs/TECHNICAL_REQUIREMENTS.md`.
 
 ## 9. SECURITY AND DATA RULES (summary — full text in `project-context/SECURITY_RULES.md`)

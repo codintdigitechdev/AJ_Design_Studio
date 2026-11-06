@@ -52,14 +52,14 @@ supported (`docs/WORKFLOWS.md` A.1). [PROPOSED]
 | W-07 | SEO-friendly URLs, meta tags, sitemap | BRIEF |
 | W-08 | Portfolio and page content editable from the ERP | BRIEF |
 | W-09 | Email notification to ar.ajitkumbhar16@gmail.com on each new enquiry, sent from a domain mailbox | CLIENT-DECISION CD-48 |
-| W-10 | Google Map of office | PROPOSED (map pin and office hours PENDING – Q-W3) |
+| W-10 | Google Map of office | CLIENT-DECISION — map from the address, pin checked on staging; visits by appointment (CD-95, CD-96) |
 | W-11 | Testimonials only with client permission; Council of Architecture registration number shown | CLIENT-DECISION CD-49 (number to be supplied — Q-W7) |
 | W-12 | Public website in **English and Marathi**; printed documents (quotation, bill, receipt) in English or Marathi; ERP screens in English | CLIENT-DECISION CD-50 |
 | W-13 | Spam protection: simple built-in CAPTCHA + honeypot + rate limit | CLIENT-DECISION CD-48 / PROPOSED |
-| W-14 | Detailed website content **drafted by CodInt** from the Instagram presence and reference documents | CLIENT-DECISION (source access PENDING – Q-W1) |
+| W-14 | Detailed website content **drafted by CodInt** from the Instagram presence and reference documents | CLIENT-DECISION (client sends original photos — CD-43) |
 | W-15 | Tone: professional, formal and ethical; no unverifiable claims, invented numbers, awards or testimonials | CLIENT-DECISION |
 | W-16 | Client reviews website content later; each content block carries a review status and nothing unreviewed goes live at launch | CLIENT-DECISION (review) / PROPOSED (status mechanism) |
-| W-17 | Portfolio includes all major projects and available photographs; major projects are prioritised and can be highlighted; sensible display sequence | CLIENT-DECISION (client sends original photos — CD-43; which projects are "major": client to indicate — Q-W1) |
+| W-17 | Portfolio includes all major projects and available photographs; major projects are prioritised and can be highlighted; sensible display sequence | CLIENT-DECISION (client sends original photos — CD-43; the client marks "major" projects — CD-97) |
 | W-18 | Projects can be unpublished or removed later; removal also withdraws their public images | CLIENT-DECISION (removal) / PROPOSED (mechanism) |
 | W-19 | No invented project details; no private client information without approval; client names shown only with that client's permission | CLIENT-DECISION (CD-11, CD-47) |
 | W-20 | Demo services may be used initially; whether they may appear on the live public site before confirmation | CLIENT-DECISION — demo services stay in the ERP, never on the public site (CD-06, CD-42) |
@@ -73,7 +73,7 @@ supported (`docs/WORKFLOWS.md` A.1). [PROPOSED]
 | E-03 | Enquiry management (manual) with status, activities (incl. pre-project meetings/visits — CD-78) and follow-ups; **separate Website Enquiries inbox** with conversion; Admin date-wise delete | BRIEF + CLIENT-DECISION CD-31, CD-34 |
 | E-04 | Client master | BRIEF |
 | E-05 | Project management (site; type Architectural/Civil/Interior/Landscape; area; status Planned/OnGoing/OnHold/Completed/HandOver/Cancelled; team; **source Direct/Contractor/Referral**; billing method) | BRIEF + CLIENT-DECISION CD-41, CD-71, CD-76 |
-| E-06 | Service / work-category master; Admin can add, update and soft-delete categories and services; demo items flagged | CLIENT-DECISION |
+| E-06 | Service / work-category master; Admin can add, update and soft-delete categories and services; demo items flagged; final public list = the quotation categories (CD-94) | CLIENT-DECISION CD-06, CD-07, CD-94 |
 | E-07 | Quotations: area-based and item-wise (plus fixed and custom lines), no mandatory fixed pricing, Admin-editable rates, revisions, approval status, PDF/print on logo + visiting-card letterhead ("श्री", no QR), acceptance block, all term sections, English/Marathi print, shared by download + WhatsApp, discount ≤ 5% | CLIENT-DECISION (CD-13…CD-17, CD-53…CD-57, CD-61) |
 | E-08 | Design fees and billing — **flexible, not agreement-only**: per-project billing method (agreement or bills), ad-hoc bills allowed | CLIENT-DECISION (flexibility) / PROPOSED (per-project method, D-26) |
 | E-09 | Payments and receipts: **partial payments always allowed**, advances (also before a project exists), allocation, staged payment schedules, numbered receipts, modes Online/Cash/UPI | CLIENT-DECISION (CD-22…CD-24, CD-63, CD-64, CD-69) |
@@ -93,7 +93,7 @@ supported (`docs/WORKFLOWS.md` A.1). [PROPOSED]
 | **E-23** | Commission: applicable Yes/No; type Percentage/Fixed; rate and amount; approval status; paid and outstanding amounts; commission payment records and dates; remarks; audit history | **CLIENT-DECISION** |
 | **E-24** | Commission never applies automatically and never to direct projects; recorded only when applicable and approved; visible to Admin only | **CLIENT-DECISION** |
 | E-25 | GST optional and configurable; not compulsory for any quotation or project; actual tax treatment confirmed with the client's adviser | CLIENT-DECISION — not GST-registered today, GST off (CD-60) |
-| E-26 | Commission: studio pays one partner per project; % of final fee excl. GST incl. variations; payable on completion; GST may apply; Admin decides on cancellation/non-payment | CLIENT-DECISION CD-70, CD-72, CD-73, CD-75 (TDS PENDING – Q-C4) |
+| E-26 | Commission: studio pays one partner per project; % of final fee excl. GST incl. variations; payable on completion; GST may apply; Admin decides on cancellation/non-payment | CLIENT-DECISION CD-70, CD-72, CD-73, CD-75 (TDS field kept, off — CD-92) |
 | E-27 | Refunds with an optional percentage deduction; write-offs Admin-only; no credit transfer between projects | CLIENT-DECISION CD-66…CD-68 |
 
 ### 4.1 Financial data definition (E-21) [CLIENT-DECISION for the rule; PROPOSED for the list]
@@ -124,7 +124,7 @@ PDF, or submit expense claims for Admin approval — are **not allowed** [CLIENT
 | Q-R04 | Discount (max 5%), payment schedule (% of total incl. GST), all standard term sections drafted by CodInt for client review | CLIENT-DECISION CD-56, CD-59, CD-61 |
 | Q-R05 | Scope built from service categories with editable sub-items | PROPOSED |
 | Q-R06 | Every change after "Sent" creates a new revision; old revisions read-only | PROPOSED |
-| Q-R07 | Revision statuses: Draft, Sent, Accepted, Rejected, Expired, Cancelled, Superseded (no "Revised" status — C-04) | PROPOSED – Q-Q8 |
+| Q-R07 | Revision statuses: Draft, Sent, Accepted, Rejected, Expired, Cancelled, Superseded (no "Revised" status — C-04); no separate approval step | PROPOSED + CLIENT-DECISION CD-93 |
 | Q-R08 | Quotation number `AJDS/Q/{fy}/{seq3}` (e.g. AJDS/Q/2026-27/001), -R{n} for revisions; number taken on first send | CLIENT-DECISION CD-52 (format) / PROPOSED (timing) |
 | Q-R09 | Acceptance block on the PDF; amount in words and client block not requested (off) | CLIENT-DECISION CD-55 |
 | Q-R10 | GST applied per quotation revision only when switched on; never compulsory; studio not registered today | CLIENT-DECISION CD-19, CD-20, CD-60 / PROPOSED (switch) |
@@ -135,7 +135,7 @@ PDF, or submit expense claims for Admin approval — are **not allowed** [CLIENT
 
 | ID | Requirement | Status |
 |---|---|---|
-| N-01 | Works on cPanel shared hosting with the latest PHP/MySQL; plan of 10 GB or more | CLIENT-DECISION CD-86 (provider PENDING – Q-H2) |
+| N-01 | Runs on Hostinger shared hosting (hPanel), latest PHP/MySQL, 10 GB+; kept portable to cPanel | CLIENT-DECISION CD-86, CD-91 |
 | N-02 | Pages load fast on mobile data; images optimized, lazy-loaded | PROPOSED |
 | N-03 | Documented, tested backup and restore; weekly encrypted off-site copy taken by CodInt Digitech | BRIEF / CLIENT-DECISION CD-88 / PROPOSED (encryption) |
 | N-04 | Installation, user, testing and deployment guides | BRIEF |

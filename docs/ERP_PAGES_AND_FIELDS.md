@@ -1,6 +1,6 @@
 # ERP Pages, URLs and Module-wise Field Specifications
 
-**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06 (PG-01…PG-15). Tags: `CLAUDE.md` §3.
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06 (PG-01…PG-15). Tags: `CLAUDE.md` §3.
 
 **URL rules:**
 - All ERP URLs sit under `/erp/` and go through the ERP front controller (`docs/TECHNICAL_REQUIREMENTS.md` §2.2).
@@ -115,7 +115,7 @@
 | `/erp/quotations/{id}/revisions/{rev}` | GET | Frozen revision | 6 V |
 | `/erp/quotations/{id}/revisions/{rev}/print`, `/pdf` | GET | Print / PDF in English or Marathi (`?lang=mr`); logo + visiting-card letterhead with "श्री" | 6 V/X |
 | `/erp/quotations/{id}/compare?a=&b=` | GET | Compare revisions | 6 V |
-| `/erp/quotations/{id}/approve` | POST | Approve ◇ | 6b |
+| `/erp/quotations/{id}/approve` | POST | Approve ◇ (off — no separate approval step, CD-93) | 6b |
 | `/erp/quotations/{id}/send` | POST | Mark sent (number taken on first send) | 6a |
 | `/erp/quotations/{id}/new-revision` | POST | Next revision | 6 E |
 | `/erp/quotations/{id}/decision` | POST | Accept (→ conversion → fee agreement) / reject / expire / cancel | 6a |
@@ -401,7 +401,7 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 ### 2.18 Settings (PG-03, PG-12)
 | Section | Fields |
 |---|---|
-| Studio | Name, tagline, address (Sai Arcade Building — CD-45), **published phone and WhatsApp 8806956877** (CD-46), second phone (not published), notification email ar.ajitkumbhar16@gmail.com and outgoing domain mailbox (CD-48), Instagram URL, Council of Architecture number (CD-49), office hours, map URL |
+| Studio | Name, tagline, address (Sai Arcade Building — CD-45), **published phone and WhatsApp 8806956877** (CD-46), second phone (not published), notification email ar.ajitkumbhar16@gmail.com and outgoing domain mailbox (CD-48), Instagram URL, Council of Architecture number (CD-49), office hours "Visits by appointment" (CD-95), map URL from the address (CD-96) |
 | Letterhead | Logo + visiting-card layout; "श्री" **on**; Instagram QR **off** (CD-53); signature "Ar. Ajit Kumbhar" (CD-58); English and Marathi templates (CD-50); footer |
 | Numbering | Format and reset per sequence (`WORKFLOWS.md` B.11) |
 | Finance [FIN] | Default billing method, rounding, FY April–March (CD-35), lock date, max discount 5% (CD-61), default validity and terms (drafted by CodInt, client-reviewed — CD-56) |
@@ -419,7 +419,7 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 | Mobile / alternate | T 15 | Y / N | Duplicate warning |
 | Email, address, city | T 150, TA 300, T 80 | N | |
 | Bank details [FIN] | TA (encrypted) | N | ADM only; masked in lists |
-| PAN [FIN] | T 10 (encrypted) | Only if Q-C4 requires | ADM only |
+| PAN [FIN] | T 10 (encrypted) | Not collected for now (CD-92) | ADM only |
 | GSTIN [FIN] | T 15 | N | If the partner charges GST on commission (CD-73) |
 | Default commission suggestion [FIN] | SEL type + value | N | Never applied automatically |
 | Active, notes | CHK, TA | — | Cannot deactivate with outstanding commission |
@@ -441,7 +441,7 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 
 ### 2.21 Commission payment [FIN]
 Payment no. AUTO; date D*; amount M* (partial allowed; ≤ outstanding); mode SEL*; reference T 60;
-GST amount M (if the partner charges GST — CD-73); TDS amount M (only if Q-C4); proof FILE (private, financial); notes TA. Reversal: reason SEL* + note TA*.
+GST amount M (if the partner charges GST — CD-73); TDS amount M (field kept, off — CD-92); proof FILE (private, financial); notes TA. Reversal: reason SEL* + note TA*.
 
 ### 2.22 Commission adjustment [FIN]
 Date D*, amount (signed M ≠ 0)*, reason TA*; approved by AUTO (ADM).

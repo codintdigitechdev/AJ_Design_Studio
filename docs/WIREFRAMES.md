@@ -1,13 +1,13 @@
 # Essential Wireframes — Public Website and ERP
 
-**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06 (PG-07, PG-09, PG-13).
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06 (PG-07, PG-09, PG-13).
 Tags: `CLAUDE.md` §3.
 
 These are low-fidelity text wireframes: layout, content order and controls only. The look follows
 `project-context/UI_UX_GUIDELINES.md` (charcoal + copper from the logo and visiting card, Copperplate Gothic-style headings — CD-51).
 
 **Content rules:**
-- `[IMG]` = a real AJ Design Studio project photo. None supplied yet (Q-W1). Never an image from
+- `[IMG]` = a real AJ Design Studio project photo. None supplied yet (client sends originals — CD-43). Never an image from
   `reference/portfolio/Senior office profile.pdf` (another architect).
 - `‹…›` = text drafted from the Instagram presence and reference documents, in a professional,
   formal and ethical tone, and **pending client review** [CLIENT-DECISION]. No invented numbers,
@@ -113,7 +113,7 @@ Unpublished/removed project → 410/404 page; old slug → 301 to the new slug.
 │ │ ☎ 8806956877 (tap to call)│ │ Name*  Mobile*  Email      │ │
 │ │ ◉ WhatsApp 8806956877     │ │ City / site  Project type  │ │
 │ │ ✉ ‹email›                 │ │ Services [☐ ☐ ☐]           │ │
-│ │ ‹office hours›            │ │ Approx. area [__][sqft▼]   │ │
+│ │ Visits by appointment     │ │ Approx. area [__][sqft▼]   │ │
 │ │ [map – loads on demand]   │ │ Message  Prefer (•)Call    │ │
 │ └───────────────────────────┘ │ CAPTCHA* [ 3 + 4 = __ ]    │ │
 │                               │ ☐ I agree to the Privacy*  │ │
@@ -384,7 +384,7 @@ Direct project: the commission panel is not shown and the server rejects commiss
 Commission payment — ‹partner› · ‹project›          Payment no.: (auto)
 Outstanding ₹ …
 Date [dd/mm/yyyy]  Amount [₹ ______] (partial allowed, ≤ outstanding)
-Mode [Online ▼]  Reference [________]  GST [₹ ____] (if charged)  TDS [₹ ____] (Q-C4)
+Mode [Online ▼]  Reference [________]  GST [₹ ____] (if charged)  TDS [₹ ____] (off — CD-92)
 Allowed only after the project is Completed / HandOver (CD-72).
 Proof [attach]  Notes [______________]
 [ Save ]   "Posted commission payments cannot be edited — reverse instead."

@@ -1,7 +1,7 @@
 # Technical Requirements
 
-Status: **PROPOSED** — Stage 1 not approved. Corrected 2026-11-06 (C-11, C-13, MR-09, MR-11, MR-12).
-Tags: `CLAUDE.md` §3. No code is written before approval.
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer.
+Tags: `CLAUDE.md` §3.
 
 ## 1. Stack
 | Layer | Choice |
@@ -15,7 +15,7 @@ Tags: `CLAUDE.md` §3. No code is written before approval.
 | Images | GD (or Imagick) for resize/re-encode/WebP |
 | Math | `bcmath` for money and commission (fallback: integer paise) |
 | PHP extensions | pdo_mysql, mbstring, fileinfo, gd, bcmath, openssl, json, intl (optional) |
-| Dev / Prod | XAMPP (Windows) / cPanel shared hosting with the latest PHP/MySQL and 10 GB+ storage (CD-86; provider not chosen — Q-H2), Apache, HTTPS, cron |
+| Dev / Prod | XAMPP (Windows) / **Hostinger shared hosting with hPanel** (CD-91), latest PHP/MySQL, 10 GB+ (CD-86), HTTPS, cron; kept portable to cPanel |
 
 Composer only in development; the release ZIP ships `vendor/`.
 
@@ -26,9 +26,9 @@ One hosting account, domain `ajdesignstudios.in` [CLIENT-DECISION CD-01, CD-02, 
 **one codebase and one database**, two front doors. Only small entry scripts, public assets and
 **published** portfolio images sit in the web root.
 
-### 2.2 Production layout on cPanel (recommended)
+### 2.2 Production layout on Hostinger hPanel (recommended)
 ```
-/home/<cpaneluser>/
+/home/<hostinger-user>/domains/ajdesignstudios.in/      (on a cPanel host: /home/<cpaneluser>/)
 ├── ajds_app/                      ← NOT web-accessible
 │   ├── config/config.php          DB credentials, secrets, paths, env
 │   ├── app/
@@ -58,6 +58,8 @@ One hosting account, domain `ajdesignstudios.in` [CLIENT-DECISION CD-01, CD-02, 
 - Private files are streamed only by **`/erp/files/{id}/download`** (C-11, D-34), which resolves the
   file's owner record and applies its permission (incl. Admin-only for financial files). There is no
   separate `download.php`.
+- On Hostinger, access to the domain folder above `public_html` (File Manager / SSH) must be confirmed on
+  the purchased plan at the start of Stage 2 (A12); otherwise the §2.3 fallback applies.
 - If the domain is an addon domain with its own document root, `ajds_app/` still sits outside it.
 
 ### 2.3 Fallback if the host forbids files above the web root
@@ -97,7 +99,7 @@ SMTP through a **domain mailbox** (e.g. noreply@ajdesignstudios.in) sends passwo
 notifications and **priority reminder emails**, delivered to ar.ajitkumbhar16@gmail.com (CD-32, CD-48).
 Quotations are not emailed — they are shared via WhatsApp (CD-57). Emails to non-ADM users never contain amounts.
 
-## 6. Cron jobs (cPanel)
+## 6. Cron jobs (hPanel → Advanced → Cron Jobs; same jobs on cPanel)
 | Job | Frequency |
 |---|---|
 | DB backup (`mysqldump` → `storage/backups/`, gzip, rotate) | Daily |
@@ -119,9 +121,10 @@ Quotations are not emailed — they are shared via WhatsApp (CD-57). Emails to n
 
 ## 8. Deployment (outline; full guide in Stage 12)
 0. Deploy a password-protected staging copy for client review first (CD-87).
-1. Point DNS for `ajdesignstudios.in` (CD-85); enable AutoSSL.
+1. Point DNS for `ajdesignstudios.in` (CD-85); enable SSL (hPanel → Security → SSL).
 2. Create the MySQL DB + user(s); import `database.sql`.
-3. Upload `ajds_app/` to the home directory and `public_html/` contents to the web root.
+3. Upload `ajds_app/` to `domains/ajdesignstudios.in/` (beside `public_html`) and the `public_html/`
+   contents to the web root.
 4. `config.sample.php` → `config.php`; set DB, base URL, mail, environment.
 5. Permissions: 755 dirs / 644 files; `storage` and `public_html/uploads` writable by PHP.
 6. First-admin setup with forced password change; lock the installer.
@@ -129,7 +132,7 @@ Quotations are not emailed — they are shared via WhatsApp (CD-57). Emails to n
 8. Smoke test: public site, enquiry form, ERP login, upload, publish/unpublish, PDF, a non-ADM login
    showing no financial data.
 
-## 9. Host capability checklist (Q-H2)
+## 9. Host capability checklist (Hostinger plan — CD-91; verify at the start of Stage 2)
 ≥ 10 GB disk (CD-86) · latest PHP/MySQL · required extensions · MySQL/MariaDB version · folders outside `public_html` ·
 `upload_max_filesize`/`post_max_size` · `memory_limit` (PDF) · cron · AutoSSL · disk quota for
 documents, portfolio originals and backups · outgoing mail limits.

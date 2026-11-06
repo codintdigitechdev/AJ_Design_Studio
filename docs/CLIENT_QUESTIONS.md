@@ -127,6 +127,19 @@ written client confirmation still to be filed). The typed answers are kept uncha
 | CD-89 | Both workflow paths are used (quote first, or project first) | Q-G2 |
 | CD-90 | Records today are kept in a **mix** of notebooks, files and WhatsApp | Q-G1 |
 
+**Fourth set — last open items** (date 2026-11-06; follow-up choices in the development session;
+written confirmation via `docs/CLIENT_DECISION_SUMMARY.md`):
+
+| ID | Decision | Question |
+|---|---|---|
+| CD-91 | Hosting: **Hostinger** shared hosting with **hPanel** (design kept portable to cPanel) | Q-H2 |
+| CD-92 | TDS on commission: **field kept but off**; partner PAN not collected for now | Q-C4 |
+| CD-93 | **No separate approval step** before sending a quotation | Q-Q8 |
+| CD-94 | Final website service list = the **quotation categories** (architectural drawings, working & municipal drawings, exterior 3D, interior design, interior 3D, site supervision visits, material & colour selection); CodInt drafts descriptions for client review | Q-S1, Q-S4 |
+| CD-95 | Office hours shown as **"Visits by appointment"** | Q-W3 |
+| CD-96 | Map taken **from the address**; the client checks the pin on the staging copy | Q-W3 |
+| CD-97 | The client **marks the major projects** when sending photos; Admin can change it later | Q-W1 |
+
 Note: the visiting card (CD-12) is already in the repository (`reference/Visiting Card.jpeg`).
 
 ---
@@ -136,7 +149,7 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 |---|---|---|---|
 | Q-G1 | P1 | How do you track enquiries, quotations, payments, expenses and drawings today? | Mix of notebooks, files and WhatsApp (session answer) → CD-90 |
 | Q-G2 | P1 | Usual sequence: quote at enquiry stage, or open a project first? When is something a "project"? | Both paths happen (session answer) → CD-89 |
-| Q-G3 | P3 | *(internal)* Use WorkLedger as a reference? | Open (D-19) |
+| Q-G3 | P3 | *(internal)* Use WorkLedger as a reference? | Style reference only — D-19 approved |
 | Q-G4 | P2 | One enquiry list for website and phone/walk-in enquiries (recommended)? | Keep distinct → CD-31 |
 | Q-G5 | P2 | Reminders: dashboard only, daily email, or other? | Dashnboard with Priority Emails → CD-32 |
 | Q-G6 | P3 | Client portal needed? (out of scope) | Not Necessary → CD-33 |
@@ -149,22 +162,22 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 ## 2. Services (S)
 | ID | Pri | Question | Status / answer |
 |---|---|---|---|
-| Q-S1 | P1 | Final list of services and sub-items | **Narrowed** by CD-06/CD-07: demo services first, Admin maintains them. Final list still needed |
+| Q-S1 | P1 | Final list of services and sub-items | Quotation categories become the final list (session answer) → CD-94 |
 | Q-S2 | P1 | What do **Temple Work**, **कोकण शिल्प** and **Complete Project** mean? Design-only, or also execution/turnkey? | They are complted n कोकण शिल्प  etc.are Some local terms to describe project; design + supervision only (session answer) → CD-40 |
 | Q-S3 | P2 | Project types to use | Architectural/ Civil/ Interier/ Landscape → CD-41 |
-| Q-S4 | P2 | Which services appear on the website, with what description? | **Narrowed** by CD-06 |
+| Q-S4 | P2 | Which services appear on the website, with what description? | Quotation categories; CodInt drafts, client reviews → CD-94 |
 | **Q-S5** | P1 | May **demo** services appear on the **live** public website before you confirm them, or only in the ERP and on staging? | ERP only, not public (session answer) → CD-42 |
 
 ## 3. Website (W) and brand (B)
 | ID | Pri | Question | Status / answer |
 |---|---|---|---|
-| Q-W1 | P1 | Which projects are "major"? Please supply original photos and project details, or give access to the Instagram posts (not readable without login). | Client sends originals (session answer) → CD-43. Still open: which projects are "major" (client to list when sending photos) |
+| Q-W1 | P1 | Which projects are "major"? Please supply original photos and project details, or give access to the Instagram posts (not readable without login). | Client sends originals (session answer) → CD-43. Client marks major projects when sending photos → CD-97 |
 | Q-W2 | P2 | Separate Gallery page, or merged with Portfolio? | Merge → CD-44 |
-| Q-W3 | P1 | Address spelling: "Sai **Arcade** Building" (quotation) or "Sai **Arked** Building" (visiting card)? Map location and office hours? | Sai Arcade Building (session answer) → CD-45. Still open: map pin and office hours |
+| Q-W3 | P1 | Address spelling: "Sai **Arcade** Building" (quotation) or "Sai **Arked** Building" (visiting card)? Map location and office hours? | Sai Arcade Building (session answer) → CD-45. Visits by appointment; map from the address, pin checked on staging → CD-95, CD-96 |
 | Q-W4 | P1 | Two numbers on the card — **8806956877** and **7796877369**. Which is primary, which is WhatsApp, and may both be published? | 8806956877 for WhatsApp; only this number published (session answer) → CD-46 |
 | Q-W5 | P1 | Client permission to publish; client names shown or hidden? | Names shown only with that client's permission (session answer) → CD-47 |
 | Q-W6 | P2 | Who receives enquiry emails? CAPTCHA if spam occurs? | Mail ID from Visiting Card /CAPTCHA; simple built-in CAPTCHA; sent from a domain mailbox (session answer) → CD-48 |
-| Q-W7 | P3 | Testimonials (with permission), registrations (e.g. Council of Architecture no.)? | with permission, Council of Architecture no → CD-49. Still open: the registration number itself |
+| Q-W7 | P3 | Testimonials (with permission), registrations (e.g. Council of Architecture no.)? | with permission, Council of Architecture no → CD-49. Number to be sent by the client (open, not blocking) |
 | Q-W8 | P2 | English only, or English + Marathi? | English + Marathi; website and printed documents, ERP in English (session answer) → CD-50 |
 | Q-W9 | P2 | About Studio text | **Answered** by CD-03/CD-04/CD-05: CodInt drafts from Instagram and references, formal tone, client reviews later |
 | **Q-W11** | P2 | May anyone other than you publish or unpublish portfolio items? | Admin only — only the Admin uses the ERP for now (CD-80) |
@@ -181,7 +194,7 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 | Q-Q5 | P1 | Fixed and item-wise fees? | **Answered** by CD-15/CD-16 |
 | Q-Q6 | P2 | Amount in words, client block, acceptance block? | acceptance block → CD-55 |
 | Q-Q7 | P1 | Standard terms: validity, revisions, visits, extra charges, exclusions, cancellation, drawing ownership | All; CodInt drafts, client reviews (session answer) → CD-56 |
-| Q-Q8 | P2 | Separate approval step before sending? (Only Admin sends either way — CD-25) | **Narrowed** by CD-25 |
+| Q-Q8 | P2 | Separate approval step before sending? (Only Admin sends either way — CD-25) | No separate step (session answer) → CD-93 |
 | Q-Q9 | P2 | Email quotations from the ERP, or download and share? | Download add Share through whatsapp → CD-57 |
 | Q-Q10 | P3 | Signature wording ("Ar. Ajit Arjun Kumbhar" or "Ar. Ajit Kumbhar"), signature image/stamp? | Ar. Ajit Kumbhar → CD-58. Signature image: not requested (off) |
 
@@ -207,7 +220,7 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 | **Q-C1** | P1 | Direction and parties: does the studio pay commission **to** the contractor/referrer? Can one project have more than one partner or commission? | Studio pays; one partner per project (session answer) → CD-70 |
 | **Q-C2** | P1 | Is a non-contractor referrer (friend, previous client, agent) recorded as "Contractor", or as a separate source "Referral"? | Separate → CD-71 |
 | **Q-C3** | P1 | Percentage of what — quoted total, agreed fee **excluding GST**, or amounts actually received? When is it payable — on agreement, as the client pays, or on completion? Do fee variations, refunds or write-offs change it? | On Completion, Yes Charges changes; % of final fee excl. GST incl. variations (session answer) → CD-72 |
-| **Q-C4** | P1 | Is tax deducted at source on commission, or any GST involved? (Confirm with your tax adviser; PAN needed?) | Decide it later Keep it GST involved → CD-73 (TDS still to decide) |
+| **Q-C4** | P1 | Is tax deducted at source on commission, or any GST involved? (Confirm with your tax adviser; PAN needed?) | Decide it later Keep it GST involved → CD-73; TDS field kept but off, no PAN for now (session answer) → CD-92 |
 | **Q-C5** | P2 | May office staff see partner names/phones, select a partner on an enquiry, and see source labels and counts? (Commission amounts stay Admin-only regardless) | No → CD-74 |
 | **Q-C6** | P2 | If a project is cancelled or the client does not pay, what happens to approved or partly paid commission? How long are partner records kept? | Till Removed; Admin decides on cancellation/non-payment (session answer) → CD-75 |
 
@@ -233,18 +246,17 @@ Note: the visiting card (CD-12) is already in the repository (`reference/Visitin
 | ID | Pri | Question | Status / answer |
 |---|---|---|---|
 | Q-H1 | P1 | Domain | **Answered** by CD-01: `ajdesignstudios.in`. Please **confirm the exact spelling** ("studio**s**", plural, while the brand is "AJ Design Studio") before DNS/SSL set-up. Spelling confirmed (session answer) → CD-85 |
-| Q-H2 | P1 | Hosting provider/plan, PHP/MySQL versions, storage, cron, SSL | Hosting Not Finalized, PHP/MySQL Latest, Storage 500MB, -, -; plan for 10 GB+ (session answer) → CD-86. Still open: provider and plan |
+| Q-H2 | P1 | Hosting provider/plan, PHP/MySQL versions, storage, cron, SSL | Hosting Not Finalized, PHP/MySQL Latest, Storage 500MB, -, -; plan for 10 GB+ (session answer) → CD-86. Hostinger with hPanel (session answer) → CD-91 |
 | Q-H3 | P3 | Password-protected staging copy? | Yes (session answer) → CD-87 |
 | Q-H4 | P2 | Off-site backup destination and responsibility | Developer Company(CodInt) will take it Weekly → CD-88 |
 | Q-H5 | P2 | Business email on the domain for notifications? | On Visiting Card → CD-48 (send from a domain mailbox, deliver to the visiting-card email) |
-| Q-T1 | P2 | *(internal)* PDF library | mPDF needed for "श्री" and Marathi documents (D-18) |
+| Q-T1 | P2 | *(internal)* PDF library | mPDF — D-18 approved |
 
 ---
 
 ## 10. Items still open
-P1 (blocking the Stage 1 gate): **Q-H2** hosting provider and plan.
+No P1 item is open; Stage 1 was approved on 2026-11-06.
 
-Needed before the related module is built or before launch (not blocking the design):
-Q-S1 final service list · Q-S4 website service descriptions · Q-W1 which projects are "major" (with photos) ·
-Q-W3 map pin and office hours · Q-W7 Council of Architecture registration number · Q-C4 TDS on commission ·
-Q-Q8 separate approval step (not needed while only the Admin uses the ERP) · Q-G3 / Q-T1 internal.
+Waiting for the client (not blocking the design): Council of Architecture registration number (Q-W7);
+original photos with "major" marks (CD-43, CD-97); review of the drafted website text, service
+descriptions, quotation terms and Marathi translations; signature of `docs/CLIENT_DECISION_SUMMARY.md`.

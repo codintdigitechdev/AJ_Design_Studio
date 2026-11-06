@@ -1,6 +1,6 @@
 # Role × Module Permission Matrix
 
-**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06 (PM-01…PM-18).
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06 (PM-01…PM-18).
 Rule implemented: **financial information and financial decisions are Admin-only**
 [CLIENT-DECISION] — definition in `project-context/BUSINESS_REQUIREMENTS.md` §4.1,
 enforcement in `project-context/SECURITY_RULES.md` §8.1. Tags: `CLAUDE.md` §3.
@@ -93,4 +93,4 @@ scope drafting, sending or expense claims) · Q-C5 → CD-74 (staff see no partn
 Q-W11 → ADM only publishes · Q-U2 → CD-81 (mobile use allowed — SITE screens responsive) ·
 Q-U3 → CD-82 (no two-step login) · Q-G4 → CD-31 (separate website inbox, row 2d).
 
-Still open: Q-Q8 separate approval step (not needed while only the ADM uses the ERP).
+Q-Q8 → CD-93 (no separate approval step; the row 6b approval feature stays off).

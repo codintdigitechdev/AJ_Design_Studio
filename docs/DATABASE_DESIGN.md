@@ -1,6 +1,6 @@
 # Database Design — Entity-Relationship Diagram and Table-by-Table Specification
 
-**Status: PROPOSED — Stage 1 gate not approved.** Corrected 2026-11-06 for the client decisions
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06 for the client decisions
 (contractor commission, Admin-only finance, flexible billing, optional GST) — see
 `docs/STAGE1_CORRECTION_TRACKING_MATRIX.md` (items DB-01…DB-23).
 
@@ -394,7 +394,7 @@ gallery; there is no separate Gallery page (CD-44).
 
 **I1 `referral_partners`** — `partner_type_id` lookup FK (contractor / referral / other) · `name` IX ·
 `firm_name` · `mobile` IX · `alt_mobile` · `email` · `address` · `city` · `notes` · `is_active` ·
-[FIN] `bank_details_enc` NULL · [FIN] `pan_enc` NULL (only if Q-C4 requires) ·
+[FIN] `bank_details_enc` NULL · [FIN] `pan_enc` NULL (not collected for now — CD-92) ·
 [FIN] `default_commission_type` NULL · [FIN] `default_commission_value` NULL (suggestion only,
 never applied automatically) · [FIN] `gstin` NULL (if the partner charges GST — CD-73) · [STD] [SD]. Cannot be deactivated while
 commission is outstanding; kept until removed by ADM (CD-75).
@@ -415,7 +415,7 @@ Allowed only when the project's `source_type` = contractor or referral. Immutabl
 
 **I4 `commission_payments`** — `payment_no` UQ · `project_commission_id` FK · `payment_date` IX ·
 `amount` (signed; partial allowed) · `mode_id` lookup FK · `reference_no` · `gst_amount` NULL (if the partner charges GST — CD-73) ·
-`tds_amount` NULL (PENDING Q-C4) · `proof_file_id` FK NULL (private, financial) · `notes` · `reverses_id` FK NULL UQ ·
+`tds_amount` NULL (kept, off — CD-92) · `proof_file_id` FK NULL (private, financial) · `notes` · `reverses_id` FK NULL UQ ·
 `reversal_reason_id`, `reversal_note` · [STD]. Allowed only when the commission is Approved **and payable** (project Completed/HandOver — CD-72).
 
 **I5 `commission_status_history`** — `project_commission_id` FK · `from_status` · `to_status` ·
@@ -445,9 +445,9 @@ Allowed only when the project's `source_type` = contractor or referral. Immutabl
 Expected 1–5 users, a few thousand rows per year (A1). Every FK, status and report date column is
 indexed. `LIKE` search on name, mobile and codes is enough.
 
-## 6. Decisions affecting this design — PENDING
+## 6. Decisions affecting this design — approved 2026-11-06
 Developer: D-04 database logins · D-06 lookups · D-07 statuses · D-15 triggers · D-22 design approval ·
 D-26 billing method · D-27 GST structure · D-28 non-quotation numbering · D-29 allocation rule ·
 D-30 roles · D-31 portfolio storage · D-32 commission model · D-34 file access · D-38 website inbox ·
 D-39 Marathi fields · D-40 commission payable on completion.
-Client: Q-C4 TDS on commission · Q-H2 hosting provider.
+Client: none open for the design (CD-91, CD-92).

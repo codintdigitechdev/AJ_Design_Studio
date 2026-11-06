@@ -1,6 +1,6 @@
 # Business Workflows — Enquiry → Project → Quotation, Finance, Commission, Portfolio
 
-**Status: PROPOSED — Stage 1 not approved.** Corrected 2026-11-06 (items WF-01…WF-16,
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06 (items WF-01…WF-16,
 C-01…C-17 in `docs/STAGE1_CORRECTION_TRACKING_MATRIX.md`). Tags: `CLAUDE.md` §3.
 
 All amounts in examples are **invented, for illustration only** — not defaults and not the sample
@@ -75,7 +75,7 @@ Cancelling or financially closing a project runs B.8 and C.5 first.
 
 ```
  R0 Draft ──edit──► R0 Draft                (ADM only — no staff drafting, CD-83)
-   │ Send (ADM; or Approve → Send if the approval step is on — Q-Q8)
+   │ Send (ADM; no separate approval step — CD-93)
    ▼
  R0 Sent ──changes requested──► "Create revision" → R1 Draft (copy); R0 → Superseded
    ├─► Accepted (ADM) ─► conversion if needed ─► fee agreement (B.2) ─► commission prompt (C.2)
@@ -315,7 +315,7 @@ Approved ──► Cancelled (ADM, reason; only if net paid = 0, otherwise C.5)
 ## C.3 Commission payments
 - Only for Approved commissions once the project is Completed or HandOver (CD-72). Any amount > 0 (partial allowed), any number of payments.
 - Fields: date, amount, mode, reference, proof file (private, financial), notes; GST amount if the
-  partner charges GST (CD-73); TDS amount only if Q-C4 requires it.
+  partner charges GST (CD-73); TDS field available but off (CD-92).
 - Limit: Σ net commission payments ≤ commission amount + Σ adjustments.
 - Wrong entry → **reversal** (ADM, reason); never edited or deleted. Internal payment voucher PDF (ADM).
 
@@ -367,6 +367,6 @@ Draft ──(consent recorded + cover image + alt text on all images + content r
   "pending client review" until the client reviews it (W-16). Never uses
   `reference/portfolio/Senior office profile.pdf` (another architect's work).
 - Original photos are supplied by the client (CD-43); the client indicates which projects are "major"
-  (Q-W1). Only the ADM publishes. Client names appear only with that client's permission (CD-47).
+  (CD-97). Only the ADM publishes. Client names appear only with that client's permission (CD-47).
   The gallery is part of each project page — no separate Gallery page (CD-44). Marathi text is
   published alongside English (CD-50).

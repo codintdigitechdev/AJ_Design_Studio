@@ -2,13 +2,13 @@
 
 Project: AJ Design Studio – Portfolio Website + ERP Management System
 Developer: CodInt Digitech · Client: AJ Design Studio · Principal Architect: Ar. Ajit Kumbhar
-Version: 0.2 (corrected 2026-11-06) – **not approved**. Tags: `CLAUDE.md` §3.
+Version: 0.3 (2026-11-06) – **approved with Stage 1** (client signature pending). Tags: `CLAUDE.md` §3.
 
 ## 1. Confirmed information
 - **[BRIEF]** The client has no existing website; a new public portfolio website and a private ERP will be built.
 - **[CLIENT-DECISION]** Same hosting account and domain `ajdesignstudios.in`: `/` public, `/erp/` ERP
   (spelling confirmed — CD-85).
-- **[BRIEF]** Stack: Core PHP, MySQL/MariaDB, PDO, Bootstrap 5, HTML5/CSS3/JS, AJAX, XAMPP, cPanel.
+- **[BRIEF]** Stack: Core PHP, MySQL/MariaDB, PDO, Bootstrap 5, HTML5/CSS3/JS, AJAX, XAMPP; deployment on Hostinger hPanel (CD-91), portable to cPanel.
 - **[CONFIRMED-REF]** Studio identity and contacts from the quotation letterhead, visiting card and
   Instagram (Sai Arcade Building; 8806956877 published — CD-45, CD-46).
 - **[CONFIRMED-REF]** Reference work categories from the sample quotation.
@@ -33,7 +33,7 @@ All financial data Admin-only [CLIENT-DECISION CD-25]. Necessity ratings: `proje
 
 ### 2.3 Non-functional
 Security controls, tested backup/restore with encrypted off-site copies, documentation set,
-installation on XAMPP and cPanel, fictitious sample data.
+installation on XAMPP and Hostinger (hPanel), fictitious sample data.
 
 ## 3. Out of scope (unless the client requests and approves a change)
 - Construction execution, contracting, material procurement/resale, turnkey interiors (design and supervision only — CD-40).
@@ -60,11 +60,9 @@ installation on XAMPP and cPanel, fictitious sample data.
 - Hosting supports PHP 8.1+, MySQL/MariaDB, HTTPS, cron, GD, mbstring, bcmath, `finfo`, folders outside `public_html`.
 
 ## 5. Pending client decisions
-Full list: `docs/CLIENT_QUESTIONS.md` §10. Remaining:
-1. Hosting provider and plan (Q-H2) — the only P1 item.
-2. TDS on commission (Q-C4) — before the commission module is built.
-3. Final service list and website descriptions (Q-S1, Q-S4) — before launch.
-4. Which projects are "major", office hours and map pin, Council of Architecture number (Q-W1, Q-W3, Q-W7).
+No P1 item is open. Waiting for the client: Council of Architecture number (Q-W7); original photos with
+"major" marks (CD-43, CD-97); review of drafted website text, service descriptions, terms and Marathi
+translations; signature of `docs/CLIENT_DECISION_SUMMARY.md`.
 
 ## 6. Acceptance (proposed)
 Each stage gate in `project-context/DEVELOPMENT_ROADMAP.md` is accepted in writing and logged.

@@ -154,3 +154,18 @@ Sections 4–6 above describe the state before these answers. After them:
   New developer decisions D-38…D-41 added to the register.
 - **Still not met:** written client confirmation of CD-01…CD-90, developer approval of D-03…D-41,
   Stage 0 acceptance and the Stage 1 approval entry.
+
+## 8. Addendum — Stage 1 approved (2026-11-06)
+
+- **Last client items recorded:** CD-91…CD-97 — Hostinger with hPanel; TDS field kept off; no separate
+  quotation approval step; final services = the quotation categories; visits by appointment; map from
+  the address; client marks major projects.
+- **Approvals recorded in the decision log:** Stage 0 accepted; developer decisions D-02…D-41 approved
+  as proposed; **Stage 1 architecture and database design approved — Stage 2 may start.**
+- **Documents updated:** status headers of the design documents now say approved; hosting and deployment
+  text changed from cPanel to Hostinger hPanel (portable to cPanel); `CLAUDE.md` stage line and gate.
+- **New file:** `docs/CLIENT_DECISION_SUMMARY.md` — plain-language summary for Ar. Ajit Kumbhar's signature.
+- **Re-check:** search for "not approved" and for the questions answered by CD-91…CD-97 found only the
+  question-reference column of the decision tables (intended).
+- **Remaining:** client signature of the summary; Council of Architecture number (Q-W7); photos, text
+  and translation reviews before launch; Hostinger plan capability check at the start of Stage 2 (A12).

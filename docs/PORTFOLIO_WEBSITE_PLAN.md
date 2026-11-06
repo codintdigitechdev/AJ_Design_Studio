@@ -1,6 +1,6 @@
 # Portfolio Website Plan
 
-Status: **PROPOSED** — no UI pages are created before approval. Corrected 2026-11-06 for CD-01…CD-12.
+**Status: APPROVED 2026-11-06 (Stage 1 gate).** Items marked PROPOSED in this document are approved as written; anything still marked PENDING waits for the named answer. Corrected 2026-11-06.
 Tags: `CLAUDE.md` §3.
 
 **Content rules [CLIENT-DECISION]:**
@@ -46,7 +46,8 @@ or registrations; the Council of Architecture registration number is shown once 
 
 ### Services
 Categories and items marked "show on website". Demo services are used only inside the ERP and are never
-shown publicly (CD-42); the page lists confirmed services. Soft-deleted items disappear from the site.
+shown publicly (CD-42); the page lists the confirmed services — the quotation categories (CD-94), with descriptions drafted by
+CodInt for client review. Soft-deleted items disappear from the site.
 
 ### Portfolio and Project Details
 - Category filter; **display sequence** (PROPOSED): highlighted/major projects by display priority →
@@ -61,7 +62,7 @@ Merged into Portfolio (CD-44): each project page carries its own gallery; there 
 
 ### Contact [CD-12]
 Sai Arcade Building, Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan (CD-45); phone and WhatsApp
-8806956877 only (CD-46); email; office hours and map pin (to be supplied — Q-W3); enquiry form.
+8806956877 only (CD-46); email; visits **by appointment** (CD-95); map from the address, pin checked on staging (CD-96); enquiry form.
 
 ### Enquiry form
 Name*, Mobile*, Email, City/site, Project type, Services, Approx. area + unit, Message, preferred
@@ -97,14 +98,14 @@ address, 8806956877, sameAs Instagram); hreflang for English and Marathi pages, 
 Mobile first; off-canvas menu; sticky call/WhatsApp bar on mobile; 1/2/3–4 column grids.
 
 ## 8. Launch checklist
-- [ ] Original photos and details for the major projects (client sends — CD-43), with consent; names only with permission (CD-47)
+- [ ] Original photos and details for the major projects (client sends and marks major ones — CD-43, CD-97), with consent; names only with permission (CD-47)
 - [ ] All drafted text reviewed by the client (CD-05)
-- [ ] Confirmed services for the public site (Q-S1; demo never public — CD-42)
-- [ ] Office hours and map pin (Q-W3); Council of Architecture number (Q-W7)
+- [ ] Service descriptions reviewed by the client (CD-94)
+- [ ] Map pin checked on staging (CD-96); Council of Architecture number received (Q-W7)
 - [ ] Logo crops from the supplied file (CD-51)
 - [ ] Marathi translations reviewed by the client (CD-50)
 - [ ] Privacy notice approved
-- [ ] Hosting plan (10 GB+) chosen (Q-H2); staging copy reviewed by the client (CD-87)
+- [ ] Hostinger plan (10 GB+) purchased (CD-91); staging copy reviewed by the client (CD-87)
 
 ## 9. Design direction
 `project-context/UI_UX_GUIDELINES.md`: charcoal + copper, image-first, architectural grid, formal tone.

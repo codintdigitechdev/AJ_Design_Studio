@@ -1,11 +1,11 @@
 # Database Rules
 
-These rules govern the future `database.sql` and `sample_data.sql`. **No SQL is written
-before the Stage 1 gate.** The table-by-table design is `docs/DATABASE_DESIGN.md` (PROPOSED).
+These rules govern `database.sql` and `sample_data.sql`. Stage 1 was approved on 2026-11-06;
+`database.sql` is written in Stage 2 from `docs/DATABASE_DESIGN.md` (approved — D-22).
 Status tags: `CLAUDE.md` §3.
 
 ## 1. Engine and encoding
-- MySQL 5.7+ / MariaDB 10.4+ (to be checked against the chosen host — Q-H2).
+- MySQL 5.7+ / MariaDB 10.4+ (verified on the Hostinger plan at the start of Stage 2 — CD-91).
 - `ENGINE=InnoDB`, `CHARSET utf8mb4`, `COLLATE utf8mb4_unicode_ci` (Marathi/Devanagari safe).
 - Connection time zone `+05:30`; PHP `date_default_timezone_set('Asia/Kolkata')` [CLIENT-DECISION CD-30, N-05]. Currency INR only (CD-27) — no currency column is needed.
 
@@ -117,7 +117,7 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 - Schema changes after first release: numbered migrations; `database.sql` kept in sync.
 
 ## 12. Backups
-- Daily `mysqldump` via cPanel cron to a non-public folder; weekly archive of private files and
+- Daily `mysqldump` via the hosting cron (Hostinger hPanel — CD-91) to a non-public folder; weekly archive of private files and
   public uploads.
 - Retention **7 daily / 4 weekly / 3 monthly**, subject to the host's disk quota (C-13; plan 10 GB+ — CD-86).
 - A weekly off-site copy is taken by **CodInt Digitech** (CD-88), **encrypted** (password-protected
