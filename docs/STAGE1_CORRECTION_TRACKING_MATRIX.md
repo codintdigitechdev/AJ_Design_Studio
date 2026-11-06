@@ -205,3 +205,23 @@ TR = TECHNICAL_REQUIREMENTS · S1R = STAGE1_ROADMAP_AND_DECISIONS.
 No item is left uncorrected in the documents. "Corrected – PENDING" items cannot be finalised until the
 named client question or developer decision is answered; their impact is stated in the documents and in
 `docs/STAGE1_DOCUMENTATION_CONSISTENCY_REPORT.md` §4.
+
+## 9. Addendum — client answers CD-27…CD-90 (2026-11-06)
+
+The client answers recorded after this matrix was written changed the status of these items. All
+changes were applied to the affected documents in the same session.
+
+| Item | New status | Reason |
+|---|---|---|
+| R-01, C-06 (one merged enquiry module) | **Superseded** | Website enquiries kept as a separate inbox (CD-31; D-38) |
+| R-02 (gallery switch) | **Superseded** | Gallery merged into each portfolio project; no Gallery page (CD-44) |
+| C-02 ("Proposal" status) | **Superseded** | Statuses Planned / OnGoing / OnHold / Completed / HandOver / Cancelled (CD-76) |
+| DB-07 (`credit_transfers`) | **Withdrawn** | No credit transfer between projects (CD-68); table removed |
+| C-01, C-14, C-16, C-17 | Corrected — client rule now known | CD-89, CD-66, CD-65 (no reimbursement), CD-62 / CD-77 |
+| DB-02, DB-10, DB-19, WF-06, WF-11, WF-12, WF-13 | Corrected — client rule now known | CD-71, CD-69, CD-42, CD-67, CD-59, CD-70…CD-75 (TDS still Q-C4) |
+| PM-05, PM-06, PM-12, PM-14, PM-17, PG-02, PG-08 | Corrected — client rule now known | CD-83, CD-74, CD-80, ADM-only publishing, CD-71, CD-42 |
+| DB-01, WF-02, DB-05, DB-09, DB-11, PG-03 | Corrected — GST stays designed but off | Studio not GST-registered today (CD-60) |
+| C-13, MR-12 | Corrected — client rule now known | Plan 10 GB+ (CD-86); CodInt takes weekly off-site backup (CD-88) |
+
+Still pending a client answer: **Q-H2** hosting provider (P1), Q-C4 TDS on commission, Q-S1/Q-S4 final
+services, Q-W1 major projects, Q-W3 map pin and hours, Q-W7 Council of Architecture number, Q-Q8.

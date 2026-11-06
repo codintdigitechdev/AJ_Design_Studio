@@ -131,3 +131,26 @@ Also outstanding: **written confirmation** of CD-01…CD-26 (date and channel).
 | Stage 0 acceptance and Stage 1 approval recorded in the decision log | Not met |
 
 **Stage 1 remains NOT APPROVED.** The final Stage 1 approval package has not been created, as instructed.
+
+## 7. Addendum — client answers recorded 2026-11-06 (CD-27…CD-90)
+
+Sections 4–6 above describe the state before these answers. After them:
+
+- **Recorded:** CD-27…CD-30 (assumptions A2, A5, A8, A10) and CD-31…CD-90 (the question list, plus
+  follow-up choices made in the development session) in `docs/CLIENT_QUESTIONS.md` §0 and the decision log.
+- **Applied to:** `CLAUDE.md`, all 7 project-context files, `DATABASE_DESIGN`, `WORKFLOWS`,
+  `PERMISSION_MATRIX`, `ERP_PAGES_AND_FIELDS`, `WIREFRAMES`, `PROJECT_SCOPE`, `QUOTATION_ANALYSIS`,
+  `PORTFOLIO_WEBSITE_PLAN`, `TECHNICAL_REQUIREMENTS`, `STAGE1_ROADMAP_AND_DECISIONS`.
+- **Main design changes:** separate Website Enquiries inbox (new `website_enquiries` table; still 58
+  tables because `credit_transfers` was removed); Gallery merged into Portfolio; project statuses
+  Planned/OnGoing/OnHold/Completed/HandOver/Cancelled; Direct/Contractor/Referral sources; commission
+  on final fee excl. GST, payable on completion; refunds with % deduction; advances at enquiry stage;
+  English + Marathi website and documents (mPDF); built-in CAPTCHA; quotation number
+  `AJDS/Q/{fy}/{seq3}`; GST designed but off (not registered).
+- **Checks re-run:** a search for every answered question ID without its decision reference, for
+  credit transfers, the old Gallery page, the old statuses and "New – unreviewed" found only
+  intentional references (superseded notes and the sample-quotation analysis).
+- **Open:** Q-H2 hosting provider (the only P1 item), Q-C4 TDS, Q-S1/Q-S4, Q-W1, Q-W3, Q-W7, Q-Q8.
+  New developer decisions D-38…D-41 added to the register.
+- **Still not met:** written client confirmation of CD-01…CD-90, developer approval of D-03…D-41,
+  Stage 0 acceptance and the Stage 1 approval entry.

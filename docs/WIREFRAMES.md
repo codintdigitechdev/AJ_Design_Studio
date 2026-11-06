@@ -4,7 +4,7 @@
 Tags: `CLAUDE.md` §3.
 
 These are low-fidelity text wireframes: layout, content order and controls only. The look follows
-`project-context/UI_UX_GUIDELINES.md` (charcoal + copper, light neutrals; colours/fonts PENDING Q-B2).
+`project-context/UI_UX_GUIDELINES.md` (charcoal + copper from the logo and visiting card, Copperplate Gothic-style headings — CD-51).
 
 **Content rules:**
 - `[IMG]` = a real AJ Design Studio project photo. None supplied yet (Q-W1). Never an image from
@@ -28,7 +28,7 @@ W-E10 Mobile site visit, **W-E11 Source & Commission tab**, **W-E12 Commission p
 ### W-P1 Home — desktop
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│ [LOGO]        Home  About  Services  Portfolio  Gallery  Contact  [Enquire ▸] │ ← transparent over hero,
+│ [LOGO]     Home  About  Services  Portfolio  Contact  [EN | मराठी]  [Enquire ▸] │ ← transparent over hero,
 ├──────────────────────────────────────────────────────────────────────────────┤   charcoal on scroll
 │                         [IMG full-bleed hero / slider]                       │
 │                     AJ DESIGN STUDIO                                         │
@@ -37,7 +37,7 @@ W-E10 Mobile site visit, **W-E11 Source & Commission tab**, **W-E12 Commission p
 ├──────────────────────────────────────────────────────────────────────────────┤
 │  ‹2–3 line studio intro›                                   About the studio → │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│  SERVICES (categories marked "show on website"; demo items only if Q-S5)     │
+│  SERVICES (confirmed services only — demo items are never public, CD-42)     │
 │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐   …  → /services                │
 │  │‹name›  │ │‹name›  │ │‹name›  │ │‹name›  │                                 │
 │  └────────┘ └────────┘ └────────┘ └────────┘                                 │
@@ -53,8 +53,8 @@ W-E10 Mobile site visit, **W-E11 Source & Commission tab**, **W-E12 Commission p
 ├──────────────────────────────────────────────────────────────────────────────┤
 │  ‹CTA line›                         [Send an enquiry]  [WhatsApp]  [Call]    │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│ FOOTER: [LOGO] · ‹address›* · ‹phone 1 / phone 2›* · ‹email› · Instagram ·   │
-│ Privacy   *spelling and WhatsApp number PENDING Q-W3/Q-W4          © year    │
+│ FOOTER: [LOGO] · Sai Arcade Building, … Patan · 8806956877 · ‹email› ·       │
+│ Instagram · Council of Architecture reg. no. ‹…› · Privacy          © year    │
 └──────────────────────────────────────────────────────────────────────────────┘
                                                                      (◉) WhatsApp floating
 ```
@@ -109,17 +109,19 @@ Unpublished/removed project → 410/404 page; old slug → 301 to the new slug.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ ┌───────────────────────────┐ ┌────────────────────────────┐ │
-│ │ ‹address› (Q-W3)          │ │ ENQUIRY FORM               │ │
-│ │ ☎ ‹phone 1› ‹phone 2›     │ │ Name*  Mobile*  Email      │ │
-│ │ ◉ WhatsApp (Q-W4)         │ │ City / site  Project type  │ │
+│ │ Sai Arcade Building, …    │ │ ENQUIRY FORM               │ │
+│ │ ☎ 8806956877 (tap to call)│ │ Name*  Mobile*  Email      │ │
+│ │ ◉ WhatsApp 8806956877     │ │ City / site  Project type  │ │
 │ │ ✉ ‹email›                 │ │ Services [☐ ☐ ☐]           │ │
 │ │ ‹office hours›            │ │ Approx. area [__][sqft▼]   │ │
 │ │ [map – loads on demand]   │ │ Message  Prefer (•)Call    │ │
-│ └───────────────────────────┘ │ ☐ I agree to the Privacy*  │ │
+│ └───────────────────────────┘ │ CAPTCHA* [ 3 + 4 = __ ]    │ │
+│                               │ ☐ I agree to the Privacy*  │ │
 │                               │ [ Send enquiry ]           │ │
 │                               └────────────────────────────┘ │
 └──────────────────────────────────────────────────────────────┘
-After sending → /enquiry/thank-you (noindex). Errors under each field; values kept.
+After sending → /enquiry/thank-you (noindex). Saved to the Website Enquiries inbox; email to the studio.
+Errors under each field; values kept. Available in English and Marathi.
 ```
 
 ### W-P6 Services — `/services`
@@ -129,7 +131,7 @@ After sending → /enquiry/thank-you (noindex). Errors under each field; values 
 │ ‹Category 1›  [IMG optional]                                 │
 │   ‹description›  • ‹item› • ‹item›                           │
 │   [ Enquire about this service ] → /enquiry?service=…        │
-│ (active, "show on website", not deleted; demo only if Q-S5)  │
+│ (active, "show on website", confirmed — never demo items)    │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -150,7 +152,8 @@ After sending → /enquiry/thank-you (noindex). Errors under each field; values 
 │ Payments   [FIN]                                                             │
 │ Expenses   [FIN]                                                             │
 │ Commission [FIN]                                                             │
-│ Partners   (ADM; STF only if Q-C5)                                           │
+│ Partners   (ADM only — CD-74)                                                │
+│ Web inbox  (website enquiries — CD-31)                                       │
 │ Portfolio  │                                                                 │
 │ Follow-ups │                                                                 │
 │ Reports    │ (financial reports ADM only)                                    │
@@ -196,15 +199,15 @@ STF: no FINANCE panel, no payment follow-ups, no recent payments. SITE: "My foll
 ### W-E3 List page pattern (enquiries)
 ```
 Enquiries                                              [+ New enquiry]
-[Website – unreviewed (4)] [Open] [Converted] [Lost/Closed] [All]
+[Open] [Converted] [Lost/Closed] [All]              [Delete by date range…] (ADM)
 Filters: Source [▼] Partner [▼]* Assigned [▼] Date [__ to __]  Search [____]  [Export CSV]
 ┌──────────┬──────────┬───────────┬────────┬────────────┬──────────┬──────────┐
 │ No.      │ Date     │ Name      │ Mobile │ Source     │ Status   │ Next F/U │
 ├──────────┼──────────┼───────────┼────────┼────────────┼──────────┼──────────┤
-│ AJDS/E/… │ dd/mm/yy │ ‹name›    │ …      │ Website    │ ●New-unr │ —        │
+│ AJDS/E/… │ dd/mm/yy │ ‹name›    │ …      │ Website    │ New      │ —        │
 │ AJDS/E/… │ dd/mm/yy │ ‹name›    │ …      │ Contractor │ Contacted│ dd/mm    │
 └──────────┴──────────┴───────────┴────────┴────────────┴──────────┴──────────┘
-*Partner filter for STF only if Q-C5 allows. Server-side paging.
+*Partner filter ADM only. Website submissions have their own inbox (CD-31). Server-side paging.
 ```
 
 ### W-E4 Enquiry detail
@@ -225,12 +228,12 @@ AJDS/E/2026-27/0012 · ‹name›   Status: [Contacted ▼] [Save]   [Convert to
 │ AJDS/Q/2026-27/003 R1  Sent         │ │ dd/mm Call back  ‹user› ☐          │
 │ ₹… [FIN] (ADM only)                 │ └────────────────────────────────────┘
 └─────────────────────────────────────┘
-*Partner shown to STF only if Q-C5 allows.
+*Source and partner shown to ADM only (CD-74).
 ```
 
 ### W-E5 Project detail (tabs)
 ```
-AJDS/P/2026-27/004 · ‹Project name› · ‹Client›     Status: [Design ▼]   [Edit]
+AJDS/P/2026-27/004 · ‹Project name› · ‹Client›     Status: [OnGoing ▼]  [Edit]
 Source: Contractor · ‹partner›*        Billing method: Agreement [FIN]
 [Overview] [Quotations][FIN] [Fees & Bills][FIN] [Payments][FIN] [Expenses][FIN]
 [Source & Commission][FIN] [Documents] [Site visits] [Timeline]
@@ -242,12 +245,12 @@ Source: Contractor · ‹partner›*        Billing method: Agreement [FIN]
 └─────────────────────────────────────────┘ │ Credit       ₹…                │
                                             │ Commission o/s ₹…              │
                                             └────────────────────────────────┘
-*Source label for STF only if Q-C5 allows. Tabs absent when role or feature switch disallows them.
+*Source shown to ADM only (CD-74). Tabs absent when role or feature switch disallows them.
 ```
 
 ### W-E6 Quotation builder (Draft revision) [FIN — ADM]
 ```
-Quotation (no. on first send) · R1 (Draft)   Enquiry/Project: ‹…›   [Save draft] [Preview PDF] [Send ▸]
+Quotation (no. on first send) · R1 (Draft)   Enquiry/Project: ‹…›   [Save draft] [PDF EN/MR] [Send ▸] [Share on WhatsApp]
 ┌── Header ────────────────────────────────────────────────────────────────┐
 │ Date [dd/mm/yyyy]  Valid until [____]◇  Subject [_______________________] │
 │ Site location [__________]  Area [_____] Basis [▼] Unit [sqft ▼]          │
@@ -264,15 +267,15 @@ Quotation (no. on first send) · R1 (Draft)   Enquiry/Project: ‹…›   [Save
 │ [Item ▼]    ‹Interior 3D view› [__]       nos    [_____]   ₹ (auto)      │
 │ [Custom ▼]  ‹…›                                            [_____]       │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ Discount ◇ [none ▼]               Subtotal                 ₹ …            │
+│ Discount [none ▼] (≤ 5%)          Subtotal                 ₹ …            │
 │ ☐ Apply GST (only if registered)  Discount                 ₹ …            │
 │ Rounding [none ▼]                 Taxable                  ₹ …            │
 │                                   GST lines                ₹ …            │
 │                                   Rounding                 ₹ …            │
 │                                   GRAND TOTAL              ₹ …            │
 └──────────────────────────────────────────────────────────────────────────┘
-┌── Optional blocks (all off by default) ──────────────────────────────────┐
-│ ☐ Payment schedule  ☐ Terms  ☐ Exclusions  ☐ Bank details  ☐ Acceptance  │
+┌── Blocks ────────────────────────────────────────────────────────────────┐
+│ ☐ Payment schedule  ☑ Terms  ☐ Exclusions  ☐ Bank details  ☑ Acceptance  │
 └──────────────────────────────────────────────────────────────────────────┘
 Revision history: R0 Superseded dd/mm · R1 Draft            [Compare R0↔R1]
 No rate or area is pre-filled unless the ADM set a default. Rates editable by ADM.
@@ -281,14 +284,13 @@ No rate or area is pre-filled unless the ADM set a default. Rates editable by AD
 ### W-E7 Quotation PDF (A4) — logo + visiting-card letterhead [CLIENT-DECISION]
 ```
 ┌────────────────────────────────────────────────────────────┐
-│              ‹"श्री" – optional, Q-Q2›                       │
+│                       "श्री"                                 │
 │ [LOGO]   Ar. Ajit Arjun Kumbhar                              │
 │          Architect & Interior Designer                       │
-│          ‹address (Q-W3)› · ‹phone 1 / phone 2› · ‹email›     │
-│          [Instagram QR – optional, Q-Q2]                     │
+│          Sai Arcade Building, … Patan · 8806956877 · ‹email› │
 ├────────────────────────────────────────────────────────────┤
 │ Ref: ‹AJDS/Q/2026-27/003-R1›               Date: dd/mm/yyyy  │
-│ To: ‹client block› ◇ (Q-Q6)                                 │
+│ To: ‹client block› (off — not requested, CD-55)             │
 │ ‹PROJECT TITLE›  (underlined) · ‹DESIGN WORK›                │
 │ ‹Intro line›                                                │
 │ 1. ‹Section›  • item • item                                 │
@@ -296,13 +298,14 @@ No rate or area is pre-filled unless the ADM set a default. Rates editable by AD
 │ ‹Inclusion statement›                                       │
 │ FEES: description | basis | rate | amount                   │
 │ Subtotal · discount ◇ · GST lines (only if applied) · total │
-│ Amount in words ◇ · Payment schedule ◇ · Terms ◇ · Bank ◇   │
-│                         ‹Signature name› ‹Designation› (Q-Q10)│
-│ Client acceptance block ◇                                   │
+│ Payment schedule ◇ · Terms (standard sections) · Bank ◇     │
+│                         Ar. Ajit Kumbhar · ‹Designation›     │
+│ Client acceptance block                                     │
 ├────────────────────────────────────────────────────────────┤
 │ footer: contact line                         Page 1 of 2     │
 └────────────────────────────────────────────────────────────┘
-Never printed: commission, partner, internal notes.
+Never printed: commission, partner, internal notes. No QR code (CD-53). Printable in English or
+Marathi (CD-50). Shared by download + WhatsApp (CD-57).
 ```
 
 ### W-E8 Payment entry with allocation [FIN — ADM]
@@ -319,7 +322,8 @@ Mode [UPI ▼]  Reference / UTR [________]  Bank [______]  Notes [__________]
 ├──────────────────────────────────────────────────────────────────────────┤
 │ Allocated ₹ …        Unallocated → Advance / credit ₹ …                   │
 └──────────────────────────────────────────────────────────────────────────┘
-Any amount is accepted (partial payments allowed). [ Save & print receipt ]
+Any amount is accepted (partial payments allowed). Modes: Online / Cash / UPI. An advance can also
+be recorded against an enquiry (CD-69).   [ Save & print receipt ]
 Confirmation: "Posted payments cannot be edited."
 ```
 
@@ -329,20 +333,21 @@ Portfolio › ‹Title›   [Draft · Pending client review]   [Preview] [Publis
  Publish is blocked until: ☑ consent · ★ cover · alt text on all images · review status = Approved
 ┌── Details ─────────────────────────────┐ ┌── Images (originals private) ───────────┐
 │ Title · Slug · Category · Location     │ │ [Upload images]  drag to reorder        │
-│ Year · Area [☐ show]                   │ │ ┌────┐ alt* [____] caption [___] ☐gallery│
+│ Year · Area [☐ show]                   │ │ ┌────┐ alt* [____] caption [___]        │
 │ Services [☐ ☐ ☐]                       │ │ │IMG │ ★ cover                          │
 │ ☐ Featured (home) ☐ Highlighted (major)│ │ └────┘                                  │
 │ Display priority [__]                  │ └─────────────────────────────────────────┘
-│ Short description* · Long description  │
+│ Short/long description (EN + मराठी)    │
 │ Review status [Pending client review ▼]│
 │ SEO title / description                │
 │ ☐ Client permission obtained* + note   │
+│ Client name [____] ☐ show (permission) │
 │   [attach consent record]              │
 └────────────────────────────────────────┘
 Unpublish / Remove ask for a reason and withdraw the public images.
 ```
 
-### W-E10 Mobile site-visit entry ◇ (Q-P3, Q-U2)
+### W-E10 Mobile site-visit entry (CD-77, CD-81)
 ```
 ┌─────────────────────────┐
 │ ← AJDS/P/…/004 Site visit│
@@ -351,22 +356,23 @@ Unpublish / Remove ask for a reason and withdraw the public images.
 │ By     ‹current user›   │
 │ Observations [        ] │
 │ [📷 Add photos]          │
-│ [   Save visit   ]      │   (chargeable flag: ADM only, ◇)
+│ [   Save visit   ]      │   (chargeable flag: ADM only)
 └─────────────────────────┘
 ```
 
 ### W-E11 Project — Source & Commission tab [FIN — ADM]
 ```
-Source: (•) Contractor ( ) Direct      Partner: ‹name, firm› [change]
+Source: ( ) Direct (•) Contractor ( ) Referral    Partner: ‹name, firm› [change]
 ┌── Commission ────────────────────────────────────────────────────────────┐
 │ Commission applicable: [ Yes ▼ ]   (must be chosen; never defaulted)     │
 │ Type: (•) Percentage ( ) Fixed     Rate [__.__ %]  /  Amount [₹ ______]  │
-│ Base: [‹agreed fee excl. GST› ▼]  (PENDING Q-C3)   Base amount ₹ …      │
+│ Base: final agreed fee excl. GST incl. variations (CD-72)    ₹ …         │
 │ Commission amount ₹ … (auto)                                             │
 │ Status: Pending approval        [Approve] [Reject] (remark required)     │
 │ Remarks [___________________________________________]                    │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ Payable ₹ …   Paid ₹ …   Outstanding ₹ …      [+ Adjustment] [+ Payment] │
+│ Payable from: ‹completion date›   Payable ₹ …  Paid ₹ …  Outstanding ₹ … │
+│                                              [+ Adjustment] [+ Payment] │
 │ Payments: AJDS/CP/…/0004  dd/mm  ₹ …  UPI  [Voucher] [Reverse]           │
 │ History: dd/mm Draft → Pending approval (‹user›) · Approved (remark) …   │
 └──────────────────────────────────────────────────────────────────────────┘
@@ -378,7 +384,8 @@ Direct project: the commission panel is not shown and the server rejects commiss
 Commission payment — ‹partner› · ‹project›          Payment no.: (auto)
 Outstanding ₹ …
 Date [dd/mm/yyyy]  Amount [₹ ______] (partial allowed, ≤ outstanding)
-Mode [Bank transfer ▼]  Reference [________]  TDS [₹ ____] (only if Q-C4)
+Mode [Online ▼]  Reference [________]  GST [₹ ____] (if charged)  TDS [₹ ____] (Q-C4)
+Allowed only after the project is Completed / HandOver (CD-72).
 Proof [attach]  Notes [______________]
 [ Save ]   "Posted commission payments cannot be edited — reverse instead."
 ```
@@ -386,12 +393,12 @@ Proof [attach]  Notes [______________]
 ---
 
 ## Wireframe approval checklist — PENDING
-- [ ] Public navigation, separate Gallery page (Q-W2)
+- [ ] Public navigation incl. EN/मराठी switch (Gallery merged — CD-44)
 - [ ] Home sections incl. process strip; tone of drafted text (client review)
 - [ ] Enquiry form fields (W-P5)
 - [ ] ERP menu and dashboard widgets (financial widgets ADM only)
-- [ ] Quotation builder and PDF letterhead (Q-Q2, Q-Q6, Q-Q10)
+- [ ] Quotation builder and PDF letterhead (CD-52…CD-58)
 - [ ] Payment allocation by billing method (D-26)
-- [ ] Source & Commission tab and commission payment (Q-C1…Q-C6)
+- [ ] Source & Commission tab and commission payment (CD-70…CD-75)
 - [ ] Portfolio editor publish/unpublish/remove rules
-- [ ] Mobile screens needed (Q-U2)
+- [ ] Mobile screens (allowed — CD-81)

@@ -29,7 +29,7 @@ Status tags: `CLAUDE.md` §3. Rules here are BRIEF/PROPOSED unless marked.
 - Generic error message. `session_regenerate_id(true)` on login and privilege change.
 - Password reset: random 32-byte token, stored as a hash, 30–60 min expiry, single use.
 - No default credentials in production; no `fix_login.php`-style scripts deployed.
-- Optional 2FA (TOTP) for Admin — PENDING Q-U3.
+- No two-step login (CD-82).
 
 ## 4. Sessions and cookies
 - ERP cookie `AJDS_ERP`, path `/erp`, `HttpOnly`, `Secure`, `SameSite=Lax` (D-17),
@@ -44,7 +44,7 @@ Status tags: `CLAUDE.md` §3. Rules here are BRIEF/PROPOSED unless marked.
 | Upload storage | Originals and drafts: `storage/portfolio/` (private) | `storage/documents/` (private) |
 | Public copies | Resized web versions copied to `public_html/uploads/portfolio/` **only when the item is published**; removed on unpublish/remove (D-31) | Never |
 | Delivery | Direct URL of published web versions | **One route: `/erp/files/{id}/download`** (C-11, D-34) — resolves the owning record, applies its permission (incl. SITE assignment and Admin-only for financial owners/categories), sends `Content-Disposition: attachment`; financial downloads are always audited |
-| Allowed | JPG, PNG, WebP | PDF, JPG, PNG, WebP; DWG/DOCX/XLSX etc. PENDING Q-D1 |
+| Allowed | JPG, PNG, WebP | PDF, JPG, PNG, WebP only; small size limits (CD-79) |
 - Validate extension whitelist **and** MIME via `finfo`; images also via `getimagesize()`.
 - Re-encode images (removes payloads and EXIF/GPS). Random stored names. Size limits configurable.
 - Upload dirs: no PHP/script execution, no directory listing.
@@ -75,7 +75,7 @@ Definition: `BUSINESS_REQUIREMENTS.md` §4.1. Enforcement [PROPOSED, D-33]:
   email/notification and timeline builder consults it and **omits** financial data for non-ADM
   users — the data is never sent, not merely hidden.
 - Financial routes (fees, bills, credit notes, payments, receipts, allocations, refunds,
-  write-offs, credit transfers, expenses, commission, partner bank/tax data, financial reports,
+  write-offs, expenses, commission, partner bank/tax data, financial reports,
   finance settings, financial AJAX endpoints) return **403** for non-ADM users.
 - System-generated activity-timeline entries never contain amounts; financial events are written
   to the audit log (ADM only).
@@ -85,22 +85,24 @@ Definition: `BUSINESS_REQUIREMENTS.md` §4.1. Enforcement [PROPOSED, D-33]:
 
 ## 9. Public form abuse
 - Honeypot, minimum fill time, per-IP rate limit, length and link-count limits.
-- No CAPTCHA by default (Q-W6). Visitor input never goes into email headers.
+- **Built-in CAPTCHA** on the enquiry form, served by the site itself — no third-party service (CD-48).
+- Visitor input never goes into email headers. Notifications are sent from the domain mailbox.
 
 ## 10. Privacy
-- Website enquiries: minimal data, ERP access only, retention PENDING Q-G7, privacy notice by the form.
-- Portfolio: publish only with consent recorded; city-level location; no client names unless
-  approved [CLIENT-DECISION: no private client information without approval].
+- Website enquiries: minimal data, ERP access only, kept until the Admin deletes them by date range
+  (permanent; range, count and user audited — CD-34); privacy notice by the form.
+- Portfolio: publish only with consent recorded; city-level location; client names only with that
+  client's recorded permission [CLIENT-DECISION CD-11, CD-47].
 - Contractor/referral partner data: minimal contact data; bank and tax details optional,
-  Admin-only, encrypted at rest where stored, masked in lists; retention PENDING Q-C6.
-- Content from `reference/portfolio/Senior office profile.pdf` (another architect) is never published.
+  Admin-only, encrypted at rest where stored, masked in lists; kept until removed by the Admin (CD-75).
+- Content from `reference/portfolio/Senior office profile.pdf` (another architect) is never used (CD-39).
 - India's DPDP Act 2023 to be reviewed with the client — not legal advice.
 
 ## 11. Audit, logging, backup
 - Audit log per `DATABASE_RULES.md` §9 (append-only, ADM-only).
 - Error logs in `storage/logs/`, rotated, never displayed.
-- Backups outside the web root; off-site copies encrypted (D-36); DB backup downloads ADM-only and audited.
+- Backups outside the web root; weekly off-site copies taken by CodInt Digitech (CD-88) and encrypted (D-36); DB backup downloads ADM-only and audited.
 
 ## 12. Dependencies
-- Minimal: Bootstrap 5 and a PDF library (Dompdf or mPDF — D-18), versions pinned and bundled.
+- Minimal: Bootstrap 5 and mPDF (needed for "श्री" and Marathi documents — CD-50, CD-53; D-18), versions pinned and bundled.
 - ERP assets served locally, not from a CDN [PROPOSED].

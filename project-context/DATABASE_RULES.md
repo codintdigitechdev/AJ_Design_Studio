@@ -50,12 +50,13 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 - A record referenced by financial or commission rows is **deactivated**, not soft-deleted, unless
   ADM overrides with a reason (audited).
 - Soft-deleted services stay visible on the quotations and portfolio items that already use them.
-- Hard delete only for: spam website enquiries after the retention period (Q-G7), expired
-  temporary files, rate-limit log rows.
+- Hard delete only for: website-inbox items and Lost/Closed/spam enquiries removed by the Admin's
+  date-range delete (CD-34; the range, count and user are audited), expired temporary files,
+  rate-limit log rows.
 
 ## 6. Financial integrity (includes commission)
 - Financial records: fee agreements and variations, payment stages once billed or paid, bills,
-  credit notes, payments/receipts, allocations, credit transfers, refunds, write-offs, expenses,
+  credit notes, payments/receipts, allocations, refunds, write-offs, expenses,
   **project commissions after approval, commission adjustments, commission payments**.
 - **Never silently overwrite or delete** a posted financial record.
 - Correction = reversal record (negative amount, `reverses_id` → original, mandatory reason) and,
@@ -63,8 +64,8 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 - Drafts may be edited; once issued/posted/approved the row is immutable except status and
   cancellation fields (PHP enforcement; optional triggers D-15).
 - Optional lock date: nothing dated on/before it can be added or reversed without ADM + reason.
-- Document numbers (quotation, bill, credit note, receipt, refund, expense, commission payment,
-  credit transfer) come from `number_sequences` inside the same transaction, using
+- Document numbers (quotation `AJDS/Q/{fy}/{seq3}` — CD-52; bill, credit note, receipt, refund,
+  write-off, expense, commission payment) come from `number_sequences` inside the same transaction, using
   `SELECT … FOR UPDATE`; unique index; never reused; cancelled documents keep their number.
 - **Allocation targets:** each allocation row targets exactly one of bill / payment stage / fee
   agreement (D-29). Allocated totals are always computed **net of allocation reversals**.
@@ -82,12 +83,13 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 
 ## 8. GST (optional, per document)
 - Studio GST profile in settings (registered yes/no, GSTIN, state code, default SAC, default rates);
-  **no GST fields are active until the studio is marked GST-registered** (Q-F3).
+  **no GST fields are active until the studio is GST-registered** (not registered today — CD-60).
+- Commission payments may carry GST charged by the partner (CD-73).
 - Each taxable document (quotation revision, fee agreement, fee variation, bill, credit note)
   stores `gst_applicable`, `taxable_amount`, `tax_amount` and its own tax-line rows (name, rate,
   SAC, amount). GST is never compulsory [CLIENT-DECISION].
 - Client `state_code` and the document's `place_of_supply` snapshot allow a CGST+SGST or IGST
-  split; the actual rule is PENDING Q-F3.
+  split; the actual rule is confirmed with the tax adviser if the studio registers.
 
 ## 9. Audit log
 - `audit_logs`: `id, user_id, action, module, record_type, record_id, summary,
@@ -101,6 +103,7 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 ## 10. Files
 - DB stores metadata only: storage area (public/private), relative path, random stored name,
   original name, MIME, size, SHA-256, **owner type + owner ID**, **is_financial**, uploader.
+- Allowed types kept minimal: PDF, JPG, PNG, WebP (CD-79).
 - Portfolio originals are private; public web versions are created on publish and withdrawn on
   unpublish/remove (D-31). Private documents never sit in the web root.
 
@@ -116,7 +119,8 @@ Soft-deletable tables additionally: `deleted_at DATETIME NULL`, `deleted_by INT 
 ## 12. Backups
 - Daily `mysqldump` via cPanel cron to a non-public folder; weekly archive of private files and
   public uploads.
-- Retention **7 daily / 4 weekly / 3 monthly**, subject to the host's disk quota (C-13; PENDING Q-H2, Q-H4).
-- Off-site copies are **encrypted** (password-protected archive; key held by ADM off-server — D-36).
+- Retention **7 daily / 4 weekly / 3 monthly**, subject to the host's disk quota (C-13; plan 10 GB+ — CD-86).
+- A weekly off-site copy is taken by **CodInt Digitech** (CD-88), **encrypted** (password-protected
+  archive; key held off-server — D-36).
 - Restore procedure documented and **tested** before go-live, including a check that every `files`
   row has its file and every stored file has a row.

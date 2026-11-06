@@ -38,14 +38,24 @@
 ### 1.3 Enquiries
 | URL | Method | Page / action | Permission |
 |---|---|---|---|
-| `/erp/enquiries` | GET | List; "Website – unreviewed" queue; filters incl. source and partner | 2 |
+| `/erp/enquiries` | GET | List; filters incl. source (partner filter ADM only) | 2 |
+| `/erp/enquiries/purge` | GET, POST | Date-range delete of Lost/Closed enquiries (permanent; audited — CD-34) | 2a |
 | `/erp/enquiries/new` | GET, POST | New enquiry | 2 C |
 | `/erp/enquiries/{id}` | GET | Detail: activities, follow-ups, quotations (number + status only for non-ADM) | 2 V |
 | `/erp/enquiries/{id}/edit` | GET, POST | Edit | 2 E |
 | `/erp/enquiries/{id}/status` | POST | Change status with reason | 2 S |
 | `/erp/enquiries/{id}/activities` | POST | Add activity | 2 E |
 | `/erp/enquiries/{id}/convert` | GET, POST | Convert wizard (copies source + partner) | 2b |
-| `/erp/enquiries/{id}/spam` | POST | Mark spam | 2a |
+| `/erp/enquiries/{id}/spam` | POST | Mark spam | 2 S |
+
+### 1.3a Website Enquiries inbox [CLIENT-DECISION CD-31]
+| URL | Method | Page / action | Permission |
+|---|---|---|---|
+| `/erp/website-enquiries` | GET | Inbox: new / reviewed / spam / duplicate / converted | 2d |
+| `/erp/website-enquiries/{id}` | GET | Detail | 2d |
+| `/erp/website-enquiries/{id}/status` | POST | Mark reviewed / spam / duplicate | 2d |
+| `/erp/website-enquiries/{id}/convert` | POST | Convert to an enquiry (copies data, keeps the link) | 2d |
+| `/erp/website-enquiries/purge` | GET, POST | Date-range delete (ADM; permanent; audited — CD-34) | 2a |
 
 ### 1.4 Clients
 | URL | Method | Page / action | Permission |
@@ -69,10 +79,10 @@
 | `/erp/projects/{id}/expenses` | GET | [FIN] Expenses tab | 9 |
 | `/erp/projects/{id}/commission` | GET | [FIN] **Source & Commission tab** | 4c, 19 |
 | `/erp/projects/{id}/documents` | GET | Documents (financial categories ADM only) | 10 / 10a |
-| `/erp/projects/{id}/site-visits` | GET | Site visits ◇ | 4a |
+| `/erp/projects/{id}/site-visits` | GET | Site visits | 4a |
 | `/erp/projects/{id}/timeline` | GET | Activities and status history (no amounts) | 4 V |
 
-### 1.6 Site visits ◇ (Q-P3)
+### 1.6 Site visits (CD-77, no limits; mobile — CD-81)
 | URL | Method | Page / action | Permission |
 |---|---|---|---|
 | `/erp/projects/{id}/site-visits/new` | GET, POST | New visit (photos optional) | 4a C |
@@ -102,15 +112,14 @@
 | `/erp/quotations/new?enquiry={id}` / `?project={id}` | GET, POST | Create R0 | 6 C |
 | `/erp/quotations/{id}` | GET | Header, current revision, history | 6 V |
 | `/erp/quotations/{id}/revisions/{rev}/edit` | GET, POST | Builder (Draft only) | 6 E |
-| `/erp/quotations/{id}/revisions/{rev}/scope` | GET, POST | Scope-only drafting without prices ◇ (only if Q-U4 allows) | 6 (STF ◇) |
 | `/erp/quotations/{id}/revisions/{rev}` | GET | Frozen revision | 6 V |
-| `/erp/quotations/{id}/revisions/{rev}/print`, `/pdf` | GET | Print / PDF (logo + visiting-card letterhead) | 6 V/X |
+| `/erp/quotations/{id}/revisions/{rev}/print`, `/pdf` | GET | Print / PDF in English or Marathi (`?lang=mr`); logo + visiting-card letterhead with "श्री" | 6 V/X |
 | `/erp/quotations/{id}/compare?a=&b=` | GET | Compare revisions | 6 V |
 | `/erp/quotations/{id}/approve` | POST | Approve ◇ | 6b |
 | `/erp/quotations/{id}/send` | POST | Mark sent (number taken on first send) | 6a |
 | `/erp/quotations/{id}/new-revision` | POST | Next revision | 6 E |
 | `/erp/quotations/{id}/decision` | POST | Accept (→ conversion → fee agreement) / reject / expire / cancel | 6a |
-| `/erp/quotations/{id}/email` | GET, POST | Email PDF ◇ (Q-Q9) | 6a |
+| `/erp/quotations/{id}/share` | GET | "Share on WhatsApp": downloads the PDF and opens WhatsApp with a prepared message (CD-57) | 6a |
 
 ### 1.10 Fees, bills and credit notes [FIN]
 | URL | Method | Page / action | Permission |
@@ -135,13 +144,13 @@
 |---|---|---|---|
 | `/erp/payments` | GET | Collection register | 8 |
 | `/erp/payments/new?project={id}` | GET, POST | Record payment + allocation | 8 |
+| `/erp/payments/new?enquiry={id}` | GET, POST | Advance at enquiry stage (CD-69) | 8 |
 | `/erp/payments/{id}` | GET | Detail with allocations | 8 |
 | `/erp/payments/{id}/allocate` | GET, POST | Allocate / de-allocate | 8a |
 | `/erp/payments/{id}/reverse` | GET, POST | Reverse | 8b |
-| `/erp/payments/{id}/receipt` | GET | Receipt print / PDF | 8 |
-| `/erp/credit-transfers/new?client={id}` | GET, POST | Credit transfer ◇ (Q-F11) | 8a |
-| `/erp/refunds/new?project={id}`, `/erp/refunds/{id}`, `/{id}/reverse` | GET, POST | Refund ◇ | 8c |
-| `/erp/write-offs/new?project={id}`, `/{id}/reverse` | GET, POST | Write-off ◇ | 8c |
+| `/erp/payments/{id}/receipt` | GET | Receipt print / PDF (English or Marathi) | 8 |
+| `/erp/refunds/new?project={id}`, `/erp/refunds/{id}`, `/{id}/reverse` | GET, POST | Refund with optional % deduction (CD-66) | 8c |
+| `/erp/write-offs/new?project={id}`, `/{id}/reverse` | GET, POST | Write-off (ADM — CD-67) | 8c |
 
 ### 1.12 Expenses [FIN]
 | URL | Method | Page / action | Permission |
@@ -150,7 +159,6 @@
 | `/erp/expenses/new` | GET, POST | New expense | 9 |
 | `/erp/expenses/{id}` | GET | View | 9 |
 | `/erp/expenses/{id}/reverse` | POST | Reverse | 9 |
-| `/erp/expense-claims/new`, `/erp/expense-claims/{id}/decision` | GET, POST | Staff claim ◇ / ADM decision (only if Q-U4 allows) | 9 |
 
 ### 1.13 Portfolio (PG-09)
 | URL | Method | Page / action | Permission |
@@ -178,7 +186,7 @@
 | `/erp/commissions/{id}/payments/new` | GET, POST | Commission payment (partial allowed) | 19 |
 | `/erp/commission-payments/{id}`, `/{id}/reverse`, `/{id}/voucher` | GET, POST | View / reverse / internal voucher PDF | 19 |
 
-### 1.15 Reports (Q-R1)
+### 1.15 Reports (all listed — CD-84)
 | URL | Method | Page / action | Permission |
 |---|---|---|---|
 | `/erp/reports` | GET | Index (financial reports listed for ADM only) | 14 |
@@ -191,7 +199,7 @@
 | `/erp/reports/expenses` | GET | [FIN] Expenses | 14b |
 | `/erp/reports/commission` | GET | [FIN] Commission payable/paid/outstanding by partner and project | 14b |
 | `/erp/reports/commission-payments` | GET | [FIN] Commission payment register | 14b |
-| `/erp/reports/profitability` | GET | [FIN] Profitability ◇ (fees received − expenses − commission paid) | 14b |
+| `/erp/reports/profitability` | GET | [FIN] Profitability (fees received − expenses − commission paid) | 14b |
 
 ### 1.16 Administration
 | URL | Method | Page / action | Permission |
@@ -199,13 +207,13 @@
 | `/erp/users`, `/new`, `/{id}/edit` | GET, POST | Users | 15 |
 | `/erp/users/{id}/reset-password`, `/{id}/unlock` | POST | Admin actions | 15 |
 | `/erp/roles`, `/erp/roles/{id}/permissions` | GET, POST | Role grid (financial permissions locked to ADM) | 15 |
-| `/erp/settings/studio` | GET, POST | Studio profile (phone 1, phone 2, WhatsApp, address) | 16 |
+| `/erp/settings/studio` | GET, POST | Studio profile (address, published phone/WhatsApp, notification email, outgoing mailbox, CoA number) | 16 |
 | `/erp/settings/letterhead` | GET, POST | Letterhead / PDF | 16 |
 | `/erp/settings/numbering` | GET, POST | Numbering formats | 16 |
 | `/erp/settings/finance` | GET, POST | [FIN] Default billing method, rounding, lock date | 16a |
-| `/erp/settings/gst` | GET, POST | [FIN] GST profile (dormant until Q-F3) | 16a |
+| `/erp/settings/gst` | GET, POST | [FIN] GST profile (not registered today — CD-60) | 16a |
 | `/erp/settings/features` | GET, POST | [FIN] Optional-feature switches | 16a |
-| `/erp/settings/website` | GET, POST | Website content blocks + review status | 12 |
+| `/erp/settings/website` | GET, POST | Website content blocks (English + Marathi) + review status | 12 |
 | `/erp/settings/security` | GET, POST | Timeouts, password policy | 16 |
 | `/erp/settings/lookups/{list_type}` | GET, POST | Master lists | 16 |
 | `/erp/settings/backup` | GET, POST | Backup download | 16b |
@@ -237,14 +245,14 @@ Username or email T 100*; password*; generic failure message; lockout per `SECUR
 |---|---|---|---|
 | Enquiry no. | AUTO | — | Sequence (D-28) |
 | Enquiry date | D | Y | ≤ today |
-| Source | SEL (`enquiry_source`) | Y | Includes Contractor, Referral; "Website" set by the system |
-| Contractor / referral partner | SEL (search) | When source = Contractor/Referral | Visible to STF only if Q-C5 allows; quick-add partner (ADM) |
+| Source | SEL (`enquiry_source`) | Y | Includes Contractor, Referral; "Website" set when converted from the inbox |
+| Contractor / referral partner | SEL (search) | When source = Contractor/Referral | ADM only (CD-74); quick-add partner |
 | Name | T 120 | Y | |
 | Mobile | T 15 | Y | Indian mobile, optional +91; duplicate check |
 | Email | T 150 | N | |
 | Preferred contact | SEL | N | phone / WhatsApp / email |
 | Location / site | T 200 | N | |
-| Project type | SEL | N | Q-S3 |
+| Project type | SEL | N | Architectural / Civil / Interior / Landscape (CD-41) |
 | Approx. area + unit | AREA + SEL | N | > 0 |
 | Services interested | MSEL | N | Demo services allowed in the ERP |
 | Budget | T 60 | N | Free text from the prospect; no amount assumed |
@@ -253,12 +261,14 @@ Username or email T 100*; password*; generic failure message; lockout per `SECUR
 | Next follow-up | DT | N | Creates a follow-up |
 | Status | SEL | Y | `WORKFLOWS.md` A.2 |
 | Lost / close reason | SEL + TA | When Lost/Closed | |
-| Consent timestamp | RO | — | Website only |
+| Consent timestamp | RO | — | Only when converted from the inbox |
 
 ### 2.3 Public enquiry form (website)
-Name*, Mobile*, Email, City/site, Project type, Services (MSEL; demo services shown only if
-Q-S5 allows), Approx. area + unit, Message, Preferred contact, privacy consent*. Hidden: honeypot,
-timestamp (min 3 s), CSRF. Limits: 5 per IP per hour; message 2000 chars; ≤ 2 links.
+Name*, Mobile*, Email, City/site, Project type, Services (MSEL; confirmed services only — CD-42),
+Approx. area + unit, Message, Preferred contact, privacy consent*, **built-in CAPTCHA*** (CD-48).
+Hidden: honeypot, timestamp (min 3 s), CSRF. Limits: 5 per IP per hour; message 2000 chars; ≤ 2 links.
+Saved to the Website Enquiries inbox (CD-31); notification email to the studio (CD-48). Available in
+English and Marathi (CD-50).
 
 ### 2.4 Client (PG-14)
 | Field | Type | Req. | Notes |
@@ -279,29 +289,29 @@ timestamp (min 3 s), CSRF. Limits: 5 per IP per hour; message 2000 chars; ≤ 2 
 | Project code | AUTO | — | D-28 |
 | Project name | T 150 | Y | |
 | Client | SEL / search | Y | |
-| Project type | SEL | Y | |
+| Project type | SEL | Y | Architectural / Civil / Interior / Landscape (CD-41) |
 | Site address, City | TA 300, T 80 | N | |
 | Plot / built-up area + unit | AREA + SEL | N | |
 | Floors | N 0–50 | N | |
 | Start / expected completion | D | N | completion ≥ start |
-| Status | SEL | Y | `WORKFLOWS.md` A.3 |
-| **Source type** | SEL Direct / Contractor | Y | CLIENT-DECISION; "Referral" value PENDING Q-C2; label visible to STF only if Q-C5 allows |
-| **Contractor / referral partner** | SEL | When Contractor | Must be empty for Direct |
+| Status | SEL | Y | Planned / OnGoing / OnHold / Completed / HandOver / Cancelled (CD-76) |
+| **Source type** | SEL Direct / Contractor / Referral | Y | CLIENT-DECISION CD-71; ADM only (CD-74) |
+| **Contractor / referral partner** | SEL | When Contractor or Referral | Must be empty for Direct |
 | **Billing method** [FIN] | SEL agreement / bills | Y (ADM; default from Settings) | Locked once a bill is issued |
 | Services | MSEL | N | From accepted quotation |
 | Team members | MSEL + role text | N | |
 | Notes | TA | N | |
 
-### 2.6 Site visit ◇
+### 2.6 Site visit (CD-77, no limits)
 Visit date D*, stage SEL*, visited by SEL*, observations TA 4000, photos FILE (JPG/PNG/WebP),
-chargeable CHK ◇ (only if Q-F5 confirmed; ADM only).
+chargeable CHK (ADM only; extra charges billed separately — CD-62). Usable on mobile (CD-81).
 
 ### 2.7 Project document
 Category SEL* (financial categories ADM only), title T 150*, version T 20, date D, file FILE*
-(types/size Q-D1), replaces SEL, notes TA.
+(PDF/JPG/PNG/WebP; small size limit — CD-79), replaces SEL, notes TA.
 
 ### 2.8 Service category and item (PG-08)
-- **Category:** name T 100*, slug AUTO, description TA, website title T 150, website description TA,
+- **Category:** name T 100*, slug AUTO, description TA, website title T 150, website description TA, Marathi website title/description (CD-50),
   show on website CHK, sort N, active CHK, **content origin** SEL (reference / demo / client-confirmed).
 - **Item:** category SEL*, name T 150*, default description TA, default unit SEL*,
   **default rate M [FIN] (optional; ADM only)**, show on website CHK, sort, active, content origin.
@@ -310,15 +320,15 @@ Category SEL* (financial categories ADM only), title T 150*, version T 20, date 
 ### 2.9 Quotation builder (one revision) [FIN] (PG-04)
 | Section | Fields | Notes |
 |---|---|---|
-| Header | Quotation no. (AUTO on first send), revision (AUTO), date D*, valid until D ◇, enquiry/project RO, client RO/SEL, subject T 200*, site location T 200, intro TA | |
-| Area | Area, basis SEL*, unit SEL* | Required if any area line; basis Q-Q3 |
-| Scope | Sections and items from the service master (demo allowed), inclusion marker, reorder | Scope-only drafting by STF ◇ (Q-U4) |
+| Header | Quotation no. `AJDS/Q/{fy}/{seq3}` (AUTO on first send — CD-52), revision (AUTO), document language SEL English/Marathi (CD-50), date D*, valid until D ◇, enquiry/project RO, client RO/SEL, subject T 200*, site location T 200, intro TA | |
+| Area | Area, basis SEL*, unit SEL* | Required if any area line; bases built-up / carpet / plot / all floors (CD-54) |
+| Scope | Sections and items from the service master (demo allowed), inclusion marker, reorder | ADM only (CD-83) |
 | Fee lines | Type SEL (area / area-category / fixed / item / custom), description, category, qty, unit, area, **rate (ADM-editable; no pre-fill unless a default exists)**, amount AUTO | ≥ 1 line; A.5 order |
-| Discount ◇ | Type, value | ≤ subtotal; approval Q-F4 |
-| **Apply GST** | CHK (shown only when the studio is GST-registered; default from settings, **off**) | Tax lines name / SAC / rate; place of supply from client state |
+| Discount | Type, value | ≤ 5% of subtotal (CD-61) |
+| **Apply GST** | CHK (shown only when the studio is GST-registered; default from settings, **off**; hidden today — not registered, CD-60) | Tax lines name / SAC / rate; place of supply from client state |
 | Rounding | SEL none / ₹1 / ₹10 | |
-| Payment schedule ◇ | Stage, %, amount, trigger | Must total 100% before sending (WF-11); basis Q-F2 |
-| Text blocks ◇ | Terms, exclusions, bank details, acceptance block, amount in words | All off by default |
+| Payment schedule | Stage, %, amount, trigger | Must total 100% before sending (WF-11); % of total incl. GST (CD-59) |
+| Text blocks | All standard term sections (CodInt drafts, client reviews — CD-56), exclusions, bank details, **acceptance block on** (CD-55), amount in words off | |
 | Totals | Subtotal, discount, taxable, tax, rounding, grand total, words | RO, server-calculated |
 
 ### 2.10 Fee agreement, variation, stages [FIN]
@@ -329,9 +339,9 @@ Category SEL* (financial categories ADM only), title T 150*, version T 20, date 
 - **Stage:** name T 100*, % or amount*, trigger, due date; must total 100% / agreed total before final (WF-11).
 
 ### 2.11 Bill [FIN] (PG-05)
-- Header: bill type RO (tax invoice only if GST-registered), project* (bills-method projects only),
+- Header: bill type RO (demand note while not GST-registered — CD-60), document language SEL, project* (bills-method projects only),
   agreement SEL (optional — ad-hoc bill allowed), stage SEL (optional), bill date D*, due date D.
-- Lines: as quotation fee lines + "from site visit" ◇ and "from reimbursable expense" ◇ pickers.
+- Lines: as quotation fee lines + "from site visit" picker (extra charges billed separately — CD-62).
 - **Apply GST** CHK, rounding, notes.
 - Cancel: reason TA* (blocked if allocations exist).
 - **Credit note:** amount M* ≤ bill grand total − earlier credit notes − write-offs (WF-08); excess over
@@ -342,26 +352,28 @@ Category SEL* (financial categories ADM only), title T 150*, version T 20, date 
 |---|---|---|---|
 | Receipt no. | AUTO | — | D-28 |
 | Payment date | D | Y | After lock date unless ADM override with reason |
-| Client / project | SEL | Y | Project limited to the client's projects (pre-project advance only if Q-F12) |
+| Client / project or enquiry | SEL | Y | Project limited to the client's projects; an enquiry may be chosen for an advance (CD-69) |
 | Amount | M > 0 | Y | **Any amount accepted — no minimum, no "must equal due" rule** |
-| Mode | SEL | Y | Q-F7 |
-| Reference / UTR / cheque | T 60 | For non-cash | |
+| Mode | SEL | Y | Online / Cash / UPI (CD-64) |
+| Reference / UTR | T 60 | For Online and UPI | |
 | Bank, notes | T 80, TA | N | |
 | Allocation grid | Open targets of the project's billing method: bills (bills method) or stages/agreement (agreement method); one target per row | N | Total ≤ amount; remainder shown as **"Advance / credit"** |
 | Reversal | Reason SEL* + note TA*, date D* | — | ADM |
 
-### 2.13 Refund ◇ / write-off ◇ / credit transfer ◇ [FIN]
-Date D*, project* (transfer: from and to project of the same client), amount M* (refund ≤ credit;
-write-off ≤ outstanding), mode SEL (refund), reference, reason TA*; approved by AUTO (ADM).
+### 2.13 Refund / write-off [FIN] (CD-66, CD-67; no credit transfer — CD-68)
+Date D*, project*. Write-off: amount M* ≤ outstanding. Refund: credit applied M* (≤ credit), deduction %
+PCT (optional), deduction amount AUTO, amount paid AUTO, mode SEL. Reference, reason TA*; approved by AUTO (ADM).
 
 ### 2.14 Expense [FIN]
 Date D*, category SEL*, project SEL (blank = overhead), paid to T 120*, amount M*, mode SEL*,
-reference T 60, attachment FILE (private, financial), reimbursable CHK ◇, notes TA.
+reference T 60, attachment FILE (private, financial), notes TA. Categories include Rent and Travel (CD-65).
 
 ### 2.15 Portfolio item (PG-09)
 | Field | Type | Req. | Notes |
 |---|---|---|---|
 | Title / slug | T 150 / T 160 | Y | Slug unique; old slugs redirect 301 |
+| Marathi title / descriptions | T / TA | N | Shown on the Marathi website (CD-50) |
+| Client name + show name | T 120 + CHK | N | Shown only with that client's recorded permission (CD-47) |
 | Category | SEL | Y | |
 | Location | T 80 | N | City level only |
 | Completion year | N 4 | N | |
@@ -374,12 +386,12 @@ reference T 60, attachment FILE (private, financial), reimbursable CHK ◇, note
 | **Display priority** | N | N | Ordering (`WORKFLOWS.md` Part D) |
 | SEO title / description | T 70 / T 160 | N | |
 | Linked internal project | SEL | N | |
-| **Client consent** | CHK + note + optional file | Required before publishing | Q-W5 |
-| Images | FILE (several); per image alt text T 150*, caption, gallery CHK, order, cover ★ | ≥ 1 + cover to publish | Originals private; web copies on publish |
+| **Client consent** | CHK + note + optional file | Required before publishing | CD-11, CD-47 |
+| Images | FILE (several, client originals — CD-43); per image alt text T 150*, caption (EN/MR), order, cover ★ | ≥ 1 + cover to publish | Originals private; web copies on publish; the project's own gallery (CD-44) |
 | Unpublish / remove reason | TA | On unpublish/remove | |
 
 ### 2.16 Follow-up
-Linked record RO, due DT*, assigned SEL*, note TA*; outcome TA* when done. Linked to a bill, payment
+Linked record RO, due DT*, priority SEL normal/high (high is emailed — CD-32), assigned SEL*, note TA*; outcome TA* when done. Linked to a bill, payment
 or commission → ADM only.
 
 ### 2.17 User
@@ -389,13 +401,13 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 ### 2.18 Settings (PG-03, PG-12)
 | Section | Fields |
 |---|---|
-| Studio | Name, tagline, address (spelling Q-W3), **phone 1, phone 2**, **WhatsApp number** (Q-W4), email, Instagram URL, office hours, map URL |
-| Letterhead | Logo + visiting-card layout [CLIENT-DECISION]; invocation "श्री" optional (Q-Q2); Instagram QR on/off; signature name/designation (Q-Q10); footer |
+| Studio | Name, tagline, address (Sai Arcade Building — CD-45), **published phone and WhatsApp 8806956877** (CD-46), second phone (not published), notification email ar.ajitkumbhar16@gmail.com and outgoing domain mailbox (CD-48), Instagram URL, Council of Architecture number (CD-49), office hours, map URL |
+| Letterhead | Logo + visiting-card layout; "श्री" **on**; Instagram QR **off** (CD-53); signature "Ar. Ajit Kumbhar" (CD-58); English and Marathi templates (CD-50); footer |
 | Numbering | Format and reset per sequence (`WORKFLOWS.md` B.11) |
-| Finance [FIN] | Default billing method, rounding, FY start month, lock date, default validity (blank), default terms (blank) |
-| GST [FIN] | Registered (default **No**), GSTIN, state code, default SAC, default tax lines, apply GST by default (**off**) — dormant until Q-F3 |
-| Features [FIN] | Switches for every ◇ feature; `show_demo_services_publicly` (off, Q-S5); `staff_quotation_scope_drafting` (off, Q-U4); `staff_expense_claims` (off, Q-U4) |
-| Website | Content blocks (hero, intro, About, services intro, contact, SEO defaults) — each with review status |
+| Finance [FIN] | Default billing method, rounding, FY April–March (CD-35), lock date, max discount 5% (CD-61), default validity and terms (drafted by CodInt, client-reviewed — CD-56) |
+| GST [FIN] | Registered (default **No**), GSTIN, state code, default SAC, default tax lines, apply GST by default (**off**) — registered = **No** today (CD-60) |
+| Features [FIN] | Switches for the remaining optional features (approval step, profitability report) |
+| Website | Content blocks in English and Marathi (hero, intro, About, services intro, contact, SEO defaults) — each with review status (CD-50) |
 | Security | Idle/absolute timeout, password length, lockout |
 
 ### 2.19 Partner (contractor / referral) (PG-01)
@@ -408,18 +420,19 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 | Email, address, city | T 150, TA 300, T 80 | N | |
 | Bank details [FIN] | TA (encrypted) | N | ADM only; masked in lists |
 | PAN [FIN] | T 10 (encrypted) | Only if Q-C4 requires | ADM only |
+| GSTIN [FIN] | T 15 | N | If the partner charges GST on commission (CD-73) |
 | Default commission suggestion [FIN] | SEL type + value | N | Never applied automatically |
 | Active, notes | CHK, TA | — | Cannot deactivate with outstanding commission |
 
 ### 2.20 Project commission [FIN]
 | Field | Type | Req. | Notes |
 |---|---|---|---|
-| Project / partner | RO | — | Contractor-source projects only |
+| Project / partner | RO | — | Contractor- or Referral-source projects only; one partner per project (CD-70) |
 | Commission applicable | SEL Yes / No | Y (explicit; never defaulted to Yes) | No → status "Not applicable" |
 | Commission type | SEL Percentage / Fixed | If applicable | |
 | Rate % / fixed amount | PCT / M | If applicable | Exactly one, matching the type |
-| Base | SEL (agreed fee excl. GST / amounts received / other) | If percentage | PENDING Q-C3 |
-| Base amount | M (snapshot) | AUTO / ADM | |
+| Base | AUTO = final agreed fee excl. GST incl. variations | If percentage | CD-72; frozen on completion |
+| Payable from | AUTO | — | Date the project reached Completed/HandOver (CD-72) |
 | Commission amount | AUTO | — | Base × rate (paisa) or fixed |
 | Status | RO + actions | — | Draft / Pending approval / Approved / Rejected / Cancelled / Not applicable |
 | Approval remark | TA | On approve/reject/cancel | |
@@ -428,7 +441,7 @@ password, change at first login. Password ≥ 10 chars, ≠ username (D-16).
 
 ### 2.21 Commission payment [FIN]
 Payment no. AUTO; date D*; amount M* (partial allowed; ≤ outstanding); mode SEL*; reference T 60;
-TDS amount M (only if Q-C4); proof FILE (private, financial); notes TA. Reversal: reason SEL* + note TA*.
+GST amount M (if the partner charges GST — CD-73); TDS amount M (only if Q-C4); proof FILE (private, financial); notes TA. Reversal: reason SEL* + note TA*.
 
 ### 2.22 Commission adjustment [FIN]
 Date D*, amount (signed M ≠ 0)*, reason TA*; approved by AUTO (ADM).

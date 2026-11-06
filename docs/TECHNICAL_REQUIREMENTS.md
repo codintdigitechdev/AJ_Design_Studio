@@ -10,18 +10,19 @@ Tags: `CLAUDE.md` §3. No code is written before approval.
 | Database | MySQL 5.7+/8.0 or MariaDB 10.4+, InnoDB, utf8mb4 |
 | DB access | PDO, prepared statements, `ERRMODE_EXCEPTION`, no emulated prepares |
 | Front end | Bootstrap 5 (bundled locally), HTML5, CSS3, vanilla JS, `fetch()` AJAX |
-| PDF | Dompdf or mPDF bundled in `vendor/` (D-18; mPDF if "श्री"/Devanagari is kept — Q-Q2) |
+| PDF | **mPDF** bundled in `vendor/` — needed for "श्री" and Marathi documents (CD-50, CD-53; D-18) |
+| CAPTCHA | Built-in, self-hosted (arithmetic or GD image) — no third-party service (CD-48) |
 | Images | GD (or Imagick) for resize/re-encode/WebP |
 | Math | `bcmath` for money and commission (fallback: integer paise) |
 | PHP extensions | pdo_mysql, mbstring, fileinfo, gd, bcmath, openssl, json, intl (optional) |
-| Dev / Prod | XAMPP (Windows) / cPanel shared hosting, Apache, HTTPS, cron [BRIEF] |
+| Dev / Prod | XAMPP (Windows) / cPanel shared hosting with the latest PHP/MySQL and 10 GB+ storage (CD-86; provider not chosen — Q-H2), Apache, HTTPS, cron |
 
 Composer only in development; the release ZIP ships `vendor/`.
 
 ## 2. Same hosting account: how the website and ERP coexist
 
 ### 2.1 Principle
-One hosting account, domain `ajdesignstudios.in` [CLIENT-DECISION CD-01/CD-02; spelling Q-H1],
+One hosting account, domain `ajdesignstudios.in` [CLIENT-DECISION CD-01, CD-02, CD-85],
 **one codebase and one database**, two front doors. Only small entry scripts, public assets and
 **published** portfolio images sit in the web root.
 
@@ -92,31 +93,33 @@ models, `e()` escaping, CSRF helper, Money helper (bcmath, Indian format, amount
 status constants, settings cache. No secrets, real client data or uploads in Git.
 
 ## 5. Email
-`mail()` or SMTP via a domain mailbox (Q-H5) for password reset, enquiry notification and optional
-digests. Non-ADM digests never contain amounts.
+SMTP through a **domain mailbox** (e.g. noreply@ajdesignstudios.in) sends password resets, enquiry
+notifications and **priority reminder emails**, delivered to ar.ajitkumbhar16@gmail.com (CD-32, CD-48).
+Quotations are not emailed — they are shared via WhatsApp (CD-57). Emails to non-ADM users never contain amounts.
 
 ## 6. Cron jobs (cPanel)
 | Job | Frequency |
 |---|---|
 | DB backup (`mysqldump` → `storage/backups/`, gzip, rotate) | Daily |
 | Files backup (`storage/documents`, `storage/portfolio`, `public_html/uploads`) | Weekly |
-| Encrypted off-site copy (D-36; destination Q-H4) | Weekly |
-| Reminder digest (if approved, Q-G5) | Daily |
-| Cleanup: temp files, expired reset tokens, rate-limit log, old spam enquiries, orphaned public portfolio copies | Daily |
+| Encrypted off-site copy, taken by CodInt Digitech (CD-88; D-36) | Weekly |
+| Priority follow-up emails (CD-32) | Hourly |
+| Cleanup: temp files, expired reset tokens, rate-limit log, orphaned public portfolio copies (enquiries are deleted only by the Admin — CD-34) | Daily |
 
 ## 7. Backup and restore strategy
 - **What:** database; `storage/documents/`; `storage/portfolio/`; `public_html/uploads/`;
   `config/config.php` (kept separately and securely).
-- **Where:** `storage/backups/` (outside web root) + weekly **encrypted** off-site copy (password-
-  protected archive; key held by ADM off-server — D-36) + host backups if available.
-- **Retention:** 7 daily / 4 weekly / 3 monthly, subject to disk quota (C-13; Q-H2, Q-H4).
+- **Where:** `storage/backups/` (outside web root) + weekly **encrypted** off-site copy taken by CodInt Digitech (CD-88; password-protected archive, key
+  held off-server — D-36) + host backups if available.
+- **Retention:** 7 daily / 4 weekly / 3 monthly, subject to disk quota (C-13; plan 10 GB+ — CD-86).
 - **Restore:** documented full restore, DB-only restore, single-file recovery; a consistency check that
   every `files` row has its file and vice versa; restore drill before go-live and per release.
 - ERP Settings → "Download backup" for ADM (audited). Backups contain financial, commission and
   partner data — handle as confidential.
 
 ## 8. Deployment (outline; full guide in Stage 12)
-1. Confirm the domain spelling (Q-H1); point DNS; enable AutoSSL.
+0. Deploy a password-protected staging copy for client review first (CD-87).
+1. Point DNS for `ajdesignstudios.in` (CD-85); enable AutoSSL.
 2. Create the MySQL DB + user(s); import `database.sql`.
 3. Upload `ajds_app/` to the home directory and `public_html/` contents to the web root.
 4. `config.sample.php` → `config.php`; set DB, base URL, mail, environment.
@@ -127,6 +130,6 @@ digests. Non-ADM digests never contain amounts.
    showing no financial data.
 
 ## 9. Host capability checklist (Q-H2)
-PHP ≥ 8.1 · required extensions · MySQL/MariaDB version · folders outside `public_html` ·
+≥ 10 GB disk (CD-86) · latest PHP/MySQL · required extensions · MySQL/MariaDB version · folders outside `public_html` ·
 `upload_max_filesize`/`post_max_size` · `memory_limit` (PDF) · cron · AutoSSL · disk quota for
 documents, portfolio originals and backups · outgoing mail limits.

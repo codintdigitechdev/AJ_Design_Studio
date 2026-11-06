@@ -8,7 +8,7 @@ Tags: `CLAUDE.md` §3.
   in a **professional, formal and ethical** tone (CD-04), and **reviewed by the client** (CD-05).
 - No invented projects, project details, services, statistics, awards, testimonials or contact
   details; no private client information without approval (CD-11, CD-12).
-- Nothing from `reference/portfolio/Senior office profile.pdf` (another architect) is ever used (Q-G11).
+- Nothing from `reference/portfolio/Senior office profile.pdf` (another architect) is ever used (sample only — CD-39).
 
 ## 1. Goals
 1. Present AJ Design Studio as a professional architecture & interior practice.
@@ -16,17 +16,17 @@ Tags: `CLAUDE.md` §3.
 3. Convert visitors into enquiries (form, WhatsApp, call).
 4. Local search visibility (Patan, Karad, Satara — keywords to confirm).
 
-## 2. Sitemap and URLs (domain `ajdesignstudios.in` — CD-01; spelling Q-H1)
+## 2. Sitemap and URLs (domain `ajdesignstudios.in` — CD-01, CD-85)
 
 | Page | URL | Content source |
 |---|---|---|
 | Home | `/` | Website content blocks + featured portfolio |
 | About Studio | `/about` | Drafted from Instagram and references; client review |
-| Services | `/services` | Service categories with "show on website" (demo only if Q-S5) |
+| Services | `/services` | Confirmed service categories only (CD-42) |
 | Portfolio | `/portfolio` (`?category=`) | Published items, highlighted first |
 | Project Details | `/portfolio/{slug}` | Published item + gallery |
-| Gallery | `/gallery` | Images with "show in gallery" (Q-W2) |
-| Contact | `/contact` | Studio settings (CD-12; Q-W3, Q-W4) |
+| Marathi pages | `/mr/…` (e.g. `/mr/portfolio`) | Marathi version of every page (CD-50) |
+| Contact | `/contact` | Sai Arcade Building; 8806956877 (CD-45, CD-46) |
 | Enquiry | `/enquiry` | Form → ERP enquiries |
 | Thank you | `/enquiry/thank-you` | noindex |
 | Privacy notice | `/privacy` | Approved text |
@@ -42,11 +42,11 @@ first), optional process strip (only if confirmed), CTA band, footer with contac
 ### About Studio
 Studio profile and principal's profile (Ar. Ajit Arjun Kumbhar — Architect & Interior Designer;
 Patan, Karad, Satara) drafted from Instagram and references; no invented experience figures, awards
-or registrations (Q-W7).
+or registrations; the Council of Architecture registration number is shown once supplied (CD-49).
 
 ### Services
-Categories and items marked "show on website". Initially demo services [CD-06]; public display of
-demo items only if Q-S5 allows. Soft-deleted items disappear from the site.
+Categories and items marked "show on website". Demo services are used only inside the ERP and are never
+shown publicly (CD-42); the page lists confirmed services. Soft-deleted items disappear from the site.
 
 ### Portfolio and Project Details
 - Category filter; **display sequence** (PROPOSED): highlighted/major projects by display priority →
@@ -54,28 +54,29 @@ demo items only if Q-S5 allows. Soft-deleted items disappear from the site.
 - Project page: cover, facts (category, city, year, services, optional area), description, gallery,
   previous/next, enquiry CTA.
 - Removed or unpublished projects return 410/404 and leave the sitemap; old slugs redirect (301).
+- Client names appear only with that client's permission (CD-47).
 
 ### Gallery
-Published images with "show in gallery" on, category filter, lightbox, link to the project.
+Merged into Portfolio (CD-44): each project page carries its own gallery; there is no separate Gallery page.
 
 ### Contact [CD-12]
-Address (spelling Q-W3), phone 1 / phone 2 and WhatsApp (Q-W4), email, office hours, map on demand,
-enquiry form.
+Sai Arcade Building, Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan (CD-45); phone and WhatsApp
+8806956877 only (CD-46); email; office hours and map pin (to be supplied — Q-W3); enquiry form.
 
 ### Enquiry form
 Name*, Mobile*, Email, City/site, Project type, Services, Approx. area + unit, Message, preferred
-contact, privacy consent*. Honeypot, minimum fill time, CSRF, rate limit. Saved as an enquiry
-(source Website, "New – unreviewed"); optional email to the studio (Q-W6).
+contact, privacy consent*, built-in CAPTCHA (CD-48). Honeypot, minimum fill time, CSRF, rate limit.
+Saved to the Website Enquiries inbox (CD-31); notification email to ar.ajitkumbhar16@gmail.com, sent
+from a domain mailbox (CD-48).
 
 ### WhatsApp
-Floating and contact-page button `https://wa.me/91XXXXXXXXXX?text=…` with the number from Settings
-(Q-W4). Each click only increments a daily counter — no personal data, never an enquiry record.
+Floating and contact-page button `https://wa.me/91XXXXXXXXXX?text=…` with 8806956877 (CD-46). Each click only increments a daily counter — no personal data, never an enquiry record.
 
 ## 4. Content managed from the ERP
 | Content | ERP location | Review |
 |---|---|---|
 | Portfolio items, images, order, featured, highlighted, publish/unpublish/remove | Portfolio module | Item review status |
-| Gallery images | Portfolio images (gallery switch) | — |
+| Marathi text | Marathi fields on each content item (CD-50) | Same review status |
 | Services text | Service master (website fields) | Demo badge |
 | Hero, intro, About, contact block, SEO defaults | Settings → Website content | Block review status |
 | Enquiries | Enquiry module | — |
@@ -89,20 +90,21 @@ Floating and contact-page button `https://wa.me/91XXXXXXXXXX?text=…` with the 
 
 ## 6. SEO plan
 Unique titles/descriptions, clean slugs, canonical URLs, HTTPS, one H1, `sitemap.xml` (published
-only), `robots.txt` disallows `/erp/`, schema.org `LocalBusiness`/`ProfessionalService` (name, address,
-phone, sameAs Instagram — after Q-W3/Q-W4), Open Graph, mandatory alt text, WebP + responsive sizes.
+only), `robots.txt` disallows `/erp/`, schema.org `LocalBusiness`/`ProfessionalService` (name, Sai Arcade Building
+address, 8806956877, sameAs Instagram); hreflang for English and Marathi pages, Open Graph, mandatory alt text, WebP + responsive sizes.
 
 ## 7. Responsive behaviour
 Mobile first; off-canvas menu; sticky call/WhatsApp bar on mobile; 1/2/3–4 column grids.
 
 ## 8. Launch checklist
-- [ ] Original photos and details for the major projects, with publishing consent (Q-W1, Q-W5)
+- [ ] Original photos and details for the major projects (client sends — CD-43), with consent; names only with permission (CD-47)
 - [ ] All drafted text reviewed by the client (CD-05)
-- [ ] Final or approved-for-public services (Q-S1, Q-S5)
-- [ ] Address spelling, phone/WhatsApp numbers, office hours, map pin (Q-W3, Q-W4)
-- [ ] Vector/transparent logo (Q-B1)
+- [ ] Confirmed services for the public site (Q-S1; demo never public — CD-42)
+- [ ] Office hours and map pin (Q-W3); Council of Architecture number (Q-W7)
+- [ ] Logo crops from the supplied file (CD-51)
+- [ ] Marathi translations reviewed by the client (CD-50)
 - [ ] Privacy notice approved
-- [ ] Domain spelling confirmed and hosting ready (Q-H1, Q-H2)
+- [ ] Hosting plan (10 GB+) chosen (Q-H2); staging copy reviewed by the client (CD-87)
 
 ## 9. Design direction
 `project-context/UI_UX_GUIDELINES.md`: charcoal + copper, image-first, architectural grid, formal tone.

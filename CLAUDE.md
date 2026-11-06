@@ -38,8 +38,7 @@ with two independent user experiences:
   portfolio CMS.
 - Public visitors must never reach ERP data, files or configuration.
 
-URL structure — domain `ajdesignstudios.in` **[CLIENT-DECISION]**; exact spelling to be
-confirmed before DNS/SSL set-up **[PENDING Q-H1]**:
+URL structure — domain `ajdesignstudios.in` **[CLIENT-DECISION CD-01; spelling confirmed CD-85]**:
 
 | Area | URL |
 |---|---|
@@ -119,11 +118,11 @@ Rules:
 | Logo | `reference/logo/Logo.jpeg` | 1600×1034 JPEG, opaque charcoal background. Brief calls it `AJ_Design_Studio_Logo.jpeg`; not renamed |
 | Visiting card | `reference/Visiting Card.jpeg` | Front: logo with letter-spaced "Design Studio" wordmark on charcoal. Back (copper): "Ar. Ajit Arjun Kumbhar, Architect & Interior Designer", phones **8806956877 / 7796877369**, address "AJ Design Studio, Sai **Arked** Building, Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan", email, Instagram QR code. Client-named reference for contacts and quotation design |
 | Sample quotation | `reference/quotation-samples/work pfd & fees structure.pdf` | 2 pages, dummy/sample (address spelled "Sai **Arcade** Building") |
-| Senior office profile | `reference/portfolio/Senior office profile.pdf` | 4-page "Architectural Profile" of **another architect (Bhushan Chakote, Kothrud, Pune)**. **Not AJ Design Studio content.** Its projects, awards and text must never be used as AJ's work. Purpose **PENDING Q-G11** |
+| Senior office profile | `reference/portfolio/Senior office profile.pdf` | 4-page "Architectural Profile" of **another architect (Bhushan Chakote, Kothrud, Pune)**. **Not AJ Design Studio content.** Its projects, awards and text must never be used as AJ's work. Client confirmed: sample only, **do not use** (CD-39) |
 | WorkLedger | `reference/WorkLedger/WorkLedger_Multilingual_EN_HI_MR.zip` | Earlier CodInt Digitech PHP app. Possible coding-style reference only. Do not copy its default passwords or `fix_login.php` pattern |
 | Instagram | https://www.instagram.com/ar.ajkumbhar | Public profile header only (posts need login) |
 
-`reference/portfolio/` contains **no AJ Design Studio project photos** yet (Q-W1).
+`reference/portfolio/` contains **no AJ Design Studio project photos** yet (the client will send originals — CD-43).
 Do not modify, rename or delete anything under `reference/`.
 
 ## 5. BRAND IDENTITY
@@ -133,7 +132,8 @@ Do not modify, rename or delete anything under `reference/`.
   "Design Studio" wordmark and a copper reverse side.
 - Sampled colours (approximate): charcoal `#54545C`, copper `#AF7B4C`, tan `#A78A5E` **[CONFIRMED-REF]**.
 - **Do not replace, redraw, recolour or distort the logo.** Derivatives are crops/resizes of the
-  supplied files only. A vector/transparent original is requested (Q-B1).
+  supplied files only; the client chose to use them as given (CD-51). Headings follow the visiting card's
+  Copperplate Gothic style (CD-51).
 - Website tone: **professional, formal and ethical** **[CLIENT-DECISION]** — no unverifiable
   claims, no invented numbers, awards or testimonials.
 - Details: `project-context/UI_UX_GUIDELINES.md`.
@@ -142,9 +142,9 @@ Do not modify, rename or delete anything under `reference/`.
 
 Confirmed facts **[CONFIRMED-REF]** (quotation letterhead, visiting card, Instagram):
 - AJ Design Studio — Architect & Interior Designer.
-- Address: Sai Arcade / Arked Building (spelling differs between references — Q-W3),
-  Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan. Instagram area line: Patan, Karad, Satara.
-- Phones 8806956877 and 7796877369 (card); email ar.ajitkumbhar16@gmail.com.
+- Address: **Sai Arcade Building** (CD-45), Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan. Instagram area line: Patan, Karad, Satara.
+- Phone/WhatsApp 8806956877 — the only published number (CD-46); 7796877369 on the card, not
+  published; email ar.ajitkumbhar16@gmail.com.
 - Reference work categories (sample quotation): floor plans, working drawings (sections,
   elevations, municipal drawing), exterior 3D, interior design layouts, interior 3D,
   construction-stage site visits, material & colour selection.
@@ -158,10 +158,12 @@ Client decisions (2026-11-06) **[CLIENT-DECISION]** — full list `docs/CLIENT_Q
 - Website content is drafted from the Instagram presence and reference documents; the client
   reviews it later. Contact details come from Instagram and the reference documents.
 - All major projects and available photographs may be included; projects can be removed later.
+- Design and supervision only (CD-40); only the Admin uses the ERP for now (CD-80); website and ERP
+  delivered together (CD-37); public website and printed documents in English and Marathi (CD-50).
 
-Still **not** assumed: construction execution, contracting, material procurement, turnkey work
-(Q-S2). Contractor *commission* is in scope; paying construction contractors is not.
-Nothing private about a client is published without approval (Q-W5).
+Out of scope by client decision: construction execution, contracting, material procurement, turnkey
+work (CD-40). Contractor *commission* is in scope; paying construction contractors is not.
+Nothing private about a client is published without approval; client names only with permission (CD-47).
 
 ## 7. QUOTATION AND FINANCE RULES
 
@@ -170,15 +172,16 @@ Nothing private about a client is published without approval (Q-W5).
 - Area-based and item-wise quotations are supported; fixed pricing is never mandatory; the Admin
   can modify rates **[CLIENT-DECISION]**.
 - Quotation format uses the logo and the visiting-card reference **[CLIENT-DECISION]**;
-  the developer proposes numbering **[CLIENT-DECISION]** (proposal: D-28, PROPOSED).
+  quotation number `AJDS/Q/{fy}/{seq3}` **[CLIENT-DECISION CD-52]**.
 - Billing is flexible, not agreement-only; staged and **partial payments are always allowed**;
   advances and allocations must be handled correctly **[CLIENT-DECISION]**.
   Design: per-project billing method (PROPOSED, D-26).
 - **GST is optional and configurable, never compulsory for a quotation or project**
-  **[CLIENT-DECISION]**. Design: per-document "Apply GST" (PROPOSED, D-27). The actual tax
-  treatment is **PENDING** (Q-F3).
-- Discounts, payment schedule, terms, validity and extra charges remain configurable and
-  off by default until approved.
+  **[CLIENT-DECISION]**. Design: per-document "Apply GST" (PROPOSED, D-27). The studio is **not GST-registered** today
+  (CD-60), so GST stays off.
+- Discount max 5% (CD-61); stages as % of total incl. GST (CD-59); all standard term sections drafted by
+  CodInt for client review (CD-56); extra charges billed separately (CD-62); refunds with % deduction and
+  Admin-only write-offs (CD-66, CD-67); no credit transfer between projects (CD-68).
 - Full analysis: `docs/QUOTATION_ANALYSIS.md`; workflows: `docs/WORKFLOWS.md`.
 
 ## 8. TECHNICAL STACK

@@ -23,7 +23,7 @@ The ERP is also the content-management back office for the website's portfolio.
 | Client | AJ Design Studio | CONFIRMED-REF |
 | Principal Architect, business owner, decision maker and main Admin user | Ar. Ajit Kumbhar | CONFIRMED-REF (name) · CLIENT-DECISION CD-29 (owner, authority, main Admin) |
 | Developer | CodInt Digitech | BRIEF |
-| ERP users other than the principal | Unknown. Financial data is Admin-only regardless [CLIENT-DECISION] | PENDING – Q-U1, Q-U4 |
+| ERP users other than the principal | None for now (CD-80); staff roles prepared for later, without financial access (CD-25, CD-83) | CLIENT-DECISION |
 | Contractors / referral sources | Bring some projects; may earn commission | CLIENT-DECISION |
 | Website visitors | Prospective clients, public | BRIEF |
 
@@ -35,21 +35,21 @@ The ERP is also the content-management back office for the website's portfolio.
 | Name | AJ Design Studio | Logo, quotation, visiting card, Instagram |
 | Profession | Architect & Interior Designer | Quotation, visiting card, Instagram |
 | Principal | Ar. Ajit Arjun Kumbhar | Visiting card, Instagram |
-| Address | Sai Arcade Building (quotation) / Sai Arked Building (visiting card), Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan | Quotation, visiting card — spelling PENDING Q-W3 |
+| Address | **Sai Arcade Building**, Opp. Shiv Doulat Bank, Karad Chiplun Road, Patan (visiting card spells "Arked") | CLIENT-DECISION CD-45 |
 | Area line | Patan, Karad, Satara | Instagram |
-| Phones | 8806956877 (all sources); 7796877369 (visiting card only) | Which is WhatsApp: PENDING Q-W4 |
+| Phones | 8806956877 — WhatsApp and the only published number; 7796877369 on the card, not published | CLIENT-DECISION CD-46 |
 | Email | ar.ajitkumbhar16@gmail.com | Quotation, visiting card, Instagram |
 | Instagram | @ar.ajkumbhar (display name "AJ DESIGN STUDIO") | Instagram, QR on visiting card |
 
-The client decided that website contact details come from Instagram and the reference
-documents [CLIENT-DECISION]. The two discrepancies above still need an answer before publishing.
+Contact details come from Instagram and the reference documents [CLIENT-DECISION CD-12]; the address
+spelling and the published number are settled (CD-45, CD-46).
 
 ### 3.2 Instagram (public, without login, checked 2026-11-06)
 - Bio: "Architect & Interior Designer", email, phone, "Patan, Karad, Satara".
 - Highlight titles: *Bunglow Project, Temple Work, कोकण शिल्प, Mini Bunglow, Complete Project,
   Interior Site*.
 - Posts and images could not be read without login. The client wants website content based on
-  this presence [CLIENT-DECISION]; access to posts or original photos is **PENDING Q-W1**.
+  this presence [CLIENT-DECISION]; the client will send original photos (CD-43).
 
 ### 3.3 Logo and visiting card
 - `reference/logo/Logo.jpeg`, 1600×1034 JPEG, no transparency.
@@ -63,7 +63,7 @@ documents [CLIENT-DECISION]. The two discrepancies above still need an answer be
 ### 3.5 Other material in the folder
 - `reference/portfolio/Senior office profile.pdf` — profile of **another architect** (Bhushan
   Chakote, Pune). **Not AJ Design Studio content; must never be published as AJ's work.**
-  Purpose PENDING Q-G11.
+  Client confirmed it was a sample only and is not to be used (CD-39).
 - `reference/portfolio/` has **no AJ project photos** yet (Q-W1).
 - `reference/WorkLedger/…zip` — earlier CodInt app; coding-style reference only (D-19).
 
@@ -85,20 +85,20 @@ documents [CLIENT-DECISION]. The two discrepancies above still need an answer be
 - Core PHP + MySQL/MariaDB + Bootstrap 5, no heavy frameworks [BRIEF].
 - XAMPP for development, cPanel shared hosting for production [BRIEF].
 - Website and ERP on the same hosting account and domain [CLIENT-DECISION].
-- Hosting provider/plan not yet chosen [PENDING – Q-H2].
+- Hosting provider not yet chosen [PENDING – Q-H2]; plan 10 GB+ with the latest PHP/MySQL [CLIENT-DECISION CD-86].
 - Budget/timeline not supplied [PENDING].
 
 ## 6. Key assumptions and validated items
 
 Full register: `docs/STAGE1_ROADMAP_AND_DECISIONS.md` §4.3.
 
-- A1: Small studio (1–5 ERP users). [ASSUMPTION → Q-U1]
+- A1: Only the Admin uses the ERP for now. [CLIENT-DECISION CD-80]
 - A2: Currency **INR only** [CLIENT-DECISION CD-27]; Indian number formatting (1,10,000) [PROPOSED].
-- A3: Area unit sq.ft by default, possibly sq.m. [ASSUMPTION → Q-Q3]
-- A4: English website and ERP for v1; Marathi optional. [ASSUMPTION → Q-W8]
+- A3: Area unit sq.ft by default, sq.m possible [ASSUMPTION]; all area bases selectable [CLIENT-DECISION CD-54].
+- A4: Website and printed documents in English and Marathi; ERP in English. [CLIENT-DECISION CD-50]
 - A5: **Single office for now** [CLIENT-DECISION CD-28]; multi-branch out of scope.
-- A6: Design and supervision services only, no construction. [ASSUMPTION → Q-S2]
-- A7: Commission is paid **by** the studio **to** the contractor/referral source. [ASSUMPTION → Q-C1]
+- A6: Design and supervision services only, no construction. [CLIENT-DECISION CD-40]
+- A7: Commission is paid **by** the studio **to** one contractor/referral partner per project. [CLIENT-DECISION CD-70]
 - A8: Ar. Ajit Kumbhar is the business owner, decision authority and main Admin user. [CLIENT-DECISION CD-29]
 - A10: Operations mainly within Maharashtra; time zone Asia/Kolkata (IST). [CLIENT-DECISION CD-30]
 
